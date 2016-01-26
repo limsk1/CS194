@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get 'main/search'
 
   get 'user/register'
