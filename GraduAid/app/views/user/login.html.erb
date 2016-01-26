@@ -1,12 +1,41 @@
 <%= form_tag("/user/post_login", :method => "post") do %>
+<div>
+  <h1>GraduAid</h1>
+  <table class="center_align">
+    <tr>
+      <td>
+        Username:
+      </td>
+      <td>
+        <%= text_field_tag(:loginID) %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Password:
+      </td>
+      <td>
+        <%= password_field_tag(:loginPW) %>
+      </td>
+    </tr>
+  </table>
+  <%= submit_tag("Log in") %>
+  <% end %>
 
+  <% if flash[:notice] %>
+  <div class="alert"><%= flash[:notice] %></div>
+  <% end %>
+</div>
+
+<%= form_tag("/user/register", :method => "post") do %>
+<p>Want to be a new member? Register now!</p>
 <table class="center_align">
   <tr>
     <td>
       Username:
     </td>
     <td>
-      <%= text_field_tag(:login) %>
+      <%= text_field_tag(:registerID) %>
     </td>
   </tr>
   <tr>
@@ -14,38 +43,69 @@
       Password:
     </td>
     <td>
-      <%= password_field_tag(:password) %>
+      <%= password_field_tag(:registerPW) %>
     </td>
   </tr>
 </table>
-<%= submit_tag("Log in") %>
+<%= submit_tag("Sign Up") %>
 <% end %>
 
-<% if flash[:notice] %>
-<div class="alert"><%= flash[:notice] %></div>
-<% end %>
-
-<p>
-  Want to be a new member? Register now!
-  <a href = "#modalRegister">Register</a>")
-  <div id="modalRegister" class="modalDialog">
-    <div>
-      <a href="#close" title="Close" class="close">X</a>
-      <table class="center_align">
-        <tr>
-          <td>
-            Do you know what you want to major in?
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <a href="#yes">Yes</a>
-          </td>
-          <td>
-            <a href="#no">No</a>
-          </td>
-        </tr>
-      </table>
-    </div>
+<%= form_tag("/user/major", :method => "post") do %>
+<p>What is your major?</p>
+<a href = "#modalRegister">Register</a> </p>
+<div id="modalRegister" class="modalDialog">
+  <div>
+    <a href="#close" title="Close" class="close">X</a>
+    <table>
+      <tr>
+        <td>
+          Do you have an expected major?
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href = "#yes">Yes</a>
+        </td>
+        <td>
+          <a href = "#no">No</a>
+        </td>
+      </tr>
+    </table>
   </div>
-</p>
+</div>
+<% end %>
+
+<div id="yes" class="modalDialog">
+  <div>
+    <a href="#close" title="Close" class="close">X</a>
+    <table>
+      <tr>
+        <td>
+          What is your major?
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= text_field_tag(:major) %>
+        </td>
+      </tr>
+    </table>
+    <%= submit_tag("Declare") %>
+  </div>
+</div>
+
+<div id="no" class="modalDialog">
+  <div>
+    <a href="#close" title="Close" class="close">X</a>
+    <table>
+      <tr>
+        <td>
+          Why not?
+        </td>
+      </tr>
+    </table>
+    <%= submit_tag("Aww..") %>
+  </div>
+</div>
+
+
