@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'user/major'
 
   get 'user/new'
 
