@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'main/search'
+
+  get 'user/register'
+
+  get 'main/track'
+
   get 'user/new'
 
   get 'user/login'
