@@ -1,6 +1,6 @@
-class CreateCoursesUsers < ActiveRecord::Migration
+class CreateTakens < ActiveRecord::Migration
   def up
-    create_table :courses_users, id: false do |t|
+    create_table :takens, id: false do |t|
       t.belongs_to :user, index: true
       t.belongs_to :course, index: true
       t.column :grade,      :string
@@ -9,6 +9,6 @@ class CreateCoursesUsers < ActiveRecord::Migration
   end
 
   def down
-    drop_table :courses_users
+    drop_table :takens
   end
 end

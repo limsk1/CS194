@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_and_belongs_to_many :courses
+  has_many :takens
   belongs_to :track
   validates :first_name, :last_name, :presence => true
   validates :email, {:uniqueness => {:message => "The account with this address has already existed"}, 

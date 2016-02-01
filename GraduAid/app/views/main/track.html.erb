@@ -3,3 +3,23 @@
 <% else %>
 <p><%=@track.name%></p>
 <%end%>
+
+<table>
+<% @infos.each do |info| %>
+    <% if info.fulfilled then %>
+    <tr style="color:green;">
+        <td><%=info.requirement.criteria%></td> 
+        <td><%=info.course_name%></td>
+        <td><% if info.taken.grade!=nil%> <%=info.taken.grade%> <%else%> No grade info. <%end%></td>
+        <td><% if info.taken.unit!=nil%> <%=info.taken.unit%> <%else%> No unit info. <%end%></td>
+    </tr>
+    <%else%>
+    <tr style="color:red;">
+        <td><%=info.requirement.criteria%></td> 
+        <td><%=info.course_name%></td>
+        <td>Not taken</td>
+        <td></td>
+    </tr>
+    <%end%>
+<%end%>
+</table>

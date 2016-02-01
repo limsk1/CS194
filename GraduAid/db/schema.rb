@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160201111942) do
+ActiveRecord::Schema.define(version: 20160201214943) do
 
   create_table "courses", force: true do |t|
     t.string   "course_name"
@@ -20,24 +20,24 @@ ActiveRecord::Schema.define(version: 20160201111942) do
     t.datetime "updated_at"
   end
 
-  create_table "courses_tracks", id: false, force: true do |t|
+  create_table "requirements", id: false, force: true do |t|
     t.integer "course_id"
     t.integer "track_id"
     t.string  "criteria"
   end
 
-  add_index "courses_tracks", ["course_id"], name: "index_courses_tracks_on_course_id"
-  add_index "courses_tracks", ["track_id"], name: "index_courses_tracks_on_track_id"
+  add_index "requirements", ["course_id"], name: "index_requirements_on_course_id"
+  add_index "requirements", ["track_id"], name: "index_requirements_on_track_id"
 
-  create_table "courses_users", id: false, force: true do |t|
+  create_table "takens", id: false, force: true do |t|
     t.integer "user_id"
     t.integer "course_id"
     t.string  "grade"
     t.integer "unit"
   end
 
-  add_index "courses_users", ["course_id"], name: "index_courses_users_on_course_id"
-  add_index "courses_users", ["user_id"], name: "index_courses_users_on_user_id"
+  add_index "takens", ["course_id"], name: "index_takens_on_course_id"
+  add_index "takens", ["user_id"], name: "index_takens_on_user_id"
 
   create_table "tracks", force: true do |t|
     t.string   "name"
