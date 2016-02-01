@@ -50,9 +50,12 @@
 <%= submit_tag("Sign Up") %>
 <% end %>
 
+<!-- 이거 플로팅 메세지로 하려고 햇엇는데 아애 새로운 페이지로 만드는게 괜찮을꺼같아 -->
+<!-- 아애 update.html 만들었어 이부분은 단지 참고용 -->
 <%= form_tag("/user/major", :method => "post") do %>
 <p>What is your major?</p>
 <a href = "#modalRegister">Register</a> </p>
+
 <div id="modalRegister" class="modalDialog">
   <div>
     <a href="#close" title="Close" class="close">X</a>
@@ -88,11 +91,33 @@
         <td>
           <%= text_field_tag(:major) %>
         </td>
+        <td>
+          <a href = "#classTaken">Submit Classes You have taken</a>
       </tr>
     </table>
     <%= submit_tag("Declare") %>
   </div>
 </div>
+
+<div id="classesTaken" class="modalDialog">
+  <div>
+    <a href="#close" title="Close" class="close">X</a>
+    <table>
+      <tr>
+        <td>
+          What is your major?
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= text_field_tag(:major) %>
+        </td>
+      </tr>
+    </table>
+    <%= submit_tag("Declare") %>
+  </div>
+</div>
+
 
 <div id="no" class="modalDialog">
   <div>

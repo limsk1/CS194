@@ -1,2 +1,7 @@
-<h1>Main#search</h1>
-<p>Find me in app/views/main/search.html.erb</p>
+<div>
+  <img src="assets/images/stanford.png" alt="logo">
+  <%= form_tag("/main/searchClass", :method => "post") do %>
+  <%= text_field_tag(:courseID) %>
+  <%= submit_tag("Search") %>
+  <% end %>
+</div> 

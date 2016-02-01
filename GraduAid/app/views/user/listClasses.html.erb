@@ -1,4 +1,14 @@
-<p>
-	List all the classes you have taken so far!
+<div>
+<h1>Courses</h1>
+</div>
 
-</p>
+<div>
+<% if @courses != nil %>
+	<% @courses.each do |course| %>
+	<div>
+		<p> <%= course.name %> </p>
+		<p> <%= course.summary %> </p>
+    </div>
+    <% end %>
+<% end %>
+</div>

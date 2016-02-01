@@ -40,6 +40,24 @@
         <%= form.password_field(:password_confirmation) %>
       </td>
     </tr>
+    <tr>
+      <td>
+        Major:
+      </td>
+      <td>
+        <%= form.text_field(:major) %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Courses Taken:
+      </td>
+      <td>
+        <%= form.text_field(:courses) %>
+      </td>
+    </tr>
+
+    
   </table>
   <%= submit_tag "Register" %>
 <% end %>
