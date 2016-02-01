@@ -22,25 +22,45 @@ class LoadData < ActiveRecord::Migration
     info = Track.new(name: 'CS-Information')
     info.save!
 
-    sample = User.new(email: 'limsk1@stanford.edu', first_name: 'Sunkyu', last_name: 'Lim')
-    sample.track = sys
-    puts sample.track.name
-    sample.save!
+    user_1 = User.new(email: 'limsk1@stanford.edu', first_name: 'Sunkyu', last_name: 'Lim')
+    user_1.track = sys
+    puts user_1.track.name
+    user_1.save!
+
+    user_2 = User.new(email: 'spkim@stanford.edu', first_name: 'Simon', last_name: 'Kim')
+    user_2.track = hci
+    puts user_2.track.name
+    user_2.save!
 
     taken_1 = Taken.new(grade: 'A', unit: 5)
-    taken_1.user = sample
+    taken_1.user = user_1
     taken_1.course = cs107
     taken_1.save!
 
     taken_2 = Taken.new(grade: 'A-', unit: 5)
-    taken_2.user = sample
+    taken_2.user = user_1
     taken_2.course = cs140
     taken_2.save!
 
     taken_3 = Taken.new(grade: 'A+', unit: 5)
-    taken_3.user = sample
+    taken_3.user = user_1
     taken_3.course = cs109
     taken_3.save!
+
+    taken_4 = Taken.new(grade: 'A+', unit: 5)
+    taken_4.user = user_2
+    taken_4.course = cs103
+    taken_4.save!
+
+    taken_5 = Taken.new(grade: 'A+', unit: 5)
+    taken_5.user = user_2
+    taken_5.course = cs109
+    taken_5.save!
+
+    taken_6 = Taken.new(grade: 'A+', unit: 5)
+    taken_6.user = user_2
+    taken_6.course = cs147
+    taken_6.save!
 
     requirement_1 = Requirement.new(criteria: 'Core')
     requirement_1.track = hci

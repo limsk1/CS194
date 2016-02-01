@@ -3,11 +3,12 @@
 </div>
 
 <div>
-<% if @courses != nil %>
-	<% @courses.each do |course| %>
+<% if @takens != nil %>
+	<% @takens.each do |taken| %>
 	<div>
-		<p> <%= course.name %> </p>
-		<p> <%= course.summary %> </p>
+		<span> <%= Course.find_by(id: taken.course_id).course_name %> </span>
+        <% if taken.grade!=nil then %> <span> <%=taken.grade%></span><%end%>
+        <% if taken.unit!=nil then %> <span> <%=taken.unit%></span><%end%>
     </div>
     <% end %>
 <% end %>
