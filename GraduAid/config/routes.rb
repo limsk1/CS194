@@ -4,11 +4,19 @@ Rails.application.routes.draw do
 
   get 'user/register'
 
+  get 'main/index'
+
   get 'main/track'
 
   get 'user/new'
 
   get 'user/login'
+
+  post 'user/post_login'
+
+  get 'user/logout'
+
+  get 'user/listClasses'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

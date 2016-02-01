@@ -1,3 +1,3 @@
 class Track < ActiveRecord::Base
-  has_many :requirements
+  has_and_belongs_to_many :courses
 end

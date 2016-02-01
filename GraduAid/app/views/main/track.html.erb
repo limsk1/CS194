@@ -1,2 +1,5 @@
-<h1>Main#track</h1>
-<p>Find me in app/views/main/track.html.erb</p>
+<% if @track==nil then %>
+<p><%=@user.track.name%></p>
+<% else %>
+<p><%=@track.name%></p>
+<%end%>

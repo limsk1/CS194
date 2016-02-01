@@ -8,18 +8,7 @@
 </head>
 <body>
 
-<div id="header">
-<h1>GraduAid</h1>
-<% if session[:curr_id]!=nil then %>
-<a href = '/user/logout'>Log Out</a>
-<% end %>
-</div>
-
 <%= yield %>
-
-<div id="footer">
-GraduAid
-</div>
 
 </body>
 </html>

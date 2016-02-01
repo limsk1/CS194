@@ -11,29 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126063716) do
+ActiveRecord::Schema.define(version: 20160201111942) do
 
   create_table "courses", force: true do |t|
     t.string   "course_name"
+    t.string   "general_req"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "requirements", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "courses_tracks", id: false, force: true do |t|
+    t.integer "course_id"
+    t.integer "track_id"
+    t.string  "criteria"
   end
 
-  create_table "takens", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "course_id"
-    t.string   "grade"
-    t.string   "unit"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  add_index "courses_tracks", ["course_id"], name: "index_courses_tracks_on_course_id"
+  add_index "courses_tracks", ["track_id"], name: "index_courses_tracks_on_track_id"
+
+  create_table "courses_users", id: false, force: true do |t|
+    t.integer "user_id"
+    t.integer "course_id"
+    t.string  "grade"
+    t.integer "unit"
   end
+
+  add_index "courses_users", ["course_id"], name: "index_courses_users_on_course_id"
+  add_index "courses_users", ["user_id"], name: "index_courses_users_on_user_id"
 
   create_table "tracks", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -44,6 +51,7 @@ ActiveRecord::Schema.define(version: 20160126063716) do
     t.string   "last_name"
     t.string   "password_digest"
     t.string   "salt"
+    t.integer  "track_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,0 +1,20 @@
+<script type='text/javascript'>
+function renderTrackPage(id) {
+    document.getElementById('section').src = 'track?track_id='+ id;
+}
+</script>
+
+<div id="nav">
+<% @tracks.each do |track| %>
+<%= link_to "javascript:renderTrackPage(" + track.id.to_s + ");" do%>
+<%=track.name%> 
+<% end %>
+<br>
+<% end %>
+</div>
+
+<iframe id="section" src="track" frameBorder="0"></iframe>
+
+<div id="aside">
+<h3>Potential Classes</h3>
+</div>
