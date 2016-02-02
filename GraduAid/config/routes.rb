@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   get 'main/track'
 
-  post '/main/potential'
+  post 'main/potential'
 
   get 'user/new'
 

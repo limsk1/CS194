@@ -58,7 +58,7 @@ class MainController < ApplicationController
   def potential
     response = "<div>"
     if params[:criteria] && params[:track_id] then
-      response += "<b>Track:" + Track.find_by_id(params[:track_id]).name + "<br>Criteria:" + params[:criteria] + "</b><br>"
+      response += "<b>Track:" + Track.find_by_id(params[:track_id]).name + "<br>Criteria:" + params[:criteria] + "</b><br><br>"
       requirements = Requirement.where(criteria: params[:criteria], track_id: params[:track_id])
 
       requirements.each do |requirement|
