@@ -15,7 +15,20 @@
  */
 
 
-div#navigator {
+div#headerBlock {
+    background-color:black;
+    color:white;
+}
+table#headerTable {
+    width: 100%;
+}
+td#header {
+    text-align: left;
+}
+td#greeting {
+    text-align: center;
+}
+td#navigator {
   text-align: right;
 }
 a#header {
@@ -74,7 +87,7 @@ a#navigator:hover {
 #header {
     background-color:black;
     color:white;
-    text-align:center;
+    text-align:left;
     padding:5px;
 }
 #nav {

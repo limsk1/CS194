@@ -9,16 +9,26 @@
 </head>
 <body>
 
-<div id="header">
-<a href = '/' id="header"><h1>GraduAid</h1></a>
-<% if session[:curr_id]!=nil then %>
-<%= "Hi, " + User.find(session[:curr_id]).first_name + "! "%>
-<div id='navigator'>
-<a href = '/user/logout' id='navigator'>Log Out</a>
-<a href = '/user/listClasses' id='navigator'>My courses</a>
+<div id="headerBlock">
+	<table id="headerTable">
+		<tr>
+			<% if session[:curr_id]!=nil then %>
+			<td id="header">
+				<a href = '/' id="header"><h1>GraduAid</h1></a>
+			</td>
+			<td id="greeting">
+				<%= "Hi, " + User.find(session[:curr_id]).first_name + "! "%>
+			</td>
+			<td id="navigator">
+					<a href = '/user/logout' id='navigator'>Log Out</a>
+					<a href = '/user/listClasses' id='navigator'>My courses</a>
+				<% end %>
+			</td>
+		</tr>
+	</table>
 </div>
-<% end %>
-</div>
+
+
 
 <%= yield %>
 
