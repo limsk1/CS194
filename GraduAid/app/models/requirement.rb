@@ -1,4 +1,4 @@
 class Requirement < ActiveRecord::Base
-  belong_to :track
-  belong_to :course
+  belongs_to :track
+  belongs_to :course
 end

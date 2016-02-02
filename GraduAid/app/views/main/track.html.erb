@@ -1,2 +1,34 @@
-<h1>Main#track</h1>
-<p>Find me in app/views/main/track.html.erb</p>
+<% if @track==nil then %>
+<p><%=@user.track.name%></p>
+<% else %>
+<p><%=@track.name%></p>
+<%end%>
+
+<script type='text/javascript'>
+function showPotential(criteria, track_id) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/main/potential?criteria=" + criteria + "&track_id=" + track_id, false);
+    xhttp.send();
+    parent.document.getElementById('potential display').innerHTML = xhttp.responseText;
+}
+</script>
+
+<table>
+<% @infos.each do |info| %>
+    <% if info.fulfilled then %>
+    <tr style="color:green;">
+        <td><%=info.requirement.criteria%></td> 
+        <td><%=info.course_name%></td>
+        <td><% if info.taken.grade!=nil%> <%=info.taken.grade%> <%else%> No grade info. <%end%></td>
+        <td><% if info.taken.unit!=nil%> <%=info.taken.unit%> <%else%> No unit info. <%end%></td>
+    </tr>
+    <%else%>
+    <tr style="color:red;">
+        <td><%= link_to "javascript:showPotential('" + info.requirement.criteria + "','" + info.requirement.track_id.to_s + "');", :class => "no-deco" do %><%=info.requirement.criteria%><%end%></td> 
+        <td><%=info.course_name%></td>
+        <td>Not taken</td>
+        <td></td>
+    </tr>
+    <%end%>
+<%end%>
+</table>

@@ -1,11 +1,11 @@
 class User < ActiveRecord::Base
   has_many :takens
-  has_one :track
+  belongs_to :track
   validates :first_name, :last_name, :presence => true
   validates :email, {:uniqueness => {:message => "The account with this address has already existed"}, 
                           :presence => {:message => "(Email) can't be blank"}}
-  validates :password, {:confirmation => true,  :length => {minimum: 8}}
-  validates :password_confirmation, :presence => true
+  #validates :password, {:confirmation => true,  :length => {minimum: 8}}
+  #validates :password_confirmation, :presence => true
 
   def password
     return @temp

@@ -6,6 +6,7 @@ class CreateUsers < ActiveRecord::Migration
       t.column :last_name,  :string
       t.column :password_digest, :string
       t.column :salt,       :string
+      t.column :track_id,   :integer
       t.timestamps
     end
   end
