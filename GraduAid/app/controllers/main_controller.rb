@@ -12,6 +12,7 @@ end
 class MainController < ApplicationController
   before_filter :check_login
   layout 'blank_layout', :only => [:track]
+  skip_before_filter :verify_authenticity_token, :only => [:potential]
 
   def check_login
     if !session[:curr_id] then
@@ -24,7 +25,9 @@ class MainController < ApplicationController
   end
 
   def index
-    @tracks = Track.all
+    @user = User.find_by_id(session[:curr_id])
+    @my_track = @user.track
+    @tracks = Track.where.not(id: @user.track.id)
   end
 
   def track
@@ -50,5 +53,21 @@ class MainController < ApplicationController
       end
       @infos << info
     end
+  end
+
+  def potential
+    response = "<div>"
+    if params[:criteria] && params[:track_id] then
+      response += "<b>Track:" + Track.find_by_id(params[:track_id]).name + "<br>Criteria:" + params[:criteria] + "</b><br>"
+      requirements = Requirement.where(criteria: params[:criteria], track_id: params[:track_id])
+
+      requirements.each do |requirement|
+        course_name = Course.find_by(id: requirement.course_id).course_name
+        response += "\n<span>" + course_name + "</span><br>\n"
+      end
+    end
+
+    response += "</div>"
+    render :text => response.html_safe
   end
 end

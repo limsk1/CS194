@@ -4,6 +4,15 @@
 <p><%=@track.name%></p>
 <%end%>
 
+<script type='text/javascript'>
+function showPotential(criteria, track_id) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/main/potential?criteria=" + criteria + "&track_id=" + track_id, false);
+    xhttp.send();
+    parent.document.getElementById('potential display').innerHTML = xhttp.responseText;
+}
+</script>
+
 <table>
 <% @infos.each do |info| %>
     <% if info.fulfilled then %>
@@ -15,7 +24,7 @@
     </tr>
     <%else%>
     <tr style="color:red;">
-        <td><%=info.requirement.criteria%></td> 
+        <td><%= link_to "javascript:showPotential('" + info.requirement.criteria + "','" + info.requirement.track_id.to_s + "');", :class => "no-deco" do %><%=info.requirement.criteria%><%end%></td> 
         <td><%=info.course_name%></td>
         <td>Not taken</td>
         <td></td>

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   get 'main/track'
 
+  post '/main/potential'
+
   get 'user/new'
 
   get 'user/login'

@@ -47,6 +47,11 @@
 	background: -o-linear-gradient(#fff, #999);
 }
 
+.no-deco { 
+    text-decoration:none;
+    color: inherit; 
+}
+
 #header {
     background-color:black;
     color:white;
