@@ -5,26 +5,24 @@ function renderTrackPage(id) {
 }
 </script>
 
-<div id="nav">
-<span>
-<b>My Track</b><br>
+<ul>
+<li><b>My Track</b></li>
 <% if @my_track!=nil then%>
+<li>
 <%= link_to "javascript:renderTrackPage(" + @my_track.id.to_s + ");" do%>
 <%=@my_track.name%>
 <%end%>
+</li>
 <%end%>
-</span>
-<br>
-<span>
-<b>Other Tracks</b><br>
+<li><b>Other Tracks</b></li>
 <% @tracks.each do |track| %>
+<li>
 <%= link_to "javascript:renderTrackPage(" + track.id.to_s + ");" do%>
-<%=track.name%> 
+<%=track.name%>
 <% end %>
-<br>
+</li>
 <% end %>
-</span>
-</div>
+</ul>
 
 <iframe id="section" src="track" frameBorder="0"></iframe>
 

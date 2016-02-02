@@ -14,6 +14,7 @@ function showPotential(criteria, track_id) {
 }
 </script>
 
+<div style="section">
 <table>
 <% @infos.each do |info| %>
     <% if info.fulfilled then %>
@@ -33,3 +34,4 @@ function showPotential(criteria, track_id) {
     <%end%>
 <%end%>
 </table>
+</div>
