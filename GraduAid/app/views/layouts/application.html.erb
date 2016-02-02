@@ -10,11 +10,13 @@
 <body>
 
 <div id="header">
-<a href = '/'><h1>GraduAid</h1></a>
+<a href = '/' id="header"><h1>GraduAid</h1></a>
 <% if session[:curr_id]!=nil then %>
 <%= "Hi, " + User.find(session[:curr_id]).first_name + "! "%>
-<a href = '/user/logout'>Log Out</a>
-<a href = '/user/listClasses'>My courses</a>
+<div id='navigator'>
+<a href = '/user/logout' id='navigator'>Log Out</a>
+<a href = '/user/listClasses' id='navigator'>My courses</a>
+</div>
 <% end %>
 </div>
 
