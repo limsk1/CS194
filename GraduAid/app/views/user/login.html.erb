@@ -1,7 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Graduaid Landing Page</title>
+  <%= stylesheet_link_tag "user" %>
+</head>
+
+<body>
 <%= form_tag("/user/post_login", :method => "post") do %>
-<div>
-  <h1>GraduAid</h1>
-  <table class="center_align">
+<div id = "initHeaderBlock">
+  <table id = "initHeaderTable">
+    <tr>
+      <td id = "initTitle">
+        <a href = '/' id="initTitle"><h1>Graduaid</h1></a>
+      </td>
+      <td id = "username">
+        Username:
+      </td>
+      <td>
+        <%= text_field_tag(:email) %>
+      </td>
+      <td id = "password">
+        Password:
+      </td>
+      <td>
+        <%= text_field_tag(:password) %>
+      </td>
+    </tr>
+  </table>
+</div>
+  <h1 class = "initTitle">GraduAid</h1>
+  <table class="initLogin">
     <tr>
       <td>
         Username:
@@ -27,39 +55,7 @@
   <% end %>
 </div>
 
-<%= form_tag("/user/register", :method => "post") do %>
-<p>Want to be a new member? Register now!</p>
-<table class="center_align">
-  <tr>
-    <td>
-      Name:
-    </td>
-    <td>
-      <%= text_field_tag(:userName) %>
-    </td>
-  </tr>
 
-  <tr>
-    <td>
-      Username:
-    </td>
-    <td>
-      <%= text_field_tag(:registerID) %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Password:
-    </td>
-    <td>
-      <%= password_field_tag(:registerPW) %>
-    </td>
-  </tr>
-  
-
-</table>
-<%= submit_tag("Sign Up") %>
-<% end %>
 
 <!-- 이거 플로팅 메세지로 하려고 햇엇는데 아애 새로운 페이지로 만드는게 괜찮을꺼같아 -->
 <!-- 아애 update.html 만들었어 이부분은 단지 참고용 -->
@@ -144,4 +140,5 @@
   </div>
 </div>
 
-
+</body>
+</html>
