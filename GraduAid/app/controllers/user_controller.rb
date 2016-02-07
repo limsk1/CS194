@@ -31,13 +31,16 @@ class UserController < ApplicationController
   end
 
   def post_register
-    @user = User.new(params[:user])    
+    @user = User.new(params[:user])
     if @user.valid? then
       @user.save
-      redirect_to "/", :notice => "Registration success"
     else
       render(:action => :register)
     end
+  end
+
+  def post_complete
+
   end
 
   def listClasses

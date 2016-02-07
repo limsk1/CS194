@@ -84,20 +84,20 @@ a#navigator:hover {
     color: inherit; 
 }
 
-#header {
+/*#header {
     background-color:black;
     color:white;
     text-align:left;
     padding:5px;
-}
-#nav {
+}*/
+/*#nav {
     line-height:30px;
     background-color:#eeeeee;
     height:600px;
     width:300px;
     float:left;
     padding:5px;        
-}
+}*/
 #section {
     width:600px;
     height:600px;
@@ -106,23 +106,23 @@ a#navigator:hover {
     margin-left:25%;
     padding:1px 16px;
 }
-#aside {
+/*#aside {
     width:30px;
     background-color:#eeeeee;
     height:600px;
     width:300px;
     float:right;
     padding:5px;
-}
-#footer {
+}*/
+/*#footer {
     background-color:black;
     color:white;
     clear:both;
     text-align:center;
     padding:5px;    
 }
-
-ul {
+*/
+/*ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -148,5 +148,5 @@ li a.active {
 li a:hover:not(.active) {
     background-color: #555;
     color: white;
-}
+}*/
 
