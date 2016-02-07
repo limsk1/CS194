@@ -1,14 +1,5 @@
 <!-- Middle screen -->
 
-<head>
-  <title>Bootstrap Case</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-</head>
-
 <script type='text/javascript'>
 function showPotential(criteria, track_id) {
     var xhttp = new XMLHttpRequest();
@@ -18,45 +9,52 @@ function showPotential(criteria, track_id) {
 }
 </script>
 
+<head>
+  <title>Bootstrap Case</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
 
-<div class="container">
-  <h2>
-    <% if @track==nil then %>
-    <p><%=@user.track.name%></p>
-    <% else %>
-    <p><%=@track.name%></p>
-    <%end%>
-  </h2>
-  <div class="panel-group">
-    <div class="panel panel-default">
-      <div class="panel-heading">Panel with panel-default class</div>
-      <div class="panel-body">Panel Content</div>
-    </div>
 
-    <div class="panel panel-primary">
-      <div class="panel-heading">Panel with panel-primary class</div>
-      <div class="panel-body">Panel Content</div>
-    </div>
+<h1 class="page-header">
+  <% if @track==nil then %>
+  <p><%=@user.track.name%></p>
+  <% else %>
+  <p><%=@track.name%></p>
+  <%end%>
+</h1>
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">Panel with panel-default class</div>
+    <div class="panel-body">Panel Content</div>
+  </div>
 
-    <div class="panel panel-success">
-      <div class="panel-heading">Panel with panel-success class</div>
-      <div class="panel-body">Panel Content</div>
-    </div>
+  <div class="panel panel-primary">
+    <div class="panel-heading">Panel with panel-primary class</div>
+    <div class="panel-body">Panel Content</div>
+  </div>
 
-    <div class="panel panel-info">
-      <div class="panel-heading">Panel with panel-info class</div>
-      <div class="panel-body">Panel Content</div>
-    </div>
+  <div class="panel panel-success">
+    <div class="panel-heading">Panel with panel-success class</div>
+    <div class="panel-body">Panel Content</div>
+  </div>
 
-    <div class="panel panel-warning">
-      <div class="panel-heading">Panel with panel-warning class</div>
-      <div class="panel-body">Panel Content</div>
-    </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">Panel with panel-info class</div>
+    <div class="panel-body">Panel Content</div>
+  </div>
 
-    <div class="panel panel-danger">
-      <div class="panel-heading">Panel with panel-danger class</div>
-      <div class="panel-body">Panel Content</div>
-    </div>
+  <div class="panel panel-warning">
+    <div class="panel-heading">Panel with panel-warning class</div>
+    <div class="panel-body">Panel Content</div>
+  </div>
+
+  <div class="panel panel-danger">
+    <div class="panel-heading">Panel with panel-danger class</div>
+    <div class="panel-body">Panel Content</div>
   </div>
 </div>
 
