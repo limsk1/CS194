@@ -1,10 +1,12 @@
 <%= form_tag("/user/post_login", :method => "post") do %>
 <div>
-  <h1>GraduAid</h1>
+  <% if flash[:notice] %>
+  <div class="alert" style="background-color: red; width:300px;"><%= flash[:notice] %></div>
+  <% end %>
   <table class="center_align">
     <tr>
       <td>
-        Username:
+        Email:
       </td>
       <td>
         <%= text_field_tag(:email) %>
@@ -19,129 +21,11 @@
       </td>
     </tr>
   </table>
-  <%= submit_tag("Log in") %>
-  <% end %>
-
-  <% if flash[:notice] %>
-  <div class="alert"><%= flash[:notice] %></div>
+  <%= submit_tag "Log in", class: "registerButton" %>
   <% end %>
 </div>
-
-<%= form_tag("/user/post_register", :method => "post") do %>
-<p>Want to be a new member? Register now!</p>
-<table class="center_align">
-  <tr>
-    <td>
-      Name:
-    </td>
-    <td>
-      <%= text_field_tag(:userName) %>
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-      Username:
-    </td>
-    <td>
-      <%= text_field_tag(:registerID) %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Password:
-    </td>
-    <td>
-      <%= password_field_tag(:registerPW) %>
-    </td>
-  </tr>
-  
-
-</table>
-<%= submit_tag("Sign Up") %>
-<% end %>
-
-<!-- 이거 플로팅 메세지로 하려고 햇엇는데 아애 새로운 페이지로 만드는게 괜찮을꺼같아 -->
-<!-- 아애 update.html 만들었어 이부분은 단지 참고용 -->
-<%= form_tag("/user/major", :method => "post") do %>
-<p>What is your major?</p>
-<a href = "#modalRegister">Register</a> </p>
-
-<div id="modalRegister" class="modalDialog">
-  <div>
-    <a href="#close" title="Close" class="close">X</a>
-    <table>
-      <tr>
-        <td>
-          Do you have an expected major?
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <a href = "#yes">Yes</a>
-        </td>
-        <td>
-          <a href = "#no">No</a>
-        </td>
-      </tr>
-    </table>
-  </div>
+<br>
+<div>
+Want to be a new member? Register now!<br>
+<%= link_to "/user/register" do%><button class="registerButton">Register</button><% end %>
 </div>
-<% end %>
-
-<div id="yes" class="modalDialog">
-  <div>
-    <a href="#close" title="Close" class="close">X</a>
-    <table>
-      <tr>
-        <td>
-          What is your major?
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <%= text_field_tag(:major) %>
-        </td>
-        <td>
-          <a href = "#classTaken">Submit Classes You have taken</a>
-      </tr>
-    </table>
-    <%= submit_tag("Declare") %>
-  </div>
-</div>
-
-<div id="classesTaken" class="modalDialog">
-  <div>
-    <a href="#close" title="Close" class="close">X</a>
-    <table>
-      <tr>
-        <td>
-          What is your major?
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <%= text_field_tag(:major) %>
-        </td>
-      </tr>
-    </table>
-    <%= submit_tag("Declare") %>
-  </div>
-</div>
-
-
-<div id="no" class="modalDialog">
-  <div>
-    <a href="#close" title="Close" class="close">X</a>
-    <table>
-      <tr>
-        <td>
-          Why not?
-        </td>
-      </tr>
-    </table>
-    <%= submit_tag("Aww..") %>
-  </div>
-</div>
-
-

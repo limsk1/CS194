@@ -32,7 +32,7 @@
   });   
 </script>
 
-<%= form_tag("/user/post_complete", :method => "post") do %>
+<%= form_tag("/user/post_register", :method => "post") do %>
 <div id="profile">
   <table class="center_align">
     <tr>
@@ -53,10 +53,10 @@
     </tr>
     <tr>
       <td>
-        Username:
+        Email:
       </td>
       <td>
-        <%= text_field_tag(:user_name) %>
+        <%= text_field_tag(:email) %>
       </td>
     </tr>
     <tr>
@@ -72,7 +72,7 @@
         Password confirmation:
       </td>
       <td>
-        <%= password_field_tag(:password_confirm) %>
+        <%= password_field_tag(:password_confirmation) %>
       </td>
     </tr>
   </table>

@@ -1,6 +1,7 @@
 class UserController < ApplicationController
   before_filter :already_login  
-  skip_before_filter :already_login, :only => [:logout, :listClasses]
+  skip_before_filter :already_login, :only => [:logout, :profile, :post_track]
+  skip_before_filter :verify_authenticity_token, :only => [:post_track]
 
   def already_login
     if session[:curr_id] then
@@ -39,11 +40,17 @@ class UserController < ApplicationController
     end
   end
 
-  def post_complete
-
+  def post_track
+    track_id = params[:track_id]
+    @user = User.find(session[:curr_id])
+    if @user != nil then
+      @user.track = Track.find_by(id: track_id)
+      @user.save!
+      render :text => "Track updated!"
+    end
   end
 
-  def listClasses
+  def profile
     @user = User.find(session[:curr_id])
     @takens = Taken.where(user_id: @user.id)
   end

@@ -1,14 +1,3 @@
-class ShowInfo
-  attr_accessor :requirement, :fulfilled, :taken, :course_name
-  
-  def initialize(requirement, fulfilled, taken, course_name)
-    @requirement = requirement
-    @fulfilled = fulfilled
-    @taken = taken
-    @course_name = course_name
-  end
-end
-
 class MainController < ApplicationController
   before_filter :check_login
   layout 'blank_layout', :only => [:track]
@@ -81,19 +70,26 @@ class MainController < ApplicationController
   end
 
   def potential
-    response = "<div>"
-=begin
-    if params[:criteria] && params[:track_id] then
-      response += "<b>Track:" + Track.find_by_id(params[:track_id]).name + "<br>Criteria:" + params[:criteria] + "</b><br><br>"
-      requirements = Requirement.where(criteria: params[:criteria], track_id: params[:track_id])
+    user = User.find_by(id: session[:curr_id])
+    response = ""
+    if params[:requirement_id] != "undefined" then
+      req = Requirement.find_by(id: params[:requirement_id])
+      response += "Track: " + req.category.track.name + "<br>" +
+                  "Category: " + req.category.show_name + "<br>"
 
-      requirements.each do |requirement|
-        course_name = Course.find_by(id: requirement.course_id).course_name
-        response += "\n<span>" + course_name + "</span><br>\n"
+      if req.course_id != nil then
+        response += "Criteria: " + Course.find_by(id: req.course_id).course_name + "<br><br>"
+      else
+        response += "Criteria: " + req.criteria + "<br><br>"
+      end
+
+      req.fulfillments.each do |fulfillment|
+        course = Course.find_by(id: fulfillment.course_id)
+        if Taken.find_by(user_id: user.id, course_id: course.id) == nil then
+          response += "\n<span>" + course.course_name + "</span><br>\n"
+        end
       end
     end
-=end
-    response += "</div>"
     render :text => response.html_safe
   end
 end
