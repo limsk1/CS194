@@ -38,25 +38,51 @@ class MainController < ApplicationController
       @track = Track.find_by_id(params[:track_id])
     end
 
-    requirements = Requirement.where(track_id: @track.id)
-    takens = Taken.where(user_id: @user.id)
+    @infos = Hash.new
+    @category_unit = Hash.new
+    used = Hash.new
 
-    @infos = Array.new
+    @track.categories.each do |category|
+        requirements = category.requirements.sort_by {|r| r.priority}.reverse
+        total_unit = 0
+        requirements.each do |requirement|
+            if requirement.course_id != nil then
+                taken = Taken.find_by(user_id: @user.id, course_id: requirement.course_id)
+                @infos[requirement.id] = taken
+                if taken != nil then 
+                    used[taken.id] = 1
+                    total_unit += taken.unit
+                end
+            else
+                temp_arr = Array.new
+                requirement.fulfillments.each do |fulfillment|
+                    taken = Taken.find_by(user_id: @user.id, course_id: fulfillment.course.id)
+                    if taken != nil and used[taken.id] == nil then
+                        temp_arr << taken
+                    end
+                end
+                
+                while temp_arr.length < requirement.num_courses do
+                    temp_arr << nil
+                end
 
-    requirements.each do |requirement|
-      taken = Taken.find_by(user_id: @user.id, course_id: requirement.course_id)
-      course_name = Course.find_by(id: requirement.course_id).course_name
-      if taken==nil then
-        info = ShowInfo.new(requirement, false, nil, course_name)
-      else
-        info = ShowInfo.new(requirement, true, taken, course_name)
-      end
-      @infos << info
+                @infos[requirement.id] = temp_arr.take(requirement.num_courses)
+
+                @infos[requirement.id].each do |t|
+                    if t != nil then
+                        total_unit += t.unit
+                        used[t.id] = 1
+                    end
+                end
+            end
+        end
+        @category_unit[category.id] = total_unit
     end
   end
 
   def potential
     response = "<div>"
+=begin
     if params[:criteria] && params[:track_id] then
       response += "<b>Track:" + Track.find_by_id(params[:track_id]).name + "<br>Criteria:" + params[:criteria] + "</b><br><br>"
       requirements = Requirement.where(criteria: params[:criteria], track_id: params[:track_id])
@@ -66,7 +92,7 @@ class MainController < ApplicationController
         response += "\n<span>" + course_name + "</span><br>\n"
       end
     end
-
+=end
     response += "</div>"
     render :text => response.html_safe
   end

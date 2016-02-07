@@ -28,56 +28,54 @@ function showPotential(criteria, track_id) {
     <%end%>
   </h2>
   <div class="panel-group">
+    <% @track.categories.each do |category| %>
     <div class="panel panel-default">
-      <div class="panel-heading">Panel with panel-default class</div>
-      <div class="panel-body">Panel Content</div>
+      <div class="panel-heading"><%=category.show_name%></div>
+      <div class="panel-body">
+        <table>
+          <% category.requirements.each do |requirement| %>
+            <% if requirement.course_id != nil then %>
+              <% if @infos[requirement.id] != nil then %>
+                <tr style="color:green;">
+                  <td><%=Course.find_by_id(requirement.course_id).course_name%></td>
+                  <td><% if @infos[requirement.id].grade %> <%=@infos[requirement.id].grade%> <%else%> No grade info. <%end%></td>
+                  <td><%=@infos[requirement.id].unit%></td>
+                </tr>
+              <% else %>
+                <tr style="color:red;">
+                  <td><%=Course.find_by_id(requirement.course_id).course_name%></td>
+                  <td>Not taken</td>
+                  <td></td>
+                </tr>
+              <% end %>
+            <% else %>
+              <% @infos[requirement.id].each do |taken| %>
+              <% if taken != nil then %>
+                <tr style="color:green;">
+                  <td><%=Course.find_by_id(taken.course_id).course_name%></td>
+                  <td><% if taken.grade %> <%=taken.grade%> <%else%> No grade info. <%end%></td>
+                  <td><%=taken.unit%></td>
+                </tr>
+              <% else %>
+                <tr style="color:red;">
+                  <td><%=requirement.criteria%></td>
+                  <td>Not taken</td>
+                  <td></td>
+                </tr>
+              <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </table>
+        <% if category.min_units != nil then %>
+          <% if @category_unit[category.id] < category.min_units then %>
+          <span style="color:red;"> <%= @category_unit[category.id] %> / <%= category.min_units %> </span>
+          <% else %>
+          <span style="color:green;"> <%= @category_unit[category.id] %> / <%= category.min_units %> </span>
+          <% end %>
+        <% end %>
+      </div>
     </div>
-
-    <div class="panel panel-primary">
-      <div class="panel-heading">Panel with panel-primary class</div>
-      <div class="panel-body">Panel Content</div>
-    </div>
-
-    <div class="panel panel-success">
-      <div class="panel-heading">Panel with panel-success class</div>
-      <div class="panel-body">Panel Content</div>
-    </div>
-
-    <div class="panel panel-info">
-      <div class="panel-heading">Panel with panel-info class</div>
-      <div class="panel-body">Panel Content</div>
-    </div>
-
-    <div class="panel panel-warning">
-      <div class="panel-heading">Panel with panel-warning class</div>
-      <div class="panel-body">Panel Content</div>
-    </div>
-
-    <div class="panel panel-danger">
-      <div class="panel-heading">Panel with panel-danger class</div>
-      <div class="panel-body">Panel Content</div>
-    </div>
+    <% end %>
   </div>
-</div>
-
-<table>
-<% @infos.each do |info| %>
-    <% if info.fulfilled then %>
-    <tr style="color:green;">
-        <td><%=info.requirement.criteria%></td> 
-        <td><%=info.course_name%></td>
-        <td><% if info.taken.grade!=nil%> <%=info.taken.grade%> <%else%> No grade info. <%end%></td>
-        <td><% if info.taken.unit!=nil%> <%=info.taken.unit%> <%else%> No unit info. <%end%></td>
-    </tr>
-    <%else%>
-    <tr style="color:red;">
-        <td><%= link_to "javascript:showPotential('" + info.requirement.criteria + "','" + info.requirement.track_id.to_s + "');", :class => "no-deco" do %><%=info.requirement.criteria%><%end%></td> 
-        <td><%=info.course_name%></td>
-        <td>Not taken</td>
-        <td></td>
-    </tr>
-    <%end%>
-<%end%>
-</table>
-
 </div>

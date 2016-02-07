@@ -1,9 +1,13 @@
 class CreateRequirements < ActiveRecord::Migration
   def up
-    create_table :requirements, id: false do |t|
-      t.belongs_to :course, index: true
-      t.belongs_to :track, index: true
+    create_table :requirements do |t|
+      t.belongs_to :category, index: true
+      t.column :course_id, :integer
+      t.column :num_courses, :integer
       t.column :criteria, :string
+      t.column :priority, :integer
+      t.column :repeatable, :boolean
+      t.timestamps    
     end
   end
 
