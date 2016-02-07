@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160206212352) do
+ActiveRecord::Schema.define(version: 20160207114749) do
 
   create_table "categories", force: true do |t|
     t.integer  "track_id"
