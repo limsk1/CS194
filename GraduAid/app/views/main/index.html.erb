@@ -1,32 +1,38 @@
-<!-- Sidebar -->
 <script type='text/javascript'>
 function renderTrackPage(id) {
-    document.getElementById('section').src = 'track?track_id='+ id;
+    document.getElementById('middle').src = 'track?track_id='+ id;
 }
 </script>
 
-<ul>
-<li><b>My Track</b></li>
-<% if @my_track!=nil then%>
-<li>
-<%= link_to "javascript:renderTrackPage(" + @my_track.id.to_s + ");" do%>
-<%=@my_track.name%>
-<%end%>
-</li>
-<%end%>
-<li><b>Other Tracks</b></li>
-<% @tracks.each do |track| %>
-<li>
-<%= link_to "javascript:renderTrackPage(" + track.id.to_s + ");" do%>
-<%=track.name%>
-<% end %>
-</li>
-<% end %>
-</ul>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-3 col-md-2 sidebar">
+			<ul class="nav nav-sidebar">
+				<li><b>My Track</b></li>
+				<% if @my_track!=nil then%>
+					<li class="active">
+						<%= link_to "javascript:renderTrackPage(" + @my_track.id.to_s + ");" do%>
+						<%=@my_track.name%>
+						<%end%>
+					</li>
+				<%end%>
+				<li><b>Other Tracks</b></li>
+				<% @tracks.each do |track| %>
+					<li class="active">
+						<%= link_to "javascript:renderTrackPage(" + track.id.to_s + ");" do%>
+						<%=track.name%>
+						<% end %>
+					</li>
+				<%end%>
+			</ul>
+		</div>
+		<div>
+			<iframe id="middle" class="col-sm-6 col-md-8 main" style="position: absolute; height: 100%;" src="track" frameBorder="0"></iframe>
+		</div>
 
-<iframe id="section" src="track" frameBorder="0"></iframe>
-
-<div id="aside">
-<h3>Potential Classes</h3>
-<div id="potential display"></div>
+  		<div class="col-sm-3 col-md-2 sidebar pull-right">
+  		<h4>Potential Classes</h4>
+  		<div id="potential display"></div>
+  		</div>
+	</div>
 </div>

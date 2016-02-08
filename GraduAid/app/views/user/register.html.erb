@@ -1,11 +1,46 @@
-<%= form_for @user, :url => {:action => "post_register"} do |form| %>
+<script>
+  // $scope.register = {}
+  // $scope.register.major = false;
+  // $scope.register.haveMajor = function() {
+  //   return $scope.register.major;
+  // }
+
+  $(function() {
+    $('button#linkProfile').click(function(event){
+      event.preventDefault();
+      $('div#profile').toggle();
+      $('div#major_1').toggle();
+    });
+
+    $('button#yesMajor').click(function(event){
+      // $scope.register.major = true;
+      event.preventDefault();
+      $('div#major_1').toggle();
+      $('div#major_2').toggle();
+    });
+    $('button#noMajor').click(function(event){
+      // $scope.register.major = false;
+      event.preventDefault();
+      $('div#major_1').toggle();
+      $('div#classes').toggle();
+    });
+    $('button#whatMajor').click(function(event){
+      event.preventDefault();
+      $('div#major_2').toggle();
+      $('div#classes').toggle();
+    });
+  });   
+</script>
+
+<%= form_tag("/user/post_register", :method => "post") do %>
+<div id="profile">
   <table class="center_align">
     <tr>
       <td>
         First name:
       </td>
       <td>
-      <%= form.text_field(:first_name) %>
+        <%= text_field_tag(:first_name) %>
       </td>
     </tr>
     <tr>
@@ -13,15 +48,15 @@
         Last name:
       </td>
       <td>
-        <%= form.text_field(:last_name) %>
+        <%= text_field_tag(:last_name) %>
       </td>
     </tr>
     <tr>
       <td>
-        Username:
+        Email:
       </td>
       <td>
-        <%= form.text_field(:login) %>
+        <%= text_field_tag(:email) %>
       </td>
     </tr>
     <tr>
@@ -29,7 +64,7 @@
         Password:
       </td>
       <td>
-        <%= form.password_field(:password) %>
+        <%= password_field_tag(:password) %>
       </td>
     </tr>
     <tr>
@@ -37,33 +72,76 @@
         Password confirmation:
       </td>
       <td>
-        <%= form.password_field(:password_confirmation) %>
+        <%= password_field_tag(:password_confirmation) %>
       </td>
     </tr>
-    <tr>
-      <td>
-        Major:
-      </td>
-      <td>
-        <%= form.text_field(:major) %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Courses Taken:
-      </td>
-      <td>
-        <%= form.text_field(:courses) %>
-      </td>
-    </tr>
-
-    
   </table>
-  <%= submit_tag "Register" %>
-<% end %>
+  <div class="stepButton">
+    <button class="registerButton" id="linkProfile">Next</button>
+  </div>
+</div>
 
-<ul class="alert">
-<% @user.errors.full_messages.each do |msg| %>
-<li><%= msg %></li>
-<% end %>
-</ul>
+
+<div id="major_1" style="display: none">
+  <div class="stepButton">
+    <button class="registerButton" id="linkProfile">Back</button>
+  </div>
+  <p>Do you have a major in mind?</p>
+  <div class="stepButton">
+    <button class="registerButton" id="yesMajor">Yes</button>
+    <button class="registerButton" id="noMajor">No</button>
+  </div>
+</div>
+
+<div id="major_2" style="display: none">
+  <div class="stepButton">
+    <button class="registerButton" id="yesMajor">Back</button>
+  </div>
+  <p>What major have you decided to declare?</p>
+  <select>
+    <option value="cs">Computer Science</option>
+    <option value="undecided">Undecided</option>
+  </select>
+  <div class="stepButton">
+    <button class="registerButton" id="whatMajor">Next</button>
+  </div>
+</div>
+
+<div id="classes" style="display: none">
+  <div class="stepButton">
+    <button class="registerButton" id="whatMajor">Back</button>
+  </div>
+  <p>Great! Now let's list all the classes you've taken.</p>
+  <div>
+    <select>
+      <option value="cs">CS</option>
+      <option value="math">Math</option>
+    </select>
+    <%= text_field_tag(:first_name) %>
+  </div>
+
+  <div>
+    <select>
+      <option value="cs">CS</option>
+      <option value="math">Math</option>
+    </select>
+    <%= text_field_tag(:first_name) %>
+  </div>
+
+  <div>
+    <select>
+      <option value="cs">CS</option>
+      <option value="math">Math</option>
+    </select>
+    <%= text_field_tag(:first_name) %>
+  </div>
+
+  <%= submit_tag("Complete Registration") %>
+  <% end %>
+</div>
+  <% if flash[:notice] %>
+  <div class="alert"><%= flash[:notice] %></div>
+  <% end %>
+
+</div>
+

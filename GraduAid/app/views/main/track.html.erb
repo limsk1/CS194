@@ -1,24 +1,14 @@
 <!-- Middle screen -->
 
-<head>
-  <title>Bootstrap Case</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-</head>
-
 <script type='text/javascript'>
-function showPotential(criteria, track_id) {
+function showPotential(requirement_id) {
     var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/main/potential?criteria=" + criteria + "&track_id=" + track_id, false);
+    xhttp.open("POST", "/main/potential?requirement_id=" + requirement_id, false);
     xhttp.send();
     parent.document.getElementById('potential display').innerHTML = xhttp.responseText;
 }
 </script>
 
-<div style="section">
 <div class="container">
   <h2>
     <% if @track==nil then %>
@@ -28,56 +18,54 @@ function showPotential(criteria, track_id) {
     <%end%>
   </h2>
   <div class="panel-group">
+    <% @track.categories.each do |category| %>
     <div class="panel panel-default">
-      <div class="panel-heading">Panel with panel-default class</div>
-      <div class="panel-body">Panel Content</div>
+      <div class="panel-heading"><b><%=category.show_name%></b></div>
+      <div class="panel-body">
+        <table>
+          <% category.requirements.each do |requirement| %>
+            <% if requirement.course_id != nil then %>
+              <% if @infos[requirement.id] != nil then %>
+                <tr style="color:green;">
+                  <td align="left" width="200px"><%=Course.find_by_id(requirement.course_id).course_name%></td>
+                  <td align="center" width="100px"><% if @infos[requirement.id].grade %> <%=@infos[requirement.id].grade%> <%else%> No grade info. <%end%></td>
+                  <td align="center" width="100px"><%=@infos[requirement.id].unit%></td>
+                </tr>
+              <% else %>
+                <tr style="color:red;">
+                  <td align="left" width="200px" onmouseover="javascript:showPotential(<%=requirement.id%>);" onmouseout="javascript:showPotential();"><%=Course.find_by_id(requirement.course_id).course_name%></td>
+                  <td align="center" width="100px">Not taken</td>
+                  <td align="center" width="100px"> </td>
+                </tr>
+              <% end %>
+            <% else %>
+              <% @infos[requirement.id].each do |taken| %>
+              <% if taken != nil then %>
+                <tr style="color:green;">
+                  <td align="left" width="200px"><%=Course.find_by_id(taken.course_id).course_name%></td>
+                  <td align="center" width="100px"><% if taken.grade %> <%=taken.grade%> <%else%> No grade info. <%end%></td>
+                  <td align="center" width="100px"><%=taken.unit%></td>
+                </tr>
+              <% else %>
+                <tr style="color:red;">
+                  <td align="left" width="200px" onmouseover="javascript:showPotential(<%=requirement.id%>);" onmouseout="javascript:showPotential();"><%=requirement.criteria%></td>
+                  <td align="center" width="100px">Not taken</td>
+                  <td align="center" width="100px"></td>
+                </tr>
+              <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </table>
+        <% if category.min_units != nil then %>
+          <% if @category_unit[category.id] < category.min_units then %>
+          <span style="color:red;"> <b> Total units :</b> <%= @category_unit[category.id] %> / <%= category.min_units %> </span>
+          <% else %>
+          <span style="color:green;"> <b> Total units :</b> <%= @category_unit[category.id] %> / <%= category.min_units %> </span>
+          <% end %>
+        <% end %>
+      </div>
     </div>
-
-    <div class="panel panel-primary">
-      <div class="panel-heading">Panel with panel-primary class</div>
-      <div class="panel-body">Panel Content</div>
-    </div>
-
-    <div class="panel panel-success">
-      <div class="panel-heading">Panel with panel-success class</div>
-      <div class="panel-body">Panel Content</div>
-    </div>
-
-    <div class="panel panel-info">
-      <div class="panel-heading">Panel with panel-info class</div>
-      <div class="panel-body">Panel Content</div>
-    </div>
-
-    <div class="panel panel-warning">
-      <div class="panel-heading">Panel with panel-warning class</div>
-      <div class="panel-body">Panel Content</div>
-    </div>
-
-    <div class="panel panel-danger">
-      <div class="panel-heading">Panel with panel-danger class</div>
-      <div class="panel-body">Panel Content</div>
-    </div>
+    <% end %>
   </div>
-</div>
-
-<table>
-<% @infos.each do |info| %>
-    <% if info.fulfilled then %>
-    <tr style="color:green;">
-        <td><%=info.requirement.criteria%></td> 
-        <td><%=info.course_name%></td>
-        <td><% if info.taken.grade!=nil%> <%=info.taken.grade%> <%else%> No grade info. <%end%></td>
-        <td><% if info.taken.unit!=nil%> <%=info.taken.unit%> <%else%> No unit info. <%end%></td>
-    </tr>
-    <%else%>
-    <tr style="color:red;">
-        <td><%= link_to "javascript:showPotential('" + info.requirement.criteria + "','" + info.requirement.track_id.to_s + "');", :class => "no-deco" do %><%=info.requirement.criteria%><%end%></td> 
-        <td><%=info.course_name%></td>
-        <td>Not taken</td>
-        <td></td>
-    </tr>
-    <%end%>
-<%end%>
-</table>
-
 </div>

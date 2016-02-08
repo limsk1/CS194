@@ -1,3 +1,3 @@
 class Track < ActiveRecord::Base
-  has_many :requirements
+  has_many :categories
 end

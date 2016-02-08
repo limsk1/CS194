@@ -7,6 +7,7 @@
 
 <body>
 <%= form_tag("/user/post_login", :method => "post") do %>
+<<<<<<< HEAD
 <div id = "initHeaderBlock">
   <table id = "initHeaderTable">
     <tr>
@@ -30,9 +31,16 @@
 </div>
   <h1 class = "initTitle">GraduAid</h1>
   <table class="initLogin">
+=======
+<div>
+  <% if flash[:notice] %>
+  <div class="alert" style="background-color: red; width:300px;"><%= flash[:notice] %></div>
+  <% end %>
+  <table class="center_align">
+>>>>>>> 42664ae27976f066eba09666a4192d70e827c547
     <tr>
       <td>
-        Username:
+        Email:
       </td>
       <td>
         <%= text_field_tag(:email) %>
@@ -47,8 +55,9 @@
       </td>
     </tr>
   </table>
-  <%= submit_tag("Log in") %>
+  <%= submit_tag "Log in", class: "registerButton" %>
   <% end %>
+<<<<<<< HEAD
 
   <% if flash[:notice] %>
   <div class="alert"><%= flash[:notice] %></div>
@@ -142,3 +151,11 @@
 
 </body>
 </html>
+=======
+</div>
+<br>
+<div>
+Want to be a new member? Register now!<br>
+<%= link_to "/user/register" do%><button class="registerButton">Register</button><% end %>
+</div>
+>>>>>>> 42664ae27976f066eba09666a4192d70e827c547

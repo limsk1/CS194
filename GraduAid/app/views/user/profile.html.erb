@@ -1,0 +1,59 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar" style="background-color:#eeeeee; width:30%;">
+            <h4>Basic Information</h4>
+            <ul>
+                <li><b>First Name:</b> <%=@user.first_name%></li>
+                <li><b>Last Name:</b> <%=@user.last_name%></li>
+                <li><b>Email:</b> <%=@user.email%></li>
+                <li><b>Main Track:</b> <% if @user.track then %> <%=@user.track.name%> <% else %> Not declared yet! <% end %>
+                    <button class="registerButton" onclick="javascript:changeTrack();">Change Track</button><br>
+                    <div id="track_change" style="display:none;">
+                        <select id="track_id" name="track_id">
+                        <% if @user.track == nil then %>
+                            <option value=""></option>
+                        <% end %>
+                        <% Track.all.each do |track| %>
+                            <option value="<%=track.id%>" <% if @user.track.id = track.id then %> selected="selected" <% end %>><%=track.name%></option>
+                        <% end %>
+                        </select>
+                        <button class="registerButton" onclick="javascript:submitNewTrack()">Submit</button>
+                        <span id="alert"></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-3 col-md-2 sidebar">
+        <h4>Courses</h4>
+        <% if @takens != nil %>
+	        <% @takens.each do |taken| %>
+                <span> <%= Course.find_by(id: taken.course_id).course_name %> </span>
+                <% if taken.grade!=nil then %> <span> <%=taken.grade%></span><%end%>
+                <% if taken.unit!=nil then %> <span> <%=taken.unit%></span><%end%>
+                <br>
+            <% end %>
+        <% end %>
+        </div>
+    </div>
+</div>
+
+<script type='text/javascript'>
+function changeTrack() {
+    var curr = document.getElementById('track_change').style.display;
+    if(curr == "")
+        document.getElementById('track_change').style.display = "none";
+    else
+        document.getElementById('track_change').style.display = "";
+}
+
+function submitNewTrack() {
+    var track_id = document.getElementById('track_id').value;
+    if(track_id == "") return;
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/user/post_track?track_id=" + track_id, false);
+    xhttp.send();
+    document.getElementById('alert').innerHTML = xhttp.responseText;
+    document.getElementById('alert').style.backgroundColor = "yellow";
+}
+</script>
