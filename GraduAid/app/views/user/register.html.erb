@@ -4,7 +4,7 @@
   // $scope.register.haveMajor = function() {
   //   return $scope.register.major;
   // }
-
+/*
   $(function() {
     $('button#linkProfile').click(function(event){
       event.preventDefault();
@@ -29,10 +29,19 @@
       $('div#major_2').toggle();
       $('div#classes').toggle();
     });
-  });   
+  });   */
 </script>
+<% if @user.errors.count != 0 then %>
+<div class="alert" style="background-color: red; width:500px;">
+<ul class="alert">
+<% @user.errors.full_messages.each do |msg| %>
+<li><%= msg %></li>
+<% end %>
+</ul>
+</div>
+<% end %>
 
-<%= form_tag("/user/post_register", :method => "post") do %>
+<%= form_for @user, :url => {:action => "post_register"} do |form| %>
 <div id="profile">
   <table class="center_align">
     <tr>
@@ -40,7 +49,7 @@
         First name:
       </td>
       <td>
-        <%= text_field_tag(:first_name) %>
+        <%= form.text_field(:first_name) %>
       </td>
     </tr>
     <tr>
@@ -48,7 +57,7 @@
         Last name:
       </td>
       <td>
-        <%= text_field_tag(:last_name) %>
+        <%= form.text_field(:last_name) %>
       </td>
     </tr>
     <tr>
@@ -56,7 +65,7 @@
         Email:
       </td>
       <td>
-        <%= text_field_tag(:email) %>
+        <%= form.text_field(:email) %>
       </td>
     </tr>
     <tr>
@@ -64,7 +73,7 @@
         Password:
       </td>
       <td>
-        <%= password_field_tag(:password) %>
+        <%= form.password_field(:password) %>
       </td>
     </tr>
     <tr>
@@ -72,16 +81,16 @@
         Password confirmation:
       </td>
       <td>
-        <%= password_field_tag(:password_confirmation) %>
+        <%= form.password_field(:password_confirmation) %>
       </td>
     </tr>
   </table>
   <div class="stepButton">
-    <button class="registerButton" id="linkProfile">Next</button>
+    <button class="registerButton" id="linkProfile">Submit</button>
   </div>
 </div>
 
-
+<!--
 <div id="major_1" style="display: none">
   <div class="stepButton">
     <button class="registerButton" id="linkProfile">Back</button>
@@ -144,4 +153,4 @@
   <% end %>
 
 </div>
-
+-->

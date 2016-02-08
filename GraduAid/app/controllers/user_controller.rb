@@ -14,7 +14,7 @@ class UserController < ApplicationController
 
   def post_login  
     @user = User.find_by_email(params[:email])
-    if @user then
+    if @user and @user.password_valid?(params[:password]) then
       session[:curr_id] = @user.id 
       redirect_to "/main/index"
     else
@@ -32,12 +32,28 @@ class UserController < ApplicationController
   end
 
   def post_register
-    @user = User.new(params[:user])
-    if @user.valid? then
-      @user.save
+    @user = User.new(user_params)
+    flag = ((params[:user][:password] == params[:user][:password_confirmation]) and (params[:user][:password].length > 7))
+
+    if @user.valid? and @user.email_valid?(@user.email) and flag then
+      @user.save!
+      session[:curr_id] = @user.id
+      redirect_to "/user/profile", :notice => "Welcome! Set your track and add courses in here!"
     else
+      if not @user.email_valid?(@user.email) then
+        @user.errors.add(:email, "is not Stanford email")
+      end
+
+      if not flag then
+        @user.errors.add(:password, "too short or not matched with confirmation")
+      end
+
       render(:action => :register)
     end
+  end
+
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_digest, :salt)
   end
 
   def post_track
@@ -46,7 +62,7 @@ class UserController < ApplicationController
     if @user != nil then
       @user.track = Track.find_by(id: track_id)
       @user.save!
-      render :text => "Track updated!"
+      render :text => "Track updated!" + "," + @user.track.name
     end
   end
 

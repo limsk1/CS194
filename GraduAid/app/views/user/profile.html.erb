@@ -1,3 +1,6 @@
+<% if flash[:notice] then %>
+<div class="alert" style="background-color: green; width:500px;"><%= flash[:notice] %></div>
+<% end %>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar" style="background-color:#eeeeee; width:30%;">
@@ -6,7 +9,7 @@
                 <li><b>First Name:</b> <%=@user.first_name%></li>
                 <li><b>Last Name:</b> <%=@user.last_name%></li>
                 <li><b>Email:</b> <%=@user.email%></li>
-                <li><b>Main Track:</b> <% if @user.track then %> <%=@user.track.name%> <% else %> Not declared yet! <% end %>
+                <li><b>Main Track:</b> <span id = "track_show"><% if @user.track then %> <%=@user.track.name%> <% else %> Not declared yet! <% end %></span>
                     <button class="registerButton" onclick="javascript:changeTrack();">Change Track</button><br>
                     <div id="track_change" style="display:none;">
                         <select id="track_id" name="track_id">
@@ -14,7 +17,7 @@
                             <option value=""></option>
                         <% end %>
                         <% Track.all.each do |track| %>
-                            <option value="<%=track.id%>" <% if @user.track.id = track.id then %> selected="selected" <% end %>><%=track.name%></option>
+                            <option value="<%=track.id%>" <% if @user.track and @user.track.id = track.id then %> selected="selected" <% end %>><%=track.name%></option>
                         <% end %>
                         </select>
                         <button class="registerButton" onclick="javascript:submitNewTrack()">Submit</button>
@@ -25,6 +28,7 @@
         </div>
         <div class="col-sm-3 col-md-2 sidebar">
         <h4>Courses</h4>
+        <a href="/main/add_courses"><button class="registerButton">Add Courses</button></a>
         <% if @takens != nil %>
 	        <% @takens.each do |taken| %>
                 <span> <%= Course.find_by(id: taken.course_id).course_name %> </span>
@@ -53,7 +57,9 @@ function submitNewTrack() {
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/user/post_track?track_id=" + track_id, false);
     xhttp.send();
-    document.getElementById('alert').innerHTML = xhttp.responseText;
+    var txt_list = xhttp.responseText.split(',')
+    document.getElementById('alert').innerHTML = txt_list[0];
+    document.getElementById('track_show').innerHTML = txt_list[1];
     document.getElementById('alert').style.backgroundColor = "yellow";
 }
 </script>

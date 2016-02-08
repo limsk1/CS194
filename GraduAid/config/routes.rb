@@ -8,6 +8,10 @@ Rails.application.routes.draw do
 
   get 'main/track'
 
+  get 'main/add_courses'
+
+  post 'main/search_course'
+
   post 'main/potential'
 
   get 'user/login'

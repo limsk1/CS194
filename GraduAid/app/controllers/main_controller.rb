@@ -16,13 +16,21 @@ class MainController < ApplicationController
   def index
     @user = User.find_by_id(session[:curr_id])
     @my_track = @user.track
-    @tracks = Track.where.not(id: @user.track.id)
+    if @my_track then
+      @tracks = Track.where.not(id: @user.track.id)
+    else
+      @tracks = Track.all
+    end
   end
 
   def track
     @user = User.find_by_id(session[:curr_id])
     if params[:track_id]==nil then
-      @track = @user.track
+      if @user.track == nil then
+        @track = Track.all[0]
+      else
+        @track = @user.track
+      end
     else
       @track = Track.find_by_id(params[:track_id])
     end
@@ -91,5 +99,13 @@ class MainController < ApplicationController
       end
     end
     render :text => response.html_safe
+  end
+
+  def add_courses
+  end
+
+  def search_course
+    course_num_list = params[:course_num].split(%r{,\s*})
+    render :text => course_num_list.to_s
   end
 end
