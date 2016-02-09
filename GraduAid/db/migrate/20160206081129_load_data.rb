@@ -114,7 +114,7 @@ class LoadData < ActiveRecord::Migration
     Course.create(course_name:'MATH109')
     Course.create(course_name:'MATH110')
     Course.create(course_name:'MATH113')
-    Course.create(course_name:'Phil151')
+    Course.create(course_name:'PHIL151')
     Course.create(course_name:'CME100')
     Course.create(course_name:'CME102')
     Course.create(course_name:'CME104')

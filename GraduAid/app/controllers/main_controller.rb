@@ -106,7 +106,8 @@ class MainController < ApplicationController
 
   def search_course
     course_num_list = params[:course_num].split(%r{,\s*})
-
+    course_num_list = course_num_list.uniq
+    
     if course_num_list.count == 0 then
       render :text => "No results found!"
       return
