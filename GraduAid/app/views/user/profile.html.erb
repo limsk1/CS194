@@ -28,14 +28,46 @@
         </div>
         <div class="col-sm-3 col-md-2 sidebar">
         <h4>Courses</h4>
-        <a href="/main/add_courses"><button class="registerButton">Add Courses</button></a>
+        <a href="/main/add_courses"><button class="registerButton">Add Courses</button></a><br>
         <% if @takens != nil %>
+            <table>
+            <tr>
+            <th width="150"> Course Name</th>
+            <th width="100"> Grade </th>
+            <th> Unit </th>
+            </tr>
 	        <% @takens.each do |taken| %>
-                <span> <%= Course.find_by(id: taken.course_id).course_name %> </span>
-                <% if taken.grade!=nil then %> <span> <%=taken.grade%></span><%end%>
-                <% if taken.unit!=nil then %> <span> <%=taken.unit%></span><%end%>
-                <br>
+            <tr id="<%=taken.id%>" class="0">
+                <td><%= Course.find_by(id: taken.course_id).course_name %></td>
+                <td> <%if taken.grade then %> <%=taken.grade%> <%else%> No grade info <%end%> </td>
+                <td style="display:none;"><select class="grade">
+                    <option value=""></option>
+                    <option value="A+">A+</option>
+                    <option value="A">A</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B">B</option>
+                    <option value="B-">B-</option>
+                    <option value="C+">C+</option>
+                    <option value="C">C</option>
+                    <option value="C-">C-</option>
+                    <option value="D+">D+</option>
+                    <option value="D">D</option>
+                    <option value="D-">D-</option>
+                    <option value="F">F</option>
+                </select></td>
+                <td> <%=taken.unit%> </td>
+                <td style="display:none;"><select class="unit">
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                </select></td>
+                <td> <button onclick="javascript:modifyTaken(<%=taken.id%>);">Modify</button></td>
+                <td> <button onclick="javascript:removeTaken(<%=taken.id%>);">Remove</button></td>
+                <td style="display:none;"><button onclick="javascript:submitTakenMod(<%=taken.id%>);">Submit</button></td>
+            </tr>
             <% end %>
+            </table>
         <% end %>
         </div>
     </div>
@@ -61,5 +93,63 @@ function submitNewTrack() {
     document.getElementById('alert').innerHTML = txt_list[0];
     document.getElementById('track_show').innerHTML = txt_list[1];
     document.getElementById('alert').style.backgroundColor = "yellow";
+}
+
+function modifyTaken(taken_id) {
+    var cols = document.getElementById(taken_id).getElementsByTagName("td");
+    if(cols[1].style.display == "") {
+        cols[1].style.display = "none";
+        cols[3].style.display = "none";
+        cols[6].style.display = "none";
+        cols[2].style.display = "";
+        cols[4].style.display = "";
+        cols[7].style.display = "";
+    } else {
+        cols[2].style.display = "none";
+        cols[4].style.display = "none";
+        cols[7].style.display = "none";
+        cols[1].style.display = "";
+        cols[3].style.display = "";  
+        cols[6].style.display = "";      
+    }
+}
+
+function removeTaken(taken_id) {
+    var r = confirm("Remove this data?");
+    if (r == true) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "/main/delete_course?taken_id=" + taken_id, false);
+        xhttp.send();
+        $("#" + taken_id).remove();
+    } else {
+        return;
+    }
+}
+
+function submitTakenMod(taken_id) {
+    var cols = document.getElementById(taken_id).getElementsByTagName("td");
+
+    var data = {"data":[]}
+    
+    data["data"][0] = {};
+    data["data"][0]["course_name"] = cols[0].innerHTML;
+    data["data"][0]["grade"] = cols[2].getElementsByClassName("grade")[0].value;
+    data["data"][0]["unit"] = cols[4].getElementsByClassName("unit")[0].value;
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/main/update_course", false);
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.send(JSON.stringify(data));
+
+    if(xhttp.responseText == "success") {
+        cols[2].style.display = "none";
+        cols[4].style.display = "none";
+        cols[7].style.display = "none";
+        cols[1].style.display = "";
+        cols[1].innerHTML = cols[2].getElementsByClassName("grade")[0].value;
+        cols[3].style.display = ""; 
+        cols[3].innerHTML = cols[4].getElementsByClassName("unit")[0].value;
+        cols[6].style.display = "";       
+    }
 }
 </script>

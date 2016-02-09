@@ -1,7 +1,7 @@
 class MainController < ApplicationController
   before_filter :check_login
   layout 'blank_layout', :only => [:track]
-  skip_before_filter :verify_authenticity_token, :only => [:potential]
+  skip_before_filter :verify_authenticity_token, :only => [:potential, :update_course, :delete_course]
 
   def check_login
     if !session[:curr_id] then
@@ -106,6 +106,52 @@ class MainController < ApplicationController
 
   def search_course
     course_num_list = params[:course_num].split(%r{,\s*})
-    render :text => course_num_list.to_s
+
+    if course_num_list.count == 0 then
+      render :text => "No results found!"
+      return
+    end
+
+    @course_list = Array.new
+    course_num_list.each do |course_num|
+      course = Course.find_by(course_name: params[:course_dept] + course_num.upcase)
+      if course == nil then
+        next
+      end
+      @course_list << course
+    end
+
+    if @course_list.count == 0 then
+      render :text => "No results found!"
+      return
+    end
+
+    render :template => "/main/show_course", :layout => false
+  end
+
+  def update_course
+    user = User.find_by(id: session[:curr_id])
+    params[:data].each do |course_data|
+      c = Course.find_by(course_name: course_data[:course_name])
+      t = Taken.find_by(user_id:user.id, course_id:c.id)
+      if t == nil then
+        t = Taken.new(user_id:user.id, course_id:c.id)
+      end
+
+      t[:grade] = course_data[:grade]
+      t[:unit] = course_data[:unit]
+      t.save!
+    end
+
+    render :text => "success"
+  end
+
+  def delete_course
+    t = Taken.find_by(id: params[:taken_id])
+    if t != nil then
+      t.destroy!
+    end
+
+    render :text => "success"
   end
 end
