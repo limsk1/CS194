@@ -2,9 +2,10 @@ class User < ActiveRecord::Base
   has_many :takens
   belongs_to :track
   validates :first_name, :last_name, :presence => true
-  validates :email, {:uniqueness => {:message => "The account with this address has already existed"}, 
-                          :presence => {:message => "(Email) can't be blank"}}
-  #validates :password, {:confirmation => true,  :length => {minimum: 8}}
+  validates :email, {:uniqueness => {:message => "account with this address has already existed"}, 
+                          :presence => true}
+  #validates :password, {:confirmation => {:message => "confirmation not matched"},
+  #                        :length => {minimum: 8}}
   #validates :password_confirmation, :presence => true
 
   def password
@@ -22,6 +23,6 @@ class User < ActiveRecord::Base
   end
 
   def email_valid?(cand_email)
-    return (/[a-zA-Z0-9\._]+@stanford.edu/ !~ cand_email)
+    return (/[a-zA-Z0-9\._]+@stanford.edu/ === cand_email)
   end
 end
