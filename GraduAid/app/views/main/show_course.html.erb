@@ -1,0 +1,62 @@
+<div>
+    <table>
+    <tr>
+    <td width="150" align="center"> Course Name</td>
+    <td width="100"> Grade </td>
+    <td> Unit </td>
+    </tr>
+    <% @course_list.each do |course| %>
+        <tr>
+        <div class="course_data">
+            <%= hidden_field_tag 'course_name_'+course.id.to_s, course.course_name %>
+            <td><%=course.course_name%></td>
+            <td><select class="grade">
+                <option value=""></option>
+                <option value="A+">A+</option>
+                <option value="A">A</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B">B</option>
+                <option value="B-">B-</option>
+                <option value="C+">C+</option>
+                <option value="C">C</option>
+                <option value="C-">C-</option>
+                <option value="D+">D+</option>
+                <option value="D">D</option>
+                <option value="D-">D-</option>
+                <option value="F">F</option>
+            </select></td>
+            <td><select class="unit">
+                <option value="5">5</option>
+                <option value="4">4</option>
+                <option value="3">3</option>
+            </select></td>
+        </div>
+        </tr>
+    <% end %>
+    </table>
+    <%= button_tag "Submit!", class: "registerButton", onclick:"javascript:submitCourseData();" %>
+</div>
+
+<script type="text/javascript">
+function submitCourseData() {
+    var data = {"data":[]}
+    var course_data_list = document.getElementsByClassName("course_data");
+    var i;
+    for(i = 0; i < course_data_list.length; i++) {
+        var course_data = course_data_list[i]
+        data["data"][i] = {};
+        data["data"][i]["course_name"] = course_data.getElementsByTagName("input")[0].value;
+        data["data"][i]["grade"] = document.getElementsByClassName("grade")[i].value;
+        data["data"][i]["unit"] = document.getElementsByClassName("unit")[i].value;
+    }
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/main/update_course", false);
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.send(JSON.stringify(data));
+
+    if(xhttp.responseText == "success")
+        document.location.href = "/user/profile";
+}
+</script>
