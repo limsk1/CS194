@@ -273,6 +273,13 @@ class LoadCsHci < ActiveRecord::Migration
     track_c_list += ['MS&E125', 'PSYCH252', 'PSYCH254', 'PSYCH110', 'STATS203', 'EDUC191X', 'HUMBIO82A']
     track_c_list += ['ME101', 'ME115A', 'ME203', 'ME210', 'ME216A', 'EDUC281X', 'EDUC239X', 'EDUC338X', 'EDUC342', 'MS&E185', 'MS&E331']
     track_c_list += ['MUSIC220A', 'MUSIC220B', 'MUSIC220C', 'MUSIC250A']
+    track_c_list += ['CS108', 'CS124', 'CS131', 'CS140', 'CS142', 'CS143', 'CS144', 'CS145', 'CS147', 'CS148']
+    track_c_list += ['CS149', 'CS154', 'CS155', 'CS157', 'CS164', 'CS166', 'CS167', 'CS168', 'CS190', 'CS205A', 'CS205B', 'CS210A']
+    track_c_list += ['CS223A', 'CS224M', 'CS224N', 'CS224S', 'CS224U', 'CS224W', 'CS225A', 'CS225B', 'CS227B', 'CS228', 'CS228T']
+    track_c_list += ['CS229', 'CS229A', 'CS229T', 'CS231A', 'CS231B', 'CS231M', 'CS231N', 'CS232', 'CS233', 'CS240', 'CS240H']
+    track_c_list += ['CS242', 'CS243', 'CS244', 'CS244B', 'CS245', 'CS246', 'CS247', 'CS248', 'CS249A', 'CS249B', 'CS251', 'CS254']
+    track_c_list += ['CS255', 'CS261', 'CS262', 'CS263', 'CS264', 'CS265', 'CS266', 'CS267', 'CS270', 'CS271', 'CS272', 'CS173', 'CS273A']
+    track_c_list += ['CS274', 'CS276', 'CS277', 'CS279', 'CS348B', 'CME108', 'EE180', 'EE282', 'EE364A']
     track_c_list = track_c_list.uniq
 
     track_c_list.each do |elec|
