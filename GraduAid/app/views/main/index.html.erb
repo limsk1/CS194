@@ -4,21 +4,27 @@ function renderTrackPage(id) {
 }
 </script>
 
-<div class="container-fluid" style="background-color:#E5E1D0">
+<style>
+body {
+    background-color: #F5EFDF;
+}
+</style>
+
+<div class="container-fluid" style="background-color:#F5EFDF">
 	<div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
-				<li><b>My Track</b></li>
+				<li class="sidebar-title"><b>MY TRACK</b></li>
 				<% if @my_track!=nil then%>
-					<li class="active">
+					<li class="active sidebar-list">
 						<%= link_to "javascript:renderTrackPage(" + @my_track.id.to_s + ");" do%>
 						<%=@my_track.name%>
 						<%end%>
 					</li>
 				<%end%>
-				<li><b>Other Tracks</b></li>
+				<li class="sidebar-title"><b>OTHER TRACKS</b></li>
 				<% @tracks.each do |track| %>
-					<li class="active">
+					<li class="active sidebar-list">
 						<%= link_to "javascript:renderTrackPage(" + track.id.to_s + ");" do%>
 						<%=track.name%>
 						<% end %>
@@ -32,7 +38,7 @@ function renderTrackPage(id) {
 
   		<div class="col-sm-3 col-md-2 sidebar pull-right">
   			<h4>Potential Classes</h4>
-  			<div id="potential display"></div>
+  			<div id="potential display" style="height: 500px; overflow: auto"></div>
   		</div>
 	</div>
 </div>

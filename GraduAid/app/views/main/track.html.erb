@@ -26,13 +26,13 @@ function showPotential(requirement_id) {
           <% category.requirements.each do |requirement| %>
             <% if requirement.course_id != nil then %>
               <% if @infos[requirement.id] != nil then %>
-                <tr style="color:green;">
+                <tr style="color:#5B7E7C;">
                   <td align="left" width="200px"><%=Course.find_by_id(requirement.course_id).course_name%></td>
                   <td align="center" width="100px"><% if @infos[requirement.id].grade %> <%=@infos[requirement.id].grade%> <%else%> No grade info. <%end%></td>
                   <td align="center" width="100px"><%=@infos[requirement.id].unit%></td>
                 </tr>
               <% else %>
-                <tr style="color:red;">
+                <tr style="color:#EC4F55;">
                   <td align="left" width="200px" onclick="javascript:showPotential(<%=requirement.id%>);"><%=Course.find_by_id(requirement.course_id).course_name%></td>
                   <td align="center" width="100px">Not taken</td>
                   <td align="center" width="100px"> </td>
@@ -41,13 +41,13 @@ function showPotential(requirement_id) {
             <% else %>
               <% @infos[requirement.id].each do |taken| %>
               <% if taken != nil then %>
-                <tr style="color:green;">
+                <tr style="color:#5B7E7C;">
                   <td align="left" width="200px"><%=Course.find_by_id(taken.course_id).course_name%></td>
                   <td align="center" width="100px"><% if taken.grade %> <%=taken.grade%> <%else%> No grade info. <%end%></td>
                   <td align="center" width="100px"><%=taken.unit%></td>
                 </tr>
               <% else %>
-                <tr style="color:#C24941;">
+                <tr style="color:#EC4F55;">
                   <td align="left" width="200px" onclick="javascript:showPotential(<%=requirement.id%>);"><%=requirement.criteria%></td>
                   <td align="center" width="100px">Not taken</td>
                   <td align="center" width="100px"></td>
@@ -59,9 +59,9 @@ function showPotential(requirement_id) {
         </table>
         <% if category.min_units != nil then %>
           <% if @category_unit[category.id] < category.min_units then %>
-          <span style="color:red;"> <b> Total units :</b> <%= @category_unit[category.id] %> / <%= category.min_units %> </span>
+          <span style="color:#EC4F55;"> <b> Total units :</b> <%= @category_unit[category.id] %> / <%= category.min_units %> </span>
           <% else %>
-          <span style="color:green;"> <b> Total units :</b> <%= @category_unit[category.id] %> / <%= category.min_units %> </span>
+          <span style="color:#5B7E7C;"> <b> Total units :</b> <%= @category_unit[category.id] %> / <%= category.min_units %> </span>
           <% end %>
         <% end %>
       </div>
