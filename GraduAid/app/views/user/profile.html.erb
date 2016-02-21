@@ -20,6 +20,7 @@
 <div class="container fill" style="margin-top:10px; margin-bottom:10px;">
     <div class="row rowfill">
         <div class="col-sm-3 col-md-4 sidebar" style="background-color:white; width:30%; height:100%;">
+            <img src="logo.png" class="img-rounded" alt="Profile Image" style="margin-top:20px; margin-bottom:20px" width="100%" height="50%"> 
             <h4>Basic Information</h4>
             <ul>
                 <li><b>First Name:</b> <%=@user.first_name%></li>
@@ -44,7 +45,7 @@
         </div>
         <div class="col-sm-7 col-md-8 sidebar" style="width:70%; height:100%;">
             <div class="col-sm-10 col-md-12" style="width:100%; background-color:white; height:100%">
-                <h4>Courses</h4>
+                <h4 style="margin-top:20px">Courses</h4>
                 <a href="/main/add_courses"><button type="button" class="btn btn-default btn-md">Add Courses</button></a><br>
                 <% if @takens != nil %>
                     <table>
