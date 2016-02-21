@@ -45,8 +45,9 @@
         </div>
         <div class="col-sm-7 col-md-8 sidebar" style="width:70%; height:100%;">
             <div class="col-sm-10 col-md-12" style="width:100%; background-color:white; height:100%">
-                <h4 style="margin-top:20px">Courses</h4>
-                <a href="/main/add_courses"><button type="button" class="btn btn-default btn-md">Add Courses</button></a><br>
+                <span style="font: 30px; font-weight: bold; margin-top:20px">Add Courses</span>
+                <span><a href="/main/add_courses"><button type="button" class="btn btn btn-default btn-md"><span class="glyphicon glyphicon-plus"></span></button></a></span>
+                <h3> Courses </h3>
                 <% if @takens != nil %>
                     <table>
                     <tr>
@@ -80,8 +81,8 @@
                             <option value="4">4</option>
                             <option value="3">3</option>
                         </select></td>
-                        <td> <button class="btn btn-default btn-xs" onclick="javascript:modifyTaken(<%=taken.id%>);">Modify</button></td>
-                        <td> <button class="btn btn-default btn-xs" onclick="javascript:removeTaken(<%=taken.id%>);">Remove</button></td>
+                        <td> <button class="btn btn-default btn-xs" onclick="javascript:modifyTaken(<%=taken.id%>);"><span class="glyphicon glyphicon-edit"></span></button></td>
+                        <td> <button class="btn btn-default btn-xs" onclick="javascript:removeTaken(<%=taken.id%>);"><span class="glyphicon glyphicon-remove"></span></button></td>
                         <td style="display:none;"><button class="btn btn-default btn-xs" onclick="javascript:submitTakenMod(<%=taken.id%>);">Submit</button></td>
                     </tr>
                     <% end %>
