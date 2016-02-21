@@ -42,51 +42,60 @@
 <% end %>
 
 <%= form_for @user, :url => {:action => "post_register"} do |form| %>
-<div id="profile">
+<div class="col-sm-6">
+</div>
+<div id="profile" class = "col-sm-4">
+  <h3>Register</h3>
   <table class="center_align">
     <tr>
-      <td>
+      <!-- <td>
         First name:
-      </td>
+      </td> -->
       <td>
-        <%= form.text_field(:first_name) %>
+        <input id="first_name" placeholder="First Name" style="width: 300px">
+<!--         <%= form.text_field(:first_name) %> -->
       </td>
     </tr>
     <tr>
-      <td>
+<!--       <td>
         Last name:
-      </td>
+      </td> -->
       <td>
-        <%= form.text_field(:last_name) %>
+<!--         <%= form.text_field(:last_name) %>
+ -->      
+        <input id="last_name" placeholder="Last Name" style="width: 300px">
       </td>
     </tr>
     <tr>
-      <td>
+      <!-- <td>
         Email:
-      </td>
+      </td> -->
       <td>
-        <%= form.text_field(:email) %>
+        <input id="email" placeholder="Your Stanford Email" style="width: 300px">
+ <!--        <%= form.text_field(:email) %> -->
       </td>
     </tr>
     <tr>
-      <td>
+      <!-- <td>
         Password:
-      </td>
+      </td> -->
       <td>
-        <%= form.password_field(:password) %>
+        <input id="password" placeholder="Password" style="width: 300px">
+<!--         <%= form.password_field(:password) %> -->
       </td>
     </tr>
     <tr>
-      <td>
+      <!-- <td>
         Password confirmation:
-      </td>
+      </td> -->
       <td>
-        <%= form.password_field(:password_confirmation) %>
+        <input id="password_confirmation" placeholder="Re-enter password" style="width: 300px">
+<!--         <%= form.password_field(:password_confirmation) %> -->
       </td>
     </tr>
   </table>
   <div class="stepButton">
-    <button class="registerButton" id="linkProfile">Submit</button>
+    <button class="btn" id="linkProfile">Complete Registration!</button>
   </div>
 </div>
 

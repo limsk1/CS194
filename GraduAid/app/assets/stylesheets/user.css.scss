@@ -2,23 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-<<<<<<< HEAD
-div#initHeaderBlock {
-	background-color:yellow;
-	color:black;
-}
-table#headerTable {
-    width: 100%;
-}
-
-.initLogin {
-	text-align: center;
-    color: yellow;
-}
-
-td#initTitle {
-    text-align: left;
-=======
 div#profile, #major_1, #major_2, #classes {
 	margin: 20px;
 }
@@ -26,6 +9,7 @@ div#profile, #major_1, #major_2, #classes {
 div.stepButton {
 	text-align: center
 }
+
 
 .registerButton {
   background: #6f8594;
@@ -52,5 +36,43 @@ div.stepButton {
   background-image: -o-linear-gradient(top, #94bdd6, #417191);
   background-image: linear-gradient(to bottom, #94bdd6, #417191);
   text-decoration: none;
->>>>>>> 42664ae27976f066eba09666a4192d70e827c547
 }
+
+.btn {
+    padding: 10px 20px;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: #5B7E7C
+}
+ 
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+ 
+.btn-primary {
+    background: #98DDD6;
+    color: #ffffff;
+}
+ 
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #5B7E7C;
+}
+ 
+.btn-primary:active, .btn-primary.active {
+    background: #5B7E7C;
+    box-shadow: none;
+}
+
+.btn.outline {
+    background: none;
+    padding: 12px 22px;
+}
+
+.btn-primary.outline {
+    border: 2px solid #98DDD6;
+    color: #98DDD6;
+}
+

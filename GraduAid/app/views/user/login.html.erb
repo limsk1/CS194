@@ -1,161 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Graduaid Landing Page</title>
-  <%= stylesheet_link_tag "user" %>
-</head>
-
-<body>
 <%= form_tag("/user/post_login", :method => "post") do %>
-<<<<<<< HEAD
-<div id = "initHeaderBlock">
-  <table id = "initHeaderTable">
-    <tr>
-      <td id = "initTitle">
-        <a href = '/' id="initTitle"><h1>Graduaid</h1></a>
-      </td>
-      <td id = "username">
-        Username:
-      </td>
-      <td>
-        <%= text_field_tag(:email) %>
-      </td>
-      <td id = "password">
-        Password:
-      </td>
-      <td>
-        <%= text_field_tag(:password) %>
-      </td>
-    </tr>
-  </table>
+<div class="col-sm-1">
 </div>
-  <h1 class = "initTitle">GraduAid</h1>
-  <table class="initLogin">
-=======
-<div>
+<div class="col-sm-5">
+      <h3>Column 1</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+    </div>
+
+<div class="col-sm-4">
+  <h3>Log In</h3>
   <% if flash[:notice] %>
   <div class="alert" style="background-color: red; width:300px;"><%= flash[:notice] %></div>
   <% end %>
   <table class="center_align">
->>>>>>> 42664ae27976f066eba09666a4192d70e827c547
     <tr>
       <td>
-        Email:
-      </td>
-      <td>
-        <%= text_field_tag(:email) %>
+        <input id="email" placeholder="Your Stanford email" style="width: 300px">
+        <!-- <%= text_field_tag(:email)%> -->
       </td>
     </tr>
     <tr>
       <td>
-        Password:
-      </td>
-      <td>
-        <%= password_field_tag(:password) %>
+      <input id="password" placeholder="Your password" style="width: 300px">
+<!--         <%= password_field_tag(:password) %>-->
       </td>
     </tr>
   </table>
-  <%= submit_tag "Log in", class: "registerButton" %>
+  <br>
+  <%= submit_tag "Log in", class: "btn" %>
   <% end %>
-<<<<<<< HEAD
-
-  <% if flash[:notice] %>
-  <div class="alert"><%= flash[:notice] %></div>
-  <% end %>
+<div style="line-height:50%;">
+    <br>
 </div>
-
-
-
-<!-- 이거 플로팅 메세지로 하려고 햇엇는데 아애 새로운 페이지로 만드는게 괜찮을꺼같아 -->
-<!-- 아애 update.html 만들었어 이부분은 단지 참고용 -->
-<%= form_tag("/user/major", :method => "post") do %>
-<p>What is your major?</p>
-<a href = "#modalRegister">Register</a> </p>
-
-<div id="modalRegister" class="modalDialog">
-  <div>
-    <a href="#close" title="Close" class="close">X</a>
-    <table>
-      <tr>
-        <td>
-          Do you have an expected major?
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <a href = "#yes">Yes</a>
-        </td>
-        <td>
-          <a href = "#no">No</a>
-        </td>
-      </tr>
-    </table>
-  </div>
-</div>
-<% end %>
-
-<div id="yes" class="modalDialog">
-  <div>
-    <a href="#close" title="Close" class="close">X</a>
-    <table>
-      <tr>
-        <td>
-          What is your major?
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <%= text_field_tag(:major) %>
-        </td>
-        <td>
-          <a href = "#classTaken">Submit Classes You have taken</a>
-      </tr>
-    </table>
-    <%= submit_tag("Declare") %>
-  </div>
-</div>
-
-<div id="classesTaken" class="modalDialog">
-  <div>
-    <a href="#close" title="Close" class="close">X</a>
-    <table>
-      <tr>
-        <td>
-          What is your major?
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <%= text_field_tag(:major) %>
-        </td>
-      </tr>
-    </table>
-    <%= submit_tag("Declare") %>
-  </div>
-</div>
-
-
-<div id="no" class="modalDialog">
-  <div>
-    <a href="#close" title="Close" class="close">X</a>
-    <table>
-      <tr>
-        <td>
-          Why not?
-        </td>
-      </tr>
-    </table>
-    <%= submit_tag("Aww..") %>
-  </div>
-</div>
-
-</body>
-</html>
-=======
-</div>
-<br>
-<div>
+<h3>Sign Up</h3>
 Want to be a new member? Register now!<br>
-<%= link_to "/user/register" do%><button class="registerButton">Register</button><% end %>
+<div style="line-height:50%;">
+    <br>
 </div>
->>>>>>> 42664ae27976f066eba09666a4192d70e827c547
+<%= link_to "/user/register" do%><button class="btn">Register</button><% end %>
+
+</div>
