@@ -27,9 +27,9 @@
                 <option value="F">F</option>
             </select></td>
             <td><select class="unit">
-                <option value="5">5</option>
-                <option value="4">4</option>
-                <option value="3">3</option>
+                <% for i in course.max_unit.downto(course.min_unit) do %>
+                <option value="<%=i.to_s%>"><%=i.to_s%></option>
+                <% end %>
             </select></td>
         </div>
         </tr>

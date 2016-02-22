@@ -27,6 +27,11 @@ ActiveRecord::Schema.define(version: 20160209124823) do
   create_table "courses", force: true do |t|
     t.string   "course_name"
     t.string   "general_req"
+    t.integer  "min_unit"
+    t.integer  "max_unit"
+    t.boolean  "open_aut"
+    t.boolean  "open_win"
+    t.boolean  "open_spr"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

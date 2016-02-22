@@ -51,19 +51,26 @@ class MainController < ApplicationController
                     total_unit += taken.unit
                 end
             else
-                temp_arr = Array.new
-                requirement.fulfillments.each do |fulfillment|
-                    taken = Taken.find_by(user_id: @user.id, course_id: fulfillment.course.id)
-                    if taken != nil and used[taken.id] == nil then
-                        temp_arr << taken
-                    end
-                end
-                
-                while temp_arr.length < requirement.num_courses do
-                    temp_arr << nil
+                fulfillments_id = Array.new
+                requirement.fulfillments.each do |f|
+                    fulfillments_id << f.course_id
                 end
 
-                @infos[requirement.id] = temp_arr.take(requirement.num_courses)
+                temp_arr = Taken.where('user_id = (:id) and course_id in (:fullfillments)', :id => @user.id, :fullfillments => fulfillments_id)
+                                    .order('grade ASC')
+                temp_arr_2 = Array.new
+
+                temp_arr.each do |t|
+                    if used[t.id] == nil then
+                        temp_arr_2 << t
+                    end
+                end
+
+                while temp_arr_2.length < requirement.num_courses do
+                    temp_arr_2 << nil
+                end
+
+                @infos[requirement.id] = temp_arr_2.take(requirement.num_courses)
 
                 @infos[requirement.id].each do |t|
                     if t != nil then
@@ -91,10 +98,29 @@ class MainController < ApplicationController
         response += "Criteria: " + req.criteria + "<br><br>"
       end
 
-      req.fulfillments.each do |fulfillment|
-        course = Course.find_by(id: fulfillment.course_id)
-        if Taken.find_by(user_id: user.id, course_id: course.id) == nil then
-          response += "\n<span>" + course.course_name + "</span><br>\n"
+      quarter_list = ["Aut", "Win", "Spr"]
+
+      fulfillments_id = Array.new
+      req.fulfillments.each do |f|
+        fulfillments_id << f.course_id
+      end
+
+      quarter_list.each do |quarter|
+        response += "\n<span style='font-size: 12pt; 
+        color: blue;'><b>" + quarter + "</b></span><br>"
+        case quarter
+        when "Aut"
+          courses = Course.where('id in (:id) and open_aut = (:true)', :id => fulfillments_id, :true => true)
+        when "Win"
+          courses = Course.where('id in (:id) and open_win = (:true)', :id => fulfillments_id, :true => true)
+        when "Spr"
+          courses = Course.where('id in (:id) and open_spr = (:true)', :id => fulfillments_id, :true => true)
+        end
+
+        courses.each do |course|
+          if Taken.find_by(user_id: user.id, course_id: course.id) == nil then
+            response += "\n<span>" + course.course_name + "</span><br>\n"
+          end
         end
       end
     end

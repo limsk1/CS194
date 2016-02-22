@@ -17,7 +17,7 @@
                             <option value=""></option>
                         <% end %>
                         <% Track.all.each do |track| %>
-                            <option value="<%=track.id%>" <% if @user.track and @user.track.id = track.id then %> selected="selected" <% end %>><%=track.name%></option>
+                            <option value="<%=track.id%>" <% if @user.track and @user.track.id == track.id then %> selected <% end %>><%=track.name%></option>
                         <% end %>
                         </select>
                         <button class="registerButton" onclick="javascript:submitNewTrack()">Submit</button>
@@ -32,35 +32,36 @@
         <% if @takens != nil %>
             <table>
             <tr>
-            <th width="150"> Course Name</th>
+            <th width="250"> Course Name</th>
             <th width="100"> Grade </th>
             <th> Unit </th>
             </tr>
 	        <% @takens.each do |taken| %>
             <tr id="<%=taken.id%>" class="0">
-                <td><%= Course.find_by(id: taken.course_id).course_name %></td>
+                <% course = Course.find_by(id: taken.course_id) %>
+                <td><%= course.course_name %></td>
                 <td> <%if taken.grade then %> <%=taken.grade%> <%else%> No grade info <%end%> </td>
                 <td style="display:none;"><select class="grade">
                     <option value=""></option>
-                    <option value="A+">A+</option>
-                    <option value="A">A</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="B-">B-</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="C-">C-</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="D-">D-</option>
-                    <option value="F">F</option>
+                    <option value="A+" <% if taken.grade == "A+" then%> selected <% end %>>A+</option>
+                    <option value="A" <% if taken.grade == "A" then%> selected <% end %>>A</option>
+                    <option value="A-" <% if taken.grade == "A-" then%> selected <% end %>>A-</option>
+                    <option value="B+" <% if taken.grade == "B+" then%> selected <% end %>>B+</option>
+                    <option value="B" <% if taken.grade == "B" then%> selected <% end %>>B</option>
+                    <option value="B-" <% if taken.grade == "B-" then%> selected <% end %>>B-</option>
+                    <option value="C+" <% if taken.grade == "C+" then%> selected <% end %>>C+</option>
+                    <option value="C" <% if taken.grade == "C" then%> selected <% end %>>C</option>
+                    <option value="C-" <% if taken.grade == "C-" then%> selected <% end %>>C-</option>
+                    <option value="D+" <% if taken.grade == "D+" then%> selected <% end %>>D+</option>
+                    <option value="D" <% if taken.grade == "D" then%> selected <% end %>>D</option>
+                    <option value="D-" <% if taken.grade == "D-" then%> selected <% end %>>D-</option>
+                    <option value="F" <% if taken.grade == "F" then%> selected <% end %>>F</option>
                 </select></td>
                 <td> <%=taken.unit%> </td>
                 <td style="display:none;"><select class="unit">
-                    <option value="5">5</option>
-                    <option value="4">4</option>
-                    <option value="3">3</option>
+                    <% for i in course.max_unit.downto(course.min_unit) do %>
+                    <option value="<%=i.to_s%>" <% if taken.unit == i then%> selected <% end %>><%=i.to_s%></option>
+                    <% end %>
                 </select></td>
                 <td> <button onclick="javascript:modifyTaken(<%=taken.id%>);">Modify</button></td>
                 <td> <button onclick="javascript:removeTaken(<%=taken.id%>);">Remove</button></td>
@@ -76,8 +77,10 @@
 <script type='text/javascript'>
 function changeTrack() {
     var curr = document.getElementById('track_change').style.display;
-    if(curr == "")
+    if(curr == "") {
         document.getElementById('track_change').style.display = "none";
+        document.getElementById('alert').innerHTML = "";
+    }
     else
         document.getElementById('track_change').style.display = "";
 }
