@@ -13,7 +13,14 @@
  *= require_tree .
  *= require_self
  */
-
+@font-face {
+  font-family: 'Harabara-Mais-Demo';
+  src: url('/assets/fonts/Harabara-Mais-Demo.otf') format('opentype');
+  font-weight: bold;
+}
+.logo-font {
+    font-family: 'Harabara-Mais-Demo';
+}
 div#headerBlock {
     background-color:black;
     color:white;
@@ -43,7 +50,13 @@ a#navigator {
   color: white;
 }
 a#navigator:hover {
-  color: red;
+  color: #EC4F55;
+}
+.sidebar-title {
+    margin-top: 30px
+}
+.sidebar-list {
+
 }
 .modalDialog {
     position: fixed;
