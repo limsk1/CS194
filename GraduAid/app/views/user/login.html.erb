@@ -2,9 +2,10 @@
 <div class="col-sm-1">
 </div>
 <div class="col-sm-5">
-      <h3>Column 1</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+      <h3>Let's graduate.</h3>
+      <p>Explore different majors and tracks</p>
+      <p>Track current progress</p>
+      <p>Discover potential classes</p>
     </div>
 
 <div class="col-sm-4">
@@ -15,14 +16,20 @@
   <table class="center_align">
     <tr>
       <td>
-        <input id="email" placeholder="Your Stanford email" style="width: 300px">
-        <!-- <%= text_field_tag(:email)%> -->
+        Email:
+      </td>
+      <td>
+        <!-- <input id="email" name="email" placeholder="Your Stanford email" style="width: 300px"> -->
+        <%= text_field_tag(:email)%>
       </td>
     </tr>
     <tr>
       <td>
-      <input id="password" placeholder="Your password" style="width: 300px">
-<!--         <%= password_field_tag(:password) %>-->
+        Password:
+      </td>
+      <td>
+<!--       <input id="password" name="password" placeholder="Your password" style="width: 300px">
+ -->        <%= password_field_tag(:password) %>
       </td>
     </tr>
   </table>
