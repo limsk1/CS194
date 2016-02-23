@@ -10,6 +10,10 @@ Rails.application.routes.draw do
 
   get 'main/add_courses'
 
+  post 'main/explore_courses'
+
+  get 'main/course_data/:id', to: 'main#course_data'
+
   post 'main/search_course'
 
   post 'main/update_course'

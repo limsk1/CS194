@@ -1,3 +1,7 @@
+require 'uri'
+require 'nokogiri'
+require 'open-uri'
+
 class MainController < ApplicationController
   before_filter :check_login
   layout 'blank_layout', :only => [:track]
@@ -111,15 +115,24 @@ class MainController < ApplicationController
         case quarter
         when "Aut"
           courses = Course.where('id in (:id) and open_aut = (:true)', :id => fulfillments_id, :true => true)
+                            .order('(select count(*) from "fulfillments" where fulfillments.course_id == courses.id)')
         when "Win"
           courses = Course.where('id in (:id) and open_win = (:true)', :id => fulfillments_id, :true => true)
+                            .order('(select count(*) from "fulfillments" where fulfillments.course_id == courses.id)')
         when "Spr"
           courses = Course.where('id in (:id) and open_spr = (:true)', :id => fulfillments_id, :true => true)
+                            .order('(select count(*) from "fulfillments" where fulfillments.course_id == courses.id)')
         end
 
+        recommend_done = false
         courses.each do |course|
           if Taken.find_by(user_id: user.id, course_id: course.id) == nil then
-            response += "\n<span>" + course.course_name + "</span><br>\n"
+            if not recommend_done then
+                response += "\n<a href = '/main/course_data/" + course.id.to_s + "' style='text-decoration: none; color: inherit;'><span style='color:red;'>" + course.course_name + "</span></a><br>\n"
+                recommend_done = true
+            else
+                response += "\n<a href = '/main/course_data/" + course.id.to_s + "' style='text-decoration: none; color: inherit;'><span>" + course.course_name + "</span></a><br>\n"
+            end
           end
         end
       end
@@ -180,5 +193,25 @@ class MainController < ApplicationController
     end
 
     render :text => "success"
+  end
+
+  def explore_courses
+    url = "http://explorecourses.stanford.edu/search?view=xml-20140630&filter-coursestatus-Active=on&page=0&catalog=&q=" + URI.escape(params[:query]) + "&academicYear=20152016"
+    doc = Nokogiri::HTML(open(url))
+    @course_list = doc.xpath("//course")
+  end
+
+  def course_data
+    @course = Course.find_by_id(params[:id])
+    url = "http://explorecourses.stanford.edu/search?view=xml-20140630&filter-coursestatus-Active=on&page=0&catalog=&q=" + URI.escape(@course.course_name) + "&academicYear=20152016"
+    doc = Nokogiri::HTML(open(url))
+
+    doc.xpath("//course").each do |xml_obj|
+        if @course.course_name == xml_obj.css('subject')[0].text + xml_obj.css('code')[0].text then
+            @course_xml_obj = xml_obj
+            break
+        end
+    end
+
   end
 end

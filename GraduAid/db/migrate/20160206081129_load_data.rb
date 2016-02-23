@@ -1,5 +1,7 @@
+require 'csv'
 class LoadData < ActiveRecord::Migration
   def up
+=begin
     require 'open-uri'
     require 'rubygems'
     require 'nokogiri'
@@ -32,6 +34,11 @@ class LoadData < ActiveRecord::Migration
 
             Course.create(course_name: course_name, general_req: general_req, min_unit: min_unit, max_unit: max_unit, open_aut: open_aut, open_win: open_win, open_spr: open_spr)
         end
+    end
+=end
+    CSV.foreach("course_data.csv", headers: true) do |row|
+      course_hash = row.to_hash
+      Course.create!(course_hash)
     end
   end
 
