@@ -38,7 +38,6 @@
                         <% end %>
                         </select>
                         <button class="btn btn-default btn-xs" onclick="javascript:submitNewTrack()">Submit</button>
-                        <span id="alert"></span>
                     </div>
                 </li>
             </ul>
@@ -57,7 +56,8 @@
                     </tr>
         	        <% @takens.each do |taken| %>
                     <tr id="<%=taken.id%>" class="0">
-                        <td><%= Course.find_by(id: taken.course_id).course_name %></td>
+                        <% course = Course.find_by(id: taken.course_id) %>
+                        <td><%= course.course_name %></td>
                         <td> <%if taken.grade then %> <%=taken.grade%> <%else%> No grade info <%end%> </td>
                         <td style="display:none;"><select class="grade">
                             <option value=""></option>
@@ -98,7 +98,6 @@ function changeTrack() {
     var curr = document.getElementById('track_change').style.display;
     if(curr == "") {
         document.getElementById('track_change').style.display = "none";
-        document.getElementById('alert').innerHTML = "";
     }
     else
         document.getElementById('track_change').style.display = "";
@@ -112,9 +111,7 @@ function submitNewTrack() {
     xhttp.open("POST", "/user/post_track?track_id=" + track_id, false);
     xhttp.send();
     var txt_list = xhttp.responseText.split(',')
-    document.getElementById('alert').innerHTML = txt_list[0];
     document.getElementById('track_show').innerHTML = txt_list[1];
-    document.getElementById('alert').style.backgroundColor = "yellow";
 }
 
 function modifyTaken(taken_id) {

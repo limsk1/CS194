@@ -141,6 +141,9 @@ class MainController < ApplicationController
   end
 
   def add_courses
+    url = "http://explorecourses.stanford.edu/?view=xml-20140630&academicYear=20152016"
+    doc = Nokogiri::HTML(open(url))
+    @dept_list = doc.xpath("//department")
   end
 
   def search_course

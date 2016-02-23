@@ -1,27 +1,9 @@
 <div id="course_add">
     <%= form_tag "/main/search_course", :method => "post", :id => "courses" do %>
     <select id="course_dept" name="course_dept">
-        <option value="CS">CS</option>
-        <option value="MATH">MATH</option>
-        <option value="MS&amp;E">MS&amp;E</option>
-        <option value="EE">EE</option>
-        <option value="PHYSICS">PHYSICS</option>
-        <option value="CHEM">CHEM</option>
-        <option value="AA">A</option>
-        <option value="CEE">CEE</option>
-        <option value="BIO">BIO</option>
-        <option value="CME">CME</option>
-        <option value="PHIL">PHIL</option>
-        <option value="EARTHSYS">EARTHSYS</option>
-        <option value="ENGR">ENGR</option>
-        <option value="PSYCH">PSYCH</option>
-        <option value="COMM">COMM</option>
-        <option value="PUBLPOL">PUBLPOL</option>
-        <option value="HISTORY">HISTORY</option>
-        <option value="ECON">ECON</option>
-        <option value="POLISCI">POLISCI</option>
-        <option value="BIOE">BIOE</option>
-        <option value="STATS">STATS</option>
+        <% @dept_list.each do |dept| %>
+        <option value="<%=dept['name']%>"><%=dept['name']%></option>
+        <% end %>
     </select>
     <%= text_field_tag(:course_num) %> 
     <input type="submit" id="form_submit" class="registerButton" value="Get Courses"></input>
