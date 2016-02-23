@@ -1,5 +1,15 @@
 <%= form_tag("/user/post_login", :method => "post") do %>
-<div>
+<div class="col-sm-1">
+</div>
+<div class="col-sm-5">
+      <h3>Let's graduate.</h3>
+      <p>Explore different majors and tracks</p>
+      <p>Track current progress</p>
+      <p>Discover potential classes</p>
+    </div>
+
+<div class="col-sm-4">
+  <h3>Log In</h3>
   <% if flash[:notice] %>
   <div class="alert" style="background-color: red; width:300px;"><%= flash[:notice] %></div>
   <% end %>
@@ -9,7 +19,8 @@
         Email:
       </td>
       <td>
-        <%= text_field_tag(:email) %>
+        <!-- <input id="email" name="email" placeholder="Your Stanford email" style="width: 300px"> -->
+        <%= text_field_tag(:email)%>
       </td>
     </tr>
     <tr>
@@ -17,15 +28,22 @@
         Password:
       </td>
       <td>
-        <%= password_field_tag(:password) %>
+<!--       <input id="password" name="password" placeholder="Your password" style="width: 300px">
+ -->        <%= password_field_tag(:password) %>
       </td>
     </tr>
   </table>
-  <%= submit_tag "Log in", class: "registerButton" %>
+  <br>
+  <%= submit_tag "Log in", class: "btn" %>
   <% end %>
+<div style="line-height:50%;">
+    <br>
 </div>
-<br>
-<div>
+<h3>Sign Up</h3>
 Want to be a new member? Register now!<br>
-<%= link_to "/user/register" do%><button class="registerButton">Register</button><% end %>
+<div style="line-height:50%;">
+    <br>
+</div>
+<%= link_to "/user/register" do%><button class="btn">Register</button><% end %>
+
 </div>

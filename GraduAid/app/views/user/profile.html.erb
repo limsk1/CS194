@@ -1,16 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<style type="text/css">
+   body { background: #EEEEEE !important; }
+</style>
+
 <% if flash[:notice] then %>
 <div class="alert" style="background-color: green; width:500px;"><%= flash[:notice] %></div>
 <% end %>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar" style="background-color:#eeeeee; width:30%;">
+<div class="container fill" style="margin-top:10px; margin-bottom:10px;">
+    <div class="row rowfill">
+        <div class="col-sm-3 col-md-4 sidebar" style="background-color:white; width:30%; height:100%;">
+            <img src="logo.png" class="img-rounded" alt="Profile Image" style="margin-top:20px; margin-bottom:20px" width="100%" height="50%"> 
             <h4>Basic Information</h4>
             <ul>
                 <li><b>First Name:</b> <%=@user.first_name%></li>
                 <li><b>Last Name:</b> <%=@user.last_name%></li>
                 <li><b>Email:</b> <%=@user.email%></li>
                 <li><b>Main Track:</b> <span id = "track_show"><% if @user.track then %> <%=@user.track.name%> <% else %> Not declared yet! <% end %></span>
-                    <button class="registerButton" onclick="javascript:changeTrack();">Change Track</button><br>
+                    <button class="btn btn-default btn-xs" onclick="javascript:changeTrack();">Change Track</button><br>
                     <div id="track_change" style="display:none;">
                         <select id="track_id" name="track_id">
                         <% if @user.track == nil then %>
@@ -20,57 +37,59 @@
                             <option value="<%=track.id%>" <% if @user.track and @user.track.id == track.id then %> selected <% end %>><%=track.name%></option>
                         <% end %>
                         </select>
-                        <button class="registerButton" onclick="javascript:submitNewTrack()">Submit</button>
+                        <button class="btn btn-default btn-xs" onclick="javascript:submitNewTrack()">Submit</button>
                         <span id="alert"></span>
                     </div>
                 </li>
             </ul>
         </div>
-        <div class="col-sm-3 col-md-2 sidebar">
-        <h4>Courses</h4>
-        <a href="/main/add_courses"><button class="registerButton">Add Courses</button></a><br>
-        <% if @takens != nil %>
-            <table>
-            <tr>
-            <th width="250"> Course Name</th>
-            <th width="100"> Grade </th>
-            <th> Unit </th>
-            </tr>
-	        <% @takens.each do |taken| %>
-            <tr id="<%=taken.id%>" class="0">
-                <% course = Course.find_by(id: taken.course_id) %>
-                <td><%= course.course_name %></td>
-                <td> <%if taken.grade then %> <%=taken.grade%> <%else%> No grade info <%end%> </td>
-                <td style="display:none;"><select class="grade">
-                    <option value=""></option>
-                    <option value="A+" <% if taken.grade == "A+" then%> selected <% end %>>A+</option>
-                    <option value="A" <% if taken.grade == "A" then%> selected <% end %>>A</option>
-                    <option value="A-" <% if taken.grade == "A-" then%> selected <% end %>>A-</option>
-                    <option value="B+" <% if taken.grade == "B+" then%> selected <% end %>>B+</option>
-                    <option value="B" <% if taken.grade == "B" then%> selected <% end %>>B</option>
-                    <option value="B-" <% if taken.grade == "B-" then%> selected <% end %>>B-</option>
-                    <option value="C+" <% if taken.grade == "C+" then%> selected <% end %>>C+</option>
-                    <option value="C" <% if taken.grade == "C" then%> selected <% end %>>C</option>
-                    <option value="C-" <% if taken.grade == "C-" then%> selected <% end %>>C-</option>
-                    <option value="D+" <% if taken.grade == "D+" then%> selected <% end %>>D+</option>
-                    <option value="D" <% if taken.grade == "D" then%> selected <% end %>>D</option>
-                    <option value="D-" <% if taken.grade == "D-" then%> selected <% end %>>D-</option>
-                    <option value="F" <% if taken.grade == "F" then%> selected <% end %>>F</option>
-                </select></td>
-                <td> <%=taken.unit%> </td>
-                <td style="display:none;"><select class="unit">
-                    <% for i in course.max_unit.downto(course.min_unit) do %>
-                    <option value="<%=i.to_s%>" <% if taken.unit == i then%> selected <% end %>><%=i.to_s%></option>
+        <div class="col-sm-7 col-md-8 sidebar" style="width:70%; height:100%;">
+            <div class="col-sm-10 col-md-12" style="width:100%; background-color:white; height:100%">
+                <span style="font: 30px; font-weight: bold; margin-top:20px">Add Courses</span>
+                <span><a href="/main/add_courses"><button type="button" class="btn btn btn-default btn-md"><span class="glyphicon glyphicon-plus"></span></button></a></span>
+                <h3> Courses </h3>
+                <% if @takens != nil %>
+                    <table>
+                    <tr>
+                    <th width="150"> Course Name</th>
+                    <th width="100"> Grade </th>
+                    <th> Unit </th>
+                    </tr>
+        	        <% @takens.each do |taken| %>
+                    <tr id="<%=taken.id%>" class="0">
+                        <td><%= Course.find_by(id: taken.course_id).course_name %></td>
+                        <td> <%if taken.grade then %> <%=taken.grade%> <%else%> No grade info <%end%> </td>
+                        <td style="display:none;"><select class="grade">
+                            <option value=""></option>
+                            <option value="A+" <% if taken.grade == "A+" then%> selected <% end %>>A+</option>
+                            <option value="A" <% if taken.grade == "A" then%> selected <% end %>>A</option>
+                            <option value="A-" <% if taken.grade == "A-" then%> selected <% end %>>A-</option>
+                            <option value="B+" <% if taken.grade == "B+" then%> selected <% end %>>B+</option>
+                            <option value="B" <% if taken.grade == "B" then%> selected <% end %>>B</option>
+                            <option value="B-" <% if taken.grade == "B-" then%> selected <% end %>>B-</option>
+                            <option value="C+" <% if taken.grade == "C+" then%> selected <% end %>>C+</option>
+                            <option value="C" <% if taken.grade == "C" then%> selected <% end %>>C</option>
+                            <option value="C-" <% if taken.grade == "C-" then%> selected <% end %>>C-</option>
+                            <option value="D+" <% if taken.grade == "D+" then%> selected <% end %>>D+</option>
+                            <option value="D" <% if taken.grade == "D" then%> selected <% end %>>D</option>
+                            <option value="D-" <% if taken.grade == "D-" then%> selected <% end %>>D-</option>
+                            <option value="F" <% if taken.grade == "F" then%> selected <% end %>>F</option>
+                        </select></td>
+                        <td> <%=taken.unit%> </td>
+                        <td style="display:none;"><select class="unit">
+                            <% for i in course.max_unit.downto(course.min_unit) do %>
+                            <option value="<%=i.to_s%>" <% if taken.unit == i then%> selected <% end %>><%=i.to_s%></option>
+                            <% end %>
+                        </select></td>
+                        <td> <button class="btn btn-default btn-xs" onclick="javascript:modifyTaken(<%=taken.id%>);"><span class="glyphicon glyphicon-edit"></span></button></td>
+                        <td> <button class="btn btn-default btn-xs" onclick="javascript:removeTaken(<%=taken.id%>);"><span class="glyphicon glyphicon-remove"></span></button></td>
+                        <td style="display:none;"><button class="btn btn-default btn-xs" onclick="javascript:submitTakenMod(<%=taken.id%>);">Submit</button></td>
+                    </tr>
                     <% end %>
-                </select></td>
-                <td> <button onclick="javascript:modifyTaken(<%=taken.id%>);">Modify</button></td>
-                <td> <button onclick="javascript:removeTaken(<%=taken.id%>);">Remove</button></td>
-                <td style="display:none;"><button onclick="javascript:submitTakenMod(<%=taken.id%>);">Submit</button></td>
-            </tr>
-            <% end %>
-            </table>
-        <% end %>
-        </div>
+                    </table>
+                <% end %>
+                </div>
+            </div>
     </div>
 </div>
 

@@ -1,3 +1,41 @@
+/* line 5, /Users/simon/Desktop/current_lectures/cs194/GraduAid/app/assets/stylesheets/user.css.scss */
+div#profile, #major_1, #major_2, #classes {
+  margin: 20px;
+}
+
+/* line 9, /Users/simon/Desktop/current_lectures/cs194/GraduAid/app/assets/stylesheets/user.css.scss */
+div.stepButton {
+  text-align: center;
+}
+
+/* line 13, /Users/simon/Desktop/current_lectures/cs194/GraduAid/app/assets/stylesheets/user.css.scss */
+.registerButton {
+  background: #6f8594;
+  background-image: -webkit-linear-gradient(top, #6f8594, black);
+  background-image: -moz-linear-gradient(top, #6f8594, black);
+  background-image: -ms-linear-gradient(top, #6f8594, black);
+  background-image: -o-linear-gradient(top, #6f8594, black);
+  background-image: linear-gradient(to bottom, #6f8594, black);
+  -webkit-border-radius: 20;
+  -moz-border-radius: 20;
+  border-radius: 20px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 10px;
+  padding: 5px 10px 5px 10px;
+  text-decoration: none;
+}
+
+/* line 30, /Users/simon/Desktop/current_lectures/cs194/GraduAid/app/assets/stylesheets/user.css.scss */
+.registerButton:hover {
+  background: #94bdd6;
+  background-image: -webkit-linear-gradient(top, #94bdd6, #417191);
+  background-image: -moz-linear-gradient(top, #94bdd6, #417191);
+  background-image: -ms-linear-gradient(top, #94bdd6, #417191);
+  background-image: -o-linear-gradient(top, #94bdd6, #417191);
+  background-image: linear-gradient(to bottom, #94bdd6, #417191);
+  text-decoration: none;
+}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -10,17 +48,11 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
- *= require_self
+
+
  */
-@font-face {
-  font-family: 'Harabara-Mais-Demo';
-  src: url('/assets/fonts/Harabara-Mais-Demo.otf') format('opentype');
-  font-weight: bold;
-}
-.logo-font {
-    font-family: 'Harabara-Mais-Demo';
-}
+
+
 div#headerBlock {
     background-color:black;
     color:white;
@@ -50,13 +82,7 @@ a#navigator {
   color: white;
 }
 a#navigator:hover {
-  color: #EC4F55;
-}
-.sidebar-title {
-    margin-top: 30px
-}
-.sidebar-list {
-
+  color: red;
 }
 .modalDialog {
     position: fixed;

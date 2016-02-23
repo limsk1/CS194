@@ -6,9 +6,32 @@ div#profile, #major_1, #major_2, #classes {
 	margin: 20px;
 }
 
+html, body {
+    height: 100%;
+}
+
+.fill { 
+    min-height: 100%;
+    height: 100%;
+    margin-bottom: 20px;
+    min-width: 90%;
+    width: 100%;
+}
+
+.rowfill {
+    min-height: 100%;
+    height: 100%;
+    margin-bottom: 20px;
+}
+
+.inline {
+  display: inline-block;
+}
+
 div.stepButton {
 	text-align: center
 }
+
 
 .registerButton {
   background: #6f8594;
@@ -36,3 +59,42 @@ div.stepButton {
   background-image: linear-gradient(to bottom, #94bdd6, #417191);
   text-decoration: none;
 }
+
+.btn {
+    padding: 10px 20px;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: #5B7E7C
+}
+ 
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+ 
+.btn-primary {
+    background: #98DDD6;
+    color: #ffffff;
+}
+ 
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #5B7E7C;
+}
+ 
+.btn-primary:active, .btn-primary.active {
+    background: #5B7E7C;
+    box-shadow: none;
+}
+
+.btn.outline {
+    background: none;
+    padding: 12px 22px;
+}
+
+.btn-primary.outline {
+    border: 2px solid #98DDD6;
+    color: #98DDD6;
+}
+
