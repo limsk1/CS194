@@ -43,6 +43,15 @@ class MainController < ApplicationController
     @category_unit = Hash.new
     used = Hash.new
 
+    grade = ["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F"]
+    manual_grade_order = "case"
+    for i in 0..grade.length - 1
+        manual_grade_order += " when grade = '" + grade[i] + "' then " + i.to_s
+    end
+    manual_grade_order += " end ASC"
+
+    temp_str = "(select count(*) from fulfillments where (select track_id from categories where id = (select category_id from requirements where id = fulfillments.requirement_id)) = '" + @track.id.to_s + "' and course_id = takens.course_id) ASC "
+
     @track.categories.each do |category|
         requirements = category.requirements.sort_by {|r| r.priority}.reverse
         total_unit = 0
@@ -61,7 +70,7 @@ class MainController < ApplicationController
                 end
 
                 temp_arr = Taken.where('user_id = (:id) and course_id in (:fullfillments)', :id => @user.id, :fullfillments => fulfillments_id)
-                                    .order('grade ASC')
+                                    .order(temp_str).order(manual_grade_order)
                 temp_arr_2 = Array.new
 
                 temp_arr.each do |t|
