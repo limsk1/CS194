@@ -14,6 +14,12 @@ body {
 	<div class="row">
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
+				<li class="sidebar-title"><b>General Requirement</b></li>
+					<li class="active sidebar-list">
+						<%= link_to "javascript:renderTrackPage(" + @gen_req.id.to_s + ");" do%>
+						<%=@gen_req.name%>
+						<%end%>
+					</li>
 				<li class="sidebar-title"><b>MY TRACK</b></li>
 				<% if @my_track!=nil then%>
 					<li class="active sidebar-list">
@@ -24,6 +30,7 @@ body {
 				<%end%>
 				<li class="sidebar-title"><b>OTHER TRACKS</b></li>
 				<% @tracks.each do |track| %>
+				    <% if track.name == "General Requirement" then next end %>
 					<li class="active sidebar-list">
 						<%= link_to "javascript:renderTrackPage(" + track.id.to_s + ");" do%>
 						<%=track.name%>

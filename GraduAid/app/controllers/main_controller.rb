@@ -25,6 +25,7 @@ class MainController < ApplicationController
     else
       @tracks = Track.all
     end
+    @gen_req = Track.find_by(name: 'General Requirement')
   end
 
   def track

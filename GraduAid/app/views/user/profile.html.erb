@@ -34,6 +34,7 @@
                             <option value=""></option>
                         <% end %>
                         <% Track.all.each do |track| %>
+                            <% if track.name == "General Requirement" then next end %>
                             <option value="<%=track.id%>" <% if @user.track and @user.track.id == track.id then %> selected <% end %>><%=track.name%></option>
                         <% end %>
                         </select>
