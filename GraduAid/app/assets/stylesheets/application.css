@@ -42,6 +42,53 @@
   src: url('/assets/fonts/Harabara-Mais-Demo.otf') format('opentype');
   font-weight: bold;
 }*/
+
+@media (max-width: 767px) {
+    div.size-disappear {
+        display: none;
+    }
+    div.size_smaller {
+        position: absolute;
+        top: 0px;
+    }
+    div.size_smaller_profile {
+        right: 100px;
+    }
+    div.size_smaller_logout {
+        right: 0px;
+    }
+    .header-fix {
+        position: relative;
+    }
+    .top-fix {
+        position: relative;
+        top: 0px;
+        right: 0px;
+    }
+    .top-fix-profile {
+        top: 0px;
+    }
+    .top-fix-logout {
+        top: 0px;
+    }
+}
+.li-to-span-box {
+    position: relative;
+    top: 15px;
+}
+
+.li-to-span-profile {
+    margin: 10px;
+    padding: 10px;
+    height: 50px;
+}
+
+.li-to-span-logout {
+    margin: 10px;
+    padding: 10px;
+    height: 50px;
+}
+
 .logo-font {
     font-family: 'jackpot_demoregular';
 }
