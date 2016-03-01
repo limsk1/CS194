@@ -24,7 +24,7 @@ class UserController < ApplicationController
 
   def logout
     reset_session
-    redirect_to "/", :notice => "Log out successfully"
+    redirect_to "/", :notice => "Logged out successfully."
   end
 
   def register
