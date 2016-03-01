@@ -5,7 +5,7 @@ class UserController < ApplicationController
 
   def already_login
     if session[:curr_id] then
-      redirect_to "/user/profile"
+      redirect_to "/main/index"
     end
   end
 
