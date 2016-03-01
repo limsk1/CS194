@@ -7,6 +7,7 @@ class CreateUsers < ActiveRecord::Migration
       t.column :password_digest, :string
       t.column :salt,       :string
       t.column :track_id,   :integer
+      t.column :profile_file_path, :string, :default => "logo.png"
       t.timestamps
     end
   end

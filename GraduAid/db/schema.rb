@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 20160229095556) do
     t.string   "password_digest"
     t.string   "salt"
     t.integer  "track_id"
+    t.string   "profile_file_path", default: "logo.png"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

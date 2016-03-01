@@ -34,6 +34,8 @@ Rails.application.routes.draw do
 
   post 'user/post_track'
 
+  post 'user/post_photo'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

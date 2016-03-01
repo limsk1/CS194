@@ -20,7 +20,11 @@
 <div class="container fill" style="margin-top:10px; margin-bottom:10px;">
     <div class="row rowfill">
         <div class="col-sm-3 col-md-4 sidebar" style="background-color:white; width:30%; height:100%;">
-            <img src="logo.png" class="img-rounded" alt="Profile Image" style="margin-top:20px; margin-bottom:20px" width="100%" height="50%"> 
+            <%=image_tag @user.profile_file_path, :style => "margin-top:20px; margin-bottom:20px; width:200px; height:200px;", :class => "img-rounded", :alt=>"Profile Image", 'data-turbolinks-track' => true %>
+            <button class="btn btn-default btn-xs" id="import" onclick="javascript:changeProfile();">Change Profile</button>
+            <%= form_tag("/user/post_photo", :method => "post", :multipart => true, :id => "profile_form") do %>
+                <%= file_field_tag :photo, :style => "display:none", :id => "browser" %>
+            <% end %>
             <h4>Basic Information</h4>
             <ul>
                 <li><b>First Name:</b> <%=@user.first_name%></li>
@@ -95,6 +99,13 @@
 </div>
 
 <script type='text/javascript'>
+$("#import").click(function() {
+    $("#browser").trigger("click");
+    $('#browser').change(function() {
+        $('#profile_form').submit();
+    });
+});
+
 function changeTrack() {
     var curr = document.getElementById('track_change').style.display;
     if(curr == "") {
@@ -113,6 +124,7 @@ function submitNewTrack() {
     xhttp.send();
     var txt_list = xhttp.responseText.split(',')
     document.getElementById('track_show').innerHTML = txt_list[1];
+    document.getElementById('track_change').style.display = "none";
 }
 
 function modifyTaken(taken_id) {
