@@ -14,3 +14,8 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore assets
+/app/assets/images/*
+!/app/assets/images/logo.png
+!/app/assets/images/stanford.png

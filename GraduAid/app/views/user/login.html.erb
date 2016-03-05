@@ -25,25 +25,27 @@
 <div class="col-sm-4">
   <h3>Log In</h3>
   <% if flash[:notice] %>
-  <div class="alert" style="background-color: red; width:300px;"><%= flash[:notice] %></div>
+   <div class="alert" style="background-color: red; width:300px;"><%= flash[:notice] %></div>
   <% end %>
+
   <table class="center_align">
     <tr>
-      <td>
-        Email:
+      <td style="padding-bottom:10px">
+        <label class="control-label col-sm-1" for="email">Email:</label>
       </td>
-      <td>
+      <td style="padding-bottom:10px">
         <!-- <input id="email" name="email" placeholder="Your Stanford email" style="width: 300px"> -->
-        <%= text_field_tag(:email)%>
+        <%= text_field_tag('email', nil, class: 'form-control')%>
       </td>
     </tr>
     <tr>
       <td>
-        Password:
+        <label class="control-label col-sm-1" for="password">Password:</label>
       </td>
       <td>
 <!--       <input id="password" name="password" placeholder="Your password" style="width: 300px">
- -->        <%= password_field_tag(:password) %>
+ -->
+         <%= password_field_tag('password', nil, class: 'form-control') %>
       </td>
     </tr>
   </table>
@@ -62,3 +64,4 @@ Want to be a new member? Register now!<br>
 
 </div>
 </body>
+</html>

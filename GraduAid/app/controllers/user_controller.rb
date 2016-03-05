@@ -1,6 +1,6 @@
 class UserController < ApplicationController
   before_filter :already_login  
-  skip_before_filter :already_login, :only => [:logout, :profile, :post_track]
+  skip_before_filter :already_login, :only => [:logout, :profile, :post_track, :post_photo]
   skip_before_filter :verify_authenticity_token, :only => [:post_track]
 
   def already_login
@@ -24,7 +24,7 @@ class UserController < ApplicationController
 
   def logout
     reset_session
-    redirect_to "/", :notice => "Log out successfully"
+    redirect_to "/", :notice => "Logged out successfully."
   end
 
   def register
@@ -69,5 +69,24 @@ class UserController < ApplicationController
   def profile
     @user = User.find(session[:curr_id])
     @takens = Taken.where(user_id: @user.id)
+  end
+
+  def post_photo
+    uploaded = params[:photo]
+    puts uploaded.original_filename
+    @user = User.find(session[:curr_id])
+
+    if uploaded then
+      dir = "#{Rails.root}/app/assets/images/" + @user.id.to_s
+      Dir.mkdir(dir) unless File.exists?(dir)
+      file = File.new(Rails.root.join('app', 'assets', 'images', @user.id.to_s, uploaded.original_filename), 'wb')
+      file.write(uploaded.read)
+      file.close
+
+      @user.profile_file_path = @user.id.to_s + "/" + uploaded.original_filename
+      @user.save!
+    end
+
+    redirect_to "/user/profile"
   end
 end

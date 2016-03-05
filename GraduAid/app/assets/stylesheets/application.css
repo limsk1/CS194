@@ -45,6 +45,49 @@
 .custom {
     background-color: red;
 }
+
+@media (max-width: 767px) {
+    div.size-disappear {
+        display: none;
+    }
+    .header-fix {
+        position: absolute;
+        top: 0px;
+    }
+    .top-fix {
+        position: absolute;
+        float: right;
+        top: 0px;
+        right: 0px;
+    }
+    .top-fix-profile {
+        float: right;
+        top: 0px;
+        right: 0px;
+    }
+    .top-fix-logout {
+        float: right;
+        top: 0px;
+        right: 100px;
+    }
+}
+.li-to-span-box {
+    position: relative;
+    top: 15px;
+}
+
+.li-to-span-profile {
+    margin: 10px;
+    padding: 10px;
+    height: 50px;
+}
+
+.li-to-span-logout {
+    margin: 10px;
+    padding: 10px;
+    height: 50px;
+}
+
 .logo-font {
     font-family: 'jackpot_demoregular';
 }
