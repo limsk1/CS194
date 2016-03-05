@@ -38,7 +38,7 @@ class UserController < ApplicationController
     if @user.valid? and @user.email_valid?(@user.email) and flag then
       @user.save!
       session[:curr_id] = @user.id
-      redirect_to "/user/profile", :notice => "Welcome! Set your track and add courses in here!"
+      redirect_to "/main/index", :notice => "Welcome! Set your track and add courses in here!"
     else
       if not @user.email_valid?(@user.email) then
         @user.errors.add(:email, "is not Stanford email")
