@@ -31,6 +31,11 @@
     });
   });   */
 </script>
+<style>
+body {
+  background-color: #F5EFDF;
+}
+</style>
 <% if @user.errors.count != 0 then %>
 <div class="alert center_align" style="background-color: #5B7E7C; color: white; width:500px; margin: auto;">
   <ul class="alert" style="list-style-type: none;">
@@ -85,7 +90,7 @@
     <tr class="padding_tr"></tr>
     <tr>
       <td>
-        <div>Your password must be at least 4 characters long!</div>
+        <div>Your password must be at least 8 characters long!</div>
       </td>
     </tr>
     
