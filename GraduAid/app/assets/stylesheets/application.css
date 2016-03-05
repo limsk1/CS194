@@ -47,29 +47,25 @@
     div.size-disappear {
         display: none;
     }
-    div.size_smaller {
+    .header-fix {
         position: absolute;
         top: 0px;
     }
-    div.size_smaller_profile {
-        right: 100px;
-    }
-    div.size_smaller_logout {
-        right: 0px;
-    }
-    .header-fix {
-        position: relative;
-    }
     .top-fix {
-        position: relative;
+        position: absolute;
+        float: right;
         top: 0px;
         right: 0px;
     }
     .top-fix-profile {
+        float: right;
         top: 0px;
+        right: 0px;
     }
     .top-fix-logout {
+        float: right;
         top: 0px;
+        right: 100px;
     }
 }
 .li-to-span-box {
