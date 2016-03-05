@@ -1,7 +1,7 @@
 class UserController < ApplicationController
   before_filter :already_login  
-  skip_before_filter :already_login, :only => [:logout, :profile, :post_track, :post_photo]
-  skip_before_filter :verify_authenticity_token, :only => [:post_track]
+  skip_before_filter :already_login, :only => [:logout, :profile, :post_track, :post_photo, :delete_account]
+  skip_before_filter :verify_authenticity_token, :only => [:post_track, :delete_account]
 
   def already_login
     if session[:curr_id] then
@@ -88,5 +88,13 @@ class UserController < ApplicationController
     end
 
     redirect_to "/user/profile"
+  end
+
+  def delete_account
+    user = User.find(session[:curr_id])
+    user.destroy
+    Taken.where(user_id: user.id).destroy_all
+    reset_session
+    redirect_to "/", :notice => "Succssfully delete the account."
   end
 end
