@@ -45,6 +45,7 @@
                         <button class="btn btn-default btn-xs" onclick="javascript:submitNewTrack()">Submit</button>
                     </div>
                 </li>
+                <li><button class="btn btn-default btn-xs" onclick="javascript:confirmDeleteAccount();">Delete Account</button></li>
             </ul>
         </div>
         <div class="col-sm-7 col-md-8 sidebar" style="width:70%; height:100%;">
@@ -106,6 +107,21 @@ $("#import").click(function() {
     });
 });
 
+function confirmDeleteAccount() {
+    var r = confirm("Delete the account?");
+    if (r == true) {
+        $.ajax({
+            type: "POST",
+            url: "/user/delete_account",
+            success: function(data, textStatus) {
+                window.location = '/';
+            }
+        });
+    } else {
+        return;
+    }
+}
+
 function changeTrack() {
     var curr = document.getElementById('track_change').style.display;
     if(curr == "") {
@@ -137,6 +153,7 @@ function modifyTaken(taken_id) {
         cols[4].style.display = "";
         cols[7].style.display = "";
     } else {
+
         cols[2].style.display = "none";
         cols[4].style.display = "none";
         cols[7].style.display = "none";
