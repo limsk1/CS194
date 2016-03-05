@@ -1,10 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
 <%= form_tag("/user/post_login", :method => "post") do %>
 <div class="col-sm-1">
 </div>
 <div class="col-sm-5">
       <h3>Let's graduate.</h3>
+      <br>
       <p>Explore different majors and tracks</p>
+      <br>
       <p>Track current progress</p>
+      <br>
       <p>Discover potential classes</p>
     </div>
 
@@ -34,7 +48,7 @@
     </tr>
   </table>
   <br>
-  <%= submit_tag "Log in", class: "btn" %>
+  <%= submit_tag "Log in",class: "btn btn-default btn-md", style: "color: white; background: #5B7E7C;"%>
   <% end %>
 <div style="line-height:50%;">
     <br>
@@ -44,6 +58,7 @@ Want to be a new member? Register now!<br>
 <div style="line-height:50%;">
     <br>
 </div>
-<%= link_to "/user/register" do%><button class="btn">Register</button><% end %>
+<%= link_to "/user/register" do%><button type="button" class="btn btn-default btn-md" style= "color: white; background: #5B7E7C;">Register</button><% end %>
 
 </div>
+</body>
