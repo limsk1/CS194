@@ -35,13 +35,16 @@
          url('jackpot_demo-webfont.svg#jackpot_demoregular') format('svg');
     font-weight: normal;
     font-style: normal;
-
 }
+
 /*@font-face {
   font-family: 'Harabara-Mais-Demo';
   src: url('/assets/fonts/Harabara-Mais-Demo.otf') format('opentype');
   font-weight: bold;
 }*/
+.custom {
+    background-color: red;
+}
 .logo-font {
     font-family: 'jackpot_demoregular';
 }
