@@ -1,0 +1,433 @@
+/* line 5, /Users/jiyoungpark/CS194/GraduAid/app/assets/stylesheets/user.css.scss */
+div#profile, #major_1, #major_2, #classes {
+  margin: 20px;
+}
+
+/* line 9, /Users/jiyoungpark/CS194/GraduAid/app/assets/stylesheets/user.css.scss */
+html, body {
+  height: 100%;
+}
+
+/* line 13, /Users/jiyoungpark/CS194/GraduAid/app/assets/stylesheets/user.css.scss */
+.fill {
+  min-height: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+  min-width: 90%;
+  width: 100%;
+}
+
+/* line 21, /Users/jiyoungpark/CS194/GraduAid/app/assets/stylesheets/user.css.scss */
+.rowfill {
+  min-height: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+}
+
+/* line 27, /Users/jiyoungpark/CS194/GraduAid/app/assets/stylesheets/user.css.scss */
+.inline {
+  display: inline-block;
+}
+
+/* line 31, /Users/jiyoungpark/CS194/GraduAid/app/assets/stylesheets/user.css.scss */
+div.stepButton {
+  text-align: center;
+}
+
+/* line 36, /Users/jiyoungpark/CS194/GraduAid/app/assets/stylesheets/user.css.scss */
+.registerButton {
+  background: #6f8594;
+  background-image: -webkit-linear-gradient(top, #6f8594, black);
+  background-image: -moz-linear-gradient(top, #6f8594, black);
+  background-image: -ms-linear-gradient(top, #6f8594, black);
+  background-image: -o-linear-gradient(top, #6f8594, black);
+  background-image: linear-gradient(to bottom, #6f8594, black);
+  -webkit-border-radius: 20;
+  -moz-border-radius: 20;
+  border-radius: 20px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 10px;
+  padding: 5px 10px 5px 10px;
+  text-decoration: none;
+}
+
+/* line 53, /Users/jiyoungpark/CS194/GraduAid/app/assets/stylesheets/user.css.scss */
+.registerButton:hover {
+  background: #94bdd6;
+  background-image: -webkit-linear-gradient(top, #94bdd6, #417191);
+  background-image: -moz-linear-gradient(top, #94bdd6, #417191);
+  background-image: -ms-linear-gradient(top, #94bdd6, #417191);
+  background-image: -o-linear-gradient(top, #94bdd6, #417191);
+  background-image: linear-gradient(to bottom, #94bdd6, #417191);
+  text-decoration: none;
+}
+
+/* line 63, /Users/jiyoungpark/CS194/GraduAid/app/assets/stylesheets/user.css.scss */
+.btn {
+  padding: 10px 20px;
+  border: 0 none;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: #5b7e7c;
+}
+
+/* line 73, /Users/jiyoungpark/CS194/GraduAid/app/assets/stylesheets/user.css.scss */
+.btn:focus, .btn:active:focus, .btn.active:focus {
+  outline: 0 none;
+}
+
+/* line 77, /Users/jiyoungpark/CS194/GraduAid/app/assets/stylesheets/user.css.scss */
+.btn-primary {
+  background: #98DDD6;
+  color: #ffffff;
+}
+
+/* line 82, /Users/jiyoungpark/CS194/GraduAid/app/assets/stylesheets/user.css.scss */
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+  background: #5B7E7C;
+}
+
+/* line 86, /Users/jiyoungpark/CS194/GraduAid/app/assets/stylesheets/user.css.scss */
+.btn-primary:active, .btn-primary.active {
+  background: #5B7E7C;
+  box-shadow: none;
+}
+
+/* line 91, /Users/jiyoungpark/CS194/GraduAid/app/assets/stylesheets/user.css.scss */
+.btn.outline {
+  background: none;
+  padding: 12px 22px;
+}
+
+/* line 96, /Users/jiyoungpark/CS194/GraduAid/app/assets/stylesheets/user.css.scss */
+.btn-primary.outline {
+  border: 2px solid #98DDD6;
+  color: #98DDD6;
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+
+
+ */
+/*@font-face {
+    font-family: 'kbdunktankmedium';
+    src: url('kbdunktank-webfont.eot');
+    src: url('kbdunktank-webfont.eot?#iefix') format('embedded-opentype'),
+         url('kbdunktank-webfont.woff2') format('woff2'),
+         url('kbdunktank-webfont.woff') format('woff'),
+         url('kbdunktank-webfont.ttf') format('truetype'),
+         url('kbdunktank-webfont.svg#kbdunktankmedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}*/
+
+ @font-face {
+    font-family: 'jackpot_demoregular';
+    src: url('jackpot_demo-webfont.eot');
+    src: url('jackpot_demo-webfont.eot?#iefix') format('embedded-opentype'),
+         url('jackpot_demo-webfont.woff2') format('woff2'),
+         url('jackpot_demo-webfont.woff') format('woff'),
+         url('jackpot_demo-webfont.ttf') format('truetype'),
+         url('jackpot_demo-webfont.svg#jackpot_demoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+/*@font-face {
+  font-family: 'Harabara-Mais-Demo';
+  src: url('/assets/fonts/Harabara-Mais-Demo.otf') format('opentype');
+  font-weight: bold;
+}*/
+.logo-font {
+    font-family: 'jackpot_demoregular';
+}
+div#headerBlock {
+    background-color:black;
+    color:white;
+}
+table#headerTable {
+    width: 100%;
+}
+td#header {
+    text-align: left;
+}
+td#greeting {
+    text-align: center;
+}
+td#navigator {
+  text-align: right;
+}
+a#header {
+  text-decoration: none;
+  white-space: nowrap;
+  color: white;
+}
+
+a#navigator {
+  text-align:right;
+  text-decoration: none;
+  white-space: nowrap;
+  color: white;
+}
+a#navigator:hover {
+  color: #EC4F55;
+}
+.sidebar-title {
+    margin-top: 30px
+}
+.sidebar-list {
+
+}
+.modalDialog {
+    position: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 99999;
+    opacity:0;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    pointer-events: none;
+}
+
+.modalDialog:target {
+    opacity:1;
+    pointer-events: auto;
+}
+
+.modalDialog > div {
+    width: 400px;
+    position: relative;
+    margin: 10% auto;
+    padding: 5px 20px 13px 20px;
+    border-radius: 10px;
+    background: #fff;
+    background: -moz-linear-gradient(#fff, #999);
+    background: -webkit-linear-gradient(#fff, #999);
+    background: -o-linear-gradient(#fff, #999);
+}
+
+.no-deco { 
+    text-decoration:none;
+    color: inherit; 
+}
+
+/*#header {
+    background-color:black;
+    color:white;
+    text-align:left;
+    padding:5px;
+}*/
+/*#nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:600px;
+    width:300px;
+    float:left;
+    padding:5px;        
+}*/
+#section {
+    width:600px;
+    height:600px;
+    float:left;
+    padding:10px;
+    margin-left:25%;
+    padding:1px 16px;
+}
+/*#aside {
+    width:30px;
+    background-color:#eeeeee;
+    height:600px;
+    width:300px;
+    float:right;
+    padding:5px;
+}*/
+/*#footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px;    
+}
+*/
+/*ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 25%;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+
+li a {
+    display: block;
+    color: #000;
+    padding: 8px 0 8px 16px;
+    text-decoration: none;
+}
+
+li a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}*/
+
+/*div#headerBlock {
+    background-color:black;
+    color:white;
+}
+table#headerTable {
+    width: 100%;
+}
+td#header {
+    text-align: left;
+}
+td#greeting {
+    text-align: center;
+}
+td#navigator {
+  text-align: right;
+}
+a#header {
+  text-decoration: none;
+  white-space: nowrap;
+  color: white;
+}
+
+a#navigator {
+  text-align:right;
+  text-decoration: none;
+  white-space: nowrap;
+  color: white;
+}
+a#navigator:hover {
+  color: red;
+}
+.modalDialog {
+	position: fixed;
+	font-family: Arial, Helvetica, sans-serif;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+	z-index: 99999;
+	opacity:0;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+}
+
+.modalDialog:target {
+	opacity:1;
+	pointer-events: auto;
+}
+
+.modalDialog > div {
+	width: 400px;
+	position: relative;
+	margin: 10% auto;
+	padding: 5px 20px 13px 20px;
+	border-radius: 10px;
+	background: #fff;
+	background: -moz-linear-gradient(#fff, #999);
+	background: -webkit-linear-gradient(#fff, #999);
+	background: -o-linear-gradient(#fff, #999);
+}
+
+.no-deco { 
+    text-decoration:none;
+    color: inherit; 
+}
+*/
+/*#header {
+    background-color:black;
+    color:white;
+    text-align:left;
+    padding:5px;
+}*/
+/*#nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:600px;
+    width:300px;
+    float:left;
+    padding:5px;        
+}*/
+/*#section {
+    width:600px;
+    height:600px;
+    float:left;
+    padding:10px;
+    margin-left:25%;
+    padding:1px 16px;
+}*/
+/*#aside {
+    width:30px;
+    background-color:#eeeeee;
+    height:600px;
+    width:300px;
+    float:right;
+    padding:5px;
+}*/
+/*#footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px;    
+}
+*/
+/*ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 25%;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+
+li a {
+    display: block;
+    color: #000;
+    padding: 8px 0 8px 16px;
+    text-decoration: none;
+}
+
+li a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}*/
+
