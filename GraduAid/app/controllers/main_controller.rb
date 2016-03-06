@@ -26,13 +26,22 @@ class MainController < ApplicationController
       @tracks = Track.all
     end
     @gen_req = Track.find_by(name: 'General Requirement')
+    url = "http://explorecourses.stanford.edu/?view=xml-20140630&academicYear=20152016"
+    doc = Nokogiri::HTML(open(url))
+    dept_set = doc.xpath("//department")
+    @dept_list = []
+    dept_set.each do |dept|
+        @dept_list << dept['name']
+    end
+    @dept_list.sort!
+  
   end
 
   def track
     @user = User.find_by_id(session[:curr_id])
     if params[:track_id]==nil then
       if @user.track == nil then
-        @track = Track.all[0]
+        @track = Track.find_by(name: 'General Requirement')
       else
         @track = @user.track
       end
@@ -96,7 +105,7 @@ class MainController < ApplicationController
         end
         @category_unit[category.id] = total_unit
     end
-  end
+end
 
   def potential
     user = User.find_by(id: session[:curr_id])
@@ -151,9 +160,6 @@ class MainController < ApplicationController
   end
 
   def add_courses
-    url = "http://explorecourses.stanford.edu/?view=xml-20140630&academicYear=20152016"
-    doc = Nokogiri::HTML(open(url))
-    @dept_list = doc.xpath("//department")
   end
 
   def search_course
@@ -179,6 +185,7 @@ class MainController < ApplicationController
       return
     end
 
+    @return_url = params[:return_url]
     render :template => "/main/show_course", :layout => false
   end
 

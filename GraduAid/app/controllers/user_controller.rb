@@ -69,6 +69,14 @@ class UserController < ApplicationController
   def profile
     @user = User.find(session[:curr_id])
     @takens = Taken.where(user_id: @user.id)
+    url = "http://explorecourses.stanford.edu/?view=xml-20140630&academicYear=20152016"
+    doc = Nokogiri::HTML(open(url))
+    dept_set = doc.xpath("//department")
+    @dept_list = []
+    dept_set.each do |dept|
+        @dept_list << dept['name']
+    end
+    @dept_list.sort!
   end
 
   def post_photo

@@ -1,9 +1,9 @@
 <div>
     <table>
     <tr>
-    <td width="150" align="center"> Course Name</td>
-    <td width="100"> Grade </td>
-    <td> Unit </td>
+    <th width="150" > Course Name</th>
+    <th width="100"> Grade </th>
+    <th> Unit </th>
     </tr>
     <% @course_list.each do |course| %>
         <tr>
@@ -35,7 +35,7 @@
         </tr>
     <% end %>
     </table>
-    <%= button_tag "Submit!", class: "registerButton", onclick:"javascript:submitCourseData();" %>
+    <%= button_tag "Submit!", class: "btn btn-default", onclick:"javascript:submitCourseData();" %>
 </div>
 
 <script type="text/javascript">
@@ -57,6 +57,6 @@ function submitCourseData() {
     xhttp.send(JSON.stringify(data));
 
     if(xhttp.responseText == "success")
-        document.location.href = "/user/profile";
+        document.location.href = '<%=@return_url%>';
 }
 </script>

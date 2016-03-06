@@ -33,6 +33,7 @@
     <div class="row rowfill">
         <div class="col-sm-3 col-md-4 sidebar" style="background-color:white; width:30%; height:100%;">
             <%=image_tag @user.profile_file_path, :style => "margin-top:20px; margin-bottom:20px; width:200px; height:200px;", :class => "img-rounded", :alt=>"Profile Image", 'data-turbolinks-track' => true %>
+            <br>
             <button class="btn btn-default btn-xs" id="import" onclick="javascript:changeProfile();">Change Profile</button>
             <%= form_tag("/user/post_photo", :method => "post", :multipart => true, :id => "profile_form") do %>
                 <%= file_field_tag :photo, :style => "display:none", :id => "browser" %>
@@ -63,12 +64,6 @@
         <div class="col-sm-7 col-md-8 sidebar" style="width:70%; height:100%;">
             <div class="col-sm-10 col-md-12" style="width:100%; background-color:white; height:100%">
                 <span style="font: 30px; font-weight: bold; margin-top:20px">Add Courses</span>
-                
-
-                  
-                <!-- 원래 이 버튼으로 add courses page로 갔었어  -->
-                <!-- <span><a href="/main/add_courses"><button type="button" class="btn btn btn-default btn-md"><span class="glyphicon glyphicon-plus"></span></button></a></span> 
-                -->
 
                 <!-- START OF MODAL WINDOW CODE: 이게 우리가 할라는 modal 써서 하는 프레임 -->
                 <!-- Trigger the modal with a button -->
@@ -83,32 +78,31 @@
                           <h4>Add Courses <span class="glyphicon glyphicon-education"></span></h4>
                         </div>
                         <div class="modal-body" style="padding:40px 50px;">
-                          <form role="form">
-                            <div class="form-group">
+                        <%= form_tag "/main/search_course", :method => "post", :id => "courses" do %>
+                          <div class="form-group">
                               <label for="psw"><span class="glyphicon glyphicon-book"></span> Courses</label>
                               <div class="input-group">
                                   <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Action <span class="caret"></span></button>
+                                    <%= hidden_field_tag :course_dept %>
+                                    <button id = "show_course_dept" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Course Dept <span class="caret"></span></button>
                                     <ul class="dropdown-menu" role="menu">
-                                      <li><a href="#">Action</a></li>
-                                      <li><a href="#">Another action</a></li>
-                                      <li><a href="#">Something else here</a></li>
-                                      <li><a href="#">Something else here</a></li>
-                                      <li><a href="#">Something else here</a></li>
-                                      <li><a href="#">Something else here</a></li>
-                                      <li><a href="#">Something else here</a></li>
-                                      <li><a href="#">Something else here</a></li>
+                                    <% @dept_list.each do |dept| %>
+                                        <li> <a href="javascript:setDept('<%=dept%>');"><%=dept%></a></li>
+                                    <% end %>
                                     </ul>
                                   </div><!-- /btn-group -->
-                                  <input type="text" class="form-control" placeholder="List course numbers..." aria-label="...">
+                                  <%= text_field_tag :course_num, nil, :class => "form-control", :placeholder => "List course number..." %> 
                                   <div class="input-group-btn">
                                     <button class="btn btn-default" type="button">Search</button>
                                   </div>
                                 </div><!-- /input-group -->
                             </div>
+                            <% hidden_field_tag :return_url, :value => '/user/profile' %>
                             <div>When user clicks "Search", course list should show here (above submit button)</div>
                             <button type="submit" class="btn btn-success btn-block">Submit</button>
-                          </form>
+                          <% end %>
+                          <br>
+                          <div id="course_list"></div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left" data-container="body" data-toggle="popover" data-placement="right" data-content="To search for multiple courses at once, choose the class department from the dropdown menu and comma separate the course numbers. Ex) Search Bar Input: 106B, 110, 229"><span class="glyphicon glyphicon-info-sign"></span></button>
@@ -184,6 +178,11 @@ $("#import").click(function() {
         $('#profile_form').submit();
     });
 });
+
+function setDept(name) {
+    document.getElementById('course_dept').value = name;
+    document.getElementById('show_course_dept').innerHTML = name;
+}
 
 function confirmDeleteAccount() {
     var r = confirm("Delete the account?");
@@ -279,6 +278,20 @@ function submitTakenMod(taken_id) {
         cols[6].style.display = "";       
     }
 }
+
+$(document).ready(function() {
+  $("#courses").submit(function(event){
+    event.preventDefault();
+    $.ajax({
+            url: $(this).attr("action"),
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function(data) {
+                $("#course_list").html(data);
+            }
+    });  
+   });
+});
 
 $(document).ready(function(){
     $('[data-toggle="popover"]').popover();   
