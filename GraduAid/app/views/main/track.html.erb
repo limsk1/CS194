@@ -5,10 +5,10 @@ function showPotential(requirement_id) {
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/main/potential?requirement_id=" + requirement_id, false);
     xhttp.send();
+    console.log(requirement_id);
     parent.document.getElementById('potential display').innerHTML = xhttp.responseText;
 }
 </script>
-
 <div class="container">
   <h2>
     <% if @track==nil then %>

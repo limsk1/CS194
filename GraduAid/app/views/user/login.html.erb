@@ -17,21 +17,33 @@
   </style>
 </head>
 <body>
+<script>
+setTimeout(function() {
+  $('#logout-notification').fadeOut('fast');
+}, 2000);
+</script>
+  <div style="text-align: center">
+  <% if flash[:notice] %>
+   <span id="logout-notification" class="alert" style="color: #5B7E7C; text-align: center; margin: auto;"><%= flash[:notice] %></span>
+
+  <% end %>
+</div>
 
 <%= form_tag("/user/post_login", :method => "post") do %>
 <div class="col-sm-1">
 </div>
 <div class="col-sm-5">
-      <h3>Let's graduate.</h3>
-      <p>Explore different majors and tracks</p>
-      <p>Track current progress</p>
-      <p>Discover potential classes</p>
-    </div>
 
+      <h3>Let's graduate.</h3>
+      <br>
+      <p><%=image_tag 'explore.png', :style => "margin-top:5px; margin-bottom:5px; width:40px; height:40px;", :class => "img-rounded", :alt=>"intro1", 'data-turbolinks-track' => true %> Explore different majors and tracks</p>
+      <p><%=image_tag 'track.png', :style => "margin-top:5px; margin-bottom:5px; width:40px; height:40px;", :class => "img-rounded", :alt=>"intro2", 'data-turbolinks-track' => true %> Track current progress</p>
+      <p><%=image_tag 'discover.png', :style => "margin-top:5px; margin-bottom:5px; width:40px; height:40px;", :class => "img-rounded", :alt=>"intro2", 'data-turbolinks-track' => true %> Discover potential classes</p>
+</div>
 <div class="col-sm-4">
   <h3>Log In</h3>
-  <% if flash[:notice] %>
-  <div class="alert" style="background-color: white; padding-left: 0px; padding-top: 0px; padding-bottom: 0px; width:300px;"><%= flash[:notice] %></div>
+  <% if flash[:alert] %>
+   <div class="alert" style="color: red; width:300px; margin: 0px; margin-left: 14px; padding: 0px;"><%= flash[:alert] %></div>
   <% end %>
 
   <table class="center_align">
@@ -50,12 +62,13 @@
       </td>
       <td>
 <!--       <input id="password" name="password" placeholder="Your password" style="width: 300px">
- -->        <%= password_field_tag('password', nil, class: 'form-control') %>
+ -->
+         <%= password_field_tag('password', nil, class: 'form-control') %>
       </td>
     </tr>
   </table>
   <br>
-  <%= submit_tag "Log in", class: "btn" %>
+  <%= submit_tag "Log in",class: "btn btn-default btn-md", style: "color: white; background: #5B7E7C;"%>
   <% end %>
 <div style="line-height:50%;">
     <br>
@@ -65,9 +78,8 @@ Want to be a new member? Register now!<br>
 <div style="line-height:50%;">
     <br>
 </div>
-<%= link_to "/user/register" do%><button class="btn">Register</button><% end %>
+<%= link_to "/user/register" do%><button type="button" class="btn btn-default btn-md" style= "color: white; background: #5B7E7C;">Register</button><% end %>
 
 </div>
-
 </body>
 </html>

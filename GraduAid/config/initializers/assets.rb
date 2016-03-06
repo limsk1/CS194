@@ -11,3 +11,5 @@ Rails.application.config.assets.version = '1.0'
 
 #>>>>>>> 42664ae27976f066eba09666a4192d70e827c547
 Rails.application.config.assets.precompile += %w( user.css )
+# config.assets.precompile << /\.(?:svg|eot|woff|ttf)\z/
+
