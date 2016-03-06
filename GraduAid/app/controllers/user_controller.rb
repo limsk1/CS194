@@ -95,6 +95,6 @@ class UserController < ApplicationController
     user.destroy
     Taken.where(user_id: user.id).destroy_all
     reset_session
-    redirect_to "/", :notice => "Succssfully delete the account."
+    redirect_to "/", :notice => "Succssfully deleted the account."
   end
 end
