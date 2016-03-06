@@ -17,6 +17,18 @@
   </style>
 </head>
 <body>
+<script>
+setTimeout(function() {
+  $('#logout-notification').fadeOut('fast');
+}, 2000);
+</script>
+  <div style="text-align: center">
+  <% if flash[:notice] %>
+   <span id="logout-notification" class="alert" style="color: #5B7E7C; text-align: center; margin: auto;"><%= flash[:notice] %></span>
+
+  <% end %>
+</div>
+
 <%= form_tag("/user/post_login", :method => "post") do %>
 <div class="col-sm-1">
 </div>
@@ -27,12 +39,11 @@
       <p><%=image_tag 'explore.png', :style => "margin-top:5px; margin-bottom:5px; width:40px; height:40px;", :class => "img-rounded", :alt=>"intro1", 'data-turbolinks-track' => true %> Explore different majors and tracks</p>
       <p><%=image_tag 'track.png', :style => "margin-top:5px; margin-bottom:5px; width:40px; height:40px;", :class => "img-rounded", :alt=>"intro2", 'data-turbolinks-track' => true %> Track current progress</p>
       <p><%=image_tag 'discover.png', :style => "margin-top:5px; margin-bottom:5px; width:40px; height:40px;", :class => "img-rounded", :alt=>"intro2", 'data-turbolinks-track' => true %> Discover potential classes</p>
-    </div>
-
+</div>
 <div class="col-sm-4">
   <h3>Log In</h3>
-  <% if flash[:notice] %>
-   <div class="alert" style="color: red; width:300px; margin: 0px; margin-left: 14px; padding: 0px;"><%= flash[:notice] %></div>
+  <% if flash[:alert] %>
+   <div class="alert" style="color: red; width:300px; margin: 0px; margin-left: 14px; padding: 0px;"><%= flash[:alert] %></div>
   <% end %>
 
   <table class="center_align">
