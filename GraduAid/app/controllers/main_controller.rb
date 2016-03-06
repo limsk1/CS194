@@ -1,6 +1,7 @@
 require 'uri'
 require 'nokogiri'
 require 'open-uri'
+require 'set'
 
 class MainController < ApplicationController
   before_filter :check_login
@@ -222,16 +223,61 @@ end
   end
 
   def course_data
-    @course = Course.find_by_id(params[:id])
-    url = "http://explorecourses.stanford.edu/search?view=xml-20140630&filter-coursestatus-Active=on&page=0&catalog=&q=" + URI.escape(@course.course_name) + "&academicYear=20152016"
+    course = Course.find_by_id(params[:id])
+    url = "http://explorecourses.stanford.edu/search?view=xml-20140630&filter-coursestatus-Active=on&page=0&catalog=&q=" + URI.escape(course.course_name) + "&academicYear=20152016"
     doc = Nokogiri::HTML(open(url))
 
     doc.xpath("//course").each do |xml_obj|
-        if @course.course_name == xml_obj.css('subject')[0].text + xml_obj.css('code')[0].text then
+        if course.course_name == xml_obj.css('subject')[0].text + xml_obj.css('code')[0].text then
             @course_xml_obj = xml_obj
             break
         end
     end
+
+    @course_title = @course_xml_obj.xpath("//course/subject")[0].text + " " + @course_xml_obj.xpath("//course/code")[0].text
+    
+    @course_subtitle = @course_xml_obj.xpath("//course/title")[0].text
+    
+    instructor_set = Set.new
+    instructor_array = Array.new
+    @course_xml_obj.xpath("//instructor").each do |inst|
+      inst_alias = inst.xpath(".//name")[0].text + "(" + inst.xpath(".//role")[0].text + ")"
+      if not instructor_set.include?(inst_alias) then
+        instructor_set.add(inst_alias)
+        instructor_array << inst_alias
+      end
+    end
+    @course_instructor = instructor_array.join(', ')
+
+    if not (course.open_aut or course.open_win or course.open_spr) then
+      @course_quarters = "Not given this year"
+    else
+      course_open_at = Array.new
+      if course.open_aut then
+        course_open_at << "Aut"
+      end
+
+      if course.open_win then
+        course_open_at << "Win"
+      end
+
+      if course.open_spr then
+        course_open_at << "Spr"
+      end
+
+      @course_quarters = course_open_at.join(', ')
+    end
+
+    if course.min_unit == course.max_unit then
+      @course_units = course.max_unit.to_s
+    else
+      @course_units = course.min_unit.to_s + "-" + course.max_unit.to_s
+    end
+
+    @course_grading = @course_xml_obj.xpath("//course/grading")[0].text
+
+    @course_description = @course_xml_obj.xpath("//course/description")[0].text
+
 
   end
 end

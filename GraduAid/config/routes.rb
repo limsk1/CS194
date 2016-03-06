@@ -8,8 +8,6 @@ Rails.application.routes.draw do
 
   get 'main/track'
 
-  get 'main/add_courses'
-
   post 'main/explore_courses'
 
   get 'main/course_data/:id', to: 'main#course_data'

@@ -1,3 +1,61 @@
+<style>
+    body {
+        background-color: #F5EFDF;
+    }
+    .class-container {
+        border-radius: 25px;
+        border: 2px solid white;
+        padding: 20px; 
+        margin: auto;
+        margin-top: 50px;
+        width: 60%;
+    }
+    .class-title {
+        font-size: 30px;
+        font-weight: bold;
+    }
+    .class-subtitle {
+        font-size: 25px;
+        font-style: italic;
+    }
+    .class-instructors {
+        font-size: 20px;
+        font-style: italic;
+    }
+    .class-quarters {
+        margin-top: 10px;
+        color: gray;
+    }
+    .class-units {
+        color: gray;
+    }
+    .class-grading {
+        color: gray;
+    }
+    .class-description {
+        margin-top: 30px;
+        color: black;
+    }
+    .class-prerequisite-container {
+        color: black;
+        margin-top: 30px;
+    }
+    .class-prerequisite-title {
+        color: black;
+        font-weight: bold;
+    }
+    .class-prerequisite-content {
+        color: gray;
+    }
+</style>
 <div>
-<%=@course_xml_obj.to_s%>
+    <div class="class-container">
+        <div class="class-title"><%=@course_title%></div>
+        <div class="class-subtitle"><%=@course_subtitle%></div>
+        <div class="class-instructors"><%=@course_instructor%></div>
+        <div class="class-quarters"><%=@course_quarters%></div>
+        <div class="class-units"><%=@course_units%> Units</div>
+        <div class="class-grading"><%=@course_grading%></div>
+        <div class="class-description"><%=@course_description%></div>
+    </div>
 </div>
