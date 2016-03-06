@@ -188,6 +188,16 @@ a#navigator:hover {
     margin-left:25%;
     padding:1px 16px;
 }
+.newuser-container {
+    text-align: center;
+    border: 3px solid white;
+    width: 64%;
+    height: 36px;
+    padding-top: 5px;
+    margin: auto;
+    margin-bottom: 10px;
+    border-radius: 2px;
+}
 /*#aside {
     width:30px;
     background-color:#eeeeee;

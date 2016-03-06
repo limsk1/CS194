@@ -18,7 +18,7 @@ class UserController < ApplicationController
       session[:curr_id] = @user.id 
       redirect_to "/main/index"
     else
-      redirect_to "/", :notice => "Wrong username or password."
+      redirect_to "/", :alert => "Wrong username or password."
     end
   end
 
@@ -38,7 +38,7 @@ class UserController < ApplicationController
     if @user.valid? and @user.email_valid?(@user.email) and flag then
       @user.save!
       session[:curr_id] = @user.id
-      redirect_to "/main/index", :notice => "Welcome! Set your track and add courses in here!"
+      redirect_to "/main/index", :notice => "Welcome! Set your track and add courses in here!", :alert => "Welcome! Go to your profile to update your courses!"
     else
       if not @user.email_valid?(@user.email) then
         @user.errors.add(:email, "is not Stanford email")

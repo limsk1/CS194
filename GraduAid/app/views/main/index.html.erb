@@ -2,6 +2,9 @@
 function renderTrackPage(id) {
     document.getElementById('middle').src = 'track?track_id='+ id;
 }
+setTimeout(function() {
+  $('#register-notification').fadeOut('fast');
+}, 5000);
 </script>
 
 <style>
@@ -9,6 +12,12 @@ body {
     background-color: #F5EFDF;
 }
 </style>
+	<% if flash[:alert] %>
+		<div id="register-notification" class="newuser-container">
+			<span class="alert" style="color: red; text-align: center; margin: auto;"><%= flash[:alert] %></span>
+		</div>
+  <% end %>
+</div>
 
 <div class="container-fluid" style="background-color:#F5EFDF">
 	<div class="row">
