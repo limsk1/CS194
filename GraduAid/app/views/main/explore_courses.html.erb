@@ -1,13 +1,53 @@
-Please click on the course you would like to know more!
-<div>
-<br>
-<% if @course_list.length == 0 then %>
-No results found!
-<% else %>
-<% @course_list.each do |course_obj| %>
-<% course_name = course_obj.css('subject')[0].text + course_obj.css('code')[0].text %>
-<% course_model_obj = Course.find_by(course_name: course_name) %>
-<a href = "/main/course_data/<%=course_model_obj.id %>"><span><%= course_name %> </span></a><br>
-<% end %>
-<% end %>
+<style>
+	body {
+		background-color: #F5EFDF;
+	}
+	.search-container {
+		border-radius: 25px;
+	    /*border: 2px solid white;*/
+	    padding: 20px; 
+	    margin: auto;
+	    width: 60%;
+	}
+	.search-title {
+		margin-left: 30px;
+		font-size: 20px;
+	}
+	.search-class-container {
+		border-radius: 15px;
+		background-color: white;;
+		padding: 10px;
+		margin: 10px;
+	}
+	.search-class-title {
+		font-weight: bold;
+		font-size: 17px;
+	}
+	.search-class-subtitle {
+		font-style: italic;
+	}
+</style>
+<div class="search-container">
+	<div class="search-title">
+		Please click on the course you would like to know more!
+	</div>
+	<div>
+	<br>
+	<% if @course_list.length == 0 then %>
+	No results found!
+	<% else %>
+	<% @course_list.each do |course_obj| %>
+	<div class="search-class-container">
+		<% course_name = course_obj.css('subject')[0].text + course_obj.css('code')[0].text %>
+		<% course_model_obj = Course.find_by(course_name: course_name) %>
+		<div class="search-class-title">
+			<a href = "/main/course_data/<%=course_model_obj.id %>"><span><%= course_name %> </span></a>
+			<span class="search-class-subtitle"><%= course_obj.css('title').text%></span>
+		</div>
+		<div><%= course_obj.css('description')[0].text %></div>
+	</div>
+	<% end %>
+	<% end %>
+		
+	</div>
 </div>
