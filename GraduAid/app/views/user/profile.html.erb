@@ -29,6 +29,9 @@
 <div class="alert" style="background-color: white; width:500px; border-left-width: 30px; margin-left: 45px;"><%= flash[:notice] %></div>
 <% end %>
 
+<%= form_tag("/user/delete_account", :method=>"post", :id=>"delete_form") do %>
+<% end %>
+
 <div class="container fill" style="margin-top:10px; margin-bottom:10px;">
     <div class="row rowfill">
         <div class="col-sm-3 col-md-4 sidebar" style="background-color:white; width:30%; height:100%;">
@@ -187,13 +190,8 @@ function setDept(name) {
 function confirmDeleteAccount() {
     var r = confirm("Delete the account?");
     if (r == true) {
-        $.ajax({
-            type: "POST",
-            url: "/user/delete_account",
-            success: function(data, textStatus) {
-                window.location = '/';
-            }
-        });
+        var form = document.getElementById('delete_form');
+        form.submit();
     } else {
         return;
     }

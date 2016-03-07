@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20160229095556) do
     t.boolean  "open_aut"
     t.boolean  "open_win"
     t.boolean  "open_spr"
+    t.integer  "views",       default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

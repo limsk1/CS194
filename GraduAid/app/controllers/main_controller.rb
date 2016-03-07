@@ -14,8 +14,7 @@ class MainController < ApplicationController
     end
   end
 
-  def searchClass
-			
+  def searchClass			
   end
 
   def index
@@ -135,13 +134,19 @@ end
         case quarter
         when "Aut"
           courses = Course.where('id in (:id) and open_aut = (:true)', :id => fulfillments_id, :true => true)
-                            .order('(select count(*) from "fulfillments" where fulfillments.course_id == courses.id)')
+                            .order('((select count(*) from "fulfillments" where fulfillments.course_id == courses.id)
+                                    + (select count(*) from "takens" where takens.course_id == courses.id)
+                                    + courses.views) DESC ').take(10)
         when "Win"
           courses = Course.where('id in (:id) and open_win = (:true)', :id => fulfillments_id, :true => true)
-                            .order('(select count(*) from "fulfillments" where fulfillments.course_id == courses.id)')
+                            .order('((select count(*) from "fulfillments" where fulfillments.course_id == courses.id)
+                                    + (select count(*) from "takens" where takens.course_id == courses.id)
+                                    + courses.views) DESC').take(10)
         when "Spr"
           courses = Course.where('id in (:id) and open_spr = (:true)', :id => fulfillments_id, :true => true)
-                            .order('(select count(*) from "fulfillments" where fulfillments.course_id == courses.id)')
+                            .order('((select count(*) from "fulfillments" where fulfillments.course_id == courses.id)
+                                    + (select count(*) from "takens" where takens.course_id == courses.id)
+                                    + courses.views) DESC').take(10)
         end
 
         recommend_done = false
@@ -224,6 +229,8 @@ end
 
   def course_data
     course = Course.find_by_id(params[:id])
+    course.views += 1
+    course.save!
     url = "http://explorecourses.stanford.edu/search?view=xml-20140630&filter-coursestatus-Active=on&page=0&catalog=&q=" + URI.escape(course.course_name) + "&academicYear=20152016"
     doc = Nokogiri::HTML(open(url))
 
@@ -277,7 +284,5 @@ end
     @course_grading = @course_xml_obj.xpath("//course/grading")[0].text
 
     @course_description = @course_xml_obj.xpath("//course/description")[0].text
-
-
   end
 end
