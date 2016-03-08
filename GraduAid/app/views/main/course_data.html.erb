@@ -15,25 +15,28 @@
         font-weight: bold;
     }
     .class-subtitle {
-        font-size: 25px;
-        font-style: italic;
+        font-size: 30px;
+        /*font-style: italic;*/
     }
     .class-instructors {
-        font-size: 20px;
+        font-size: 15px;
         font-style: italic;
     }
     .class-quarters {
         margin-top: 10px;
         color: gray;
+        font-weight: bold;
     }
     .class-units {
         color: gray;
+        font-weight: bold;
     }
     .class-grading {
         color: gray;
+        font-weight: bold;
     }
     .class-description {
-        margin-top: 30px;
+        margin-top: 10px;
         color: black;
     }
     .class-prerequisite-container {
@@ -50,8 +53,8 @@
 </style>
 <div>
     <div class="class-container">
-        <div class="class-title"><%=@course_title%></div>
-        <div class="class-subtitle"><%=@course_subtitle%></div>
+        <span class="class-title" style="margin-right: 10px;"><%=@course_title%></span>
+        <span class="class-subtitle"><%=@course_subtitle%></span>
         <div class="class-instructors"><%=@course_instructor%></div>
         <div class="class-quarters"><%=@course_quarters%></div>
         <div class="class-units"><%=@course_units%> Units</div>
