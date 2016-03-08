@@ -61,8 +61,8 @@
                         <button class="btn btn-default btn-xs" onclick="javascript:submitNewTrack()">Submit</button>
                     </div>
                 </li>
-                <li><button class="btn btn-default btn-xs" onclick="javascript:confirmDeleteAccount();">Delete Account</button></li>
             </ul>
+            <div class="delete-btn"><button class="btn btn-default btn-xs" onclick="javascript:confirmDeleteAccount();">Delete Account</button></div>
         </div>
         <div class="col-sm-7 col-md-8 sidebar" style="width:70%; height:100%;">
             <div class="col-sm-10 col-md-12" style="width:100%; background-color:white; height:100%">
@@ -129,9 +129,9 @@
         	        <% @takens.each do |taken| %>
                     <tr id="<%=taken.id%>" class="0">
                         <% course = Course.find_by(id: taken.course_id) %>
-                        <td><%= course.course_name %></td>
-                        <td> <%if taken.grade then %> <%=taken.grade%> <%else%> No grade info <%end%> </td>
-                        <td style="display:none;"><select class="grade">
+                        <td class="profileTable"><%= course.course_name %></td>
+                        <td class="profileTable"> <%if taken.grade then %> <%=taken.grade%> <%else%> No grade info <%end%> </td>
+                        <td class="profileTable" style="display:none;"><select class="grade">
                             <option value=""></option>
                             <option value="A+" <% if taken.grade == "A+" then%> selected <% end %>>A+</option>
                             <option value="A" <% if taken.grade == "A" then%> selected <% end %>>A</option>
@@ -147,15 +147,15 @@
                             <option value="D-" <% if taken.grade == "D-" then%> selected <% end %>>D-</option>
                             <option value="F" <% if taken.grade == "F" then%> selected <% end %>>F</option>
                         </select></td>
-                        <td> <%=taken.unit%> </td>
-                        <td style="display:none;"><select class="unit">
+                        <td class="profileTable"> <%=taken.unit%> </td>
+                        <td class="profileTable" style="display:none;"><select class="unit">
                             <% for i in course.max_unit.downto(course.min_unit) do %>
                             <option value="<%=i.to_s%>" <% if taken.unit == i then%> selected <% end %>><%=i.to_s%></option>
                             <% end %>
                         </select></td>
                         <td> <button class="btn btn-default btn-xs" onclick="javascript:modifyTaken(<%=taken.id%>);"><span class="glyphicon glyphicon-edit"></span></button></td>
-                        <td> <button class="btn btn-default btn-xs" onclick="javascript:removeTaken(<%=taken.id%>);"><span class="glyphicon glyphicon-remove"></span></button></td>
-                        <td style="display:none;"><button class="btn btn-default btn-xs" onclick="javascript:submitTakenMod(<%=taken.id%>);">Submit</button></td>
+                        <td class="profileTable"> <button class="btn btn-default btn-xs" onclick="javascript:removeTaken(<%=taken.id%>);"><span class="glyphicon glyphicon-remove"></span></button></td>
+                        <td class="profileTable" style="display:none;"><button class="btn btn-default btn-xs" onclick="javascript:submitTakenMod(<%=taken.id%>);">Submit</button></td>
                     </tr>
                     <% end %>
                     </table>
