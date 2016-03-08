@@ -41,7 +41,7 @@
             <%= form_tag("/user/post_photo", :method => "post", :multipart => true, :id => "profile_form") do %>
                 <%= file_field_tag :photo, :style => "display:none", :id => "browser" %>
             <% end %>
-            <h4>Basic Information</h4>
+            <h3>Basic Information</h3>
             <ul class="profile-list">
                 <li><b>First Name:</b> <%=@user.first_name%></li>
                 <li><b>Last Name:</b> <%=@user.last_name%></li>
