@@ -22,7 +22,7 @@
 <body>
 
 <style type="text/css">
-   body { background: #EEEEEE !important; }
+   body { background: #F5EFDF !important; }
 </style>
 
 <% if flash[:notice] then %>
@@ -42,7 +42,7 @@
                 <%= file_field_tag :photo, :style => "display:none", :id => "browser" %>
             <% end %>
             <h4>Basic Information</h4>
-            <ul>
+            <ul class="profile-list">
                 <li><b>First Name:</b> <%=@user.first_name%></li>
                 <li><b>Last Name:</b> <%=@user.last_name%></li>
                 <li><b>Email:</b> <%=@user.email%></li>
