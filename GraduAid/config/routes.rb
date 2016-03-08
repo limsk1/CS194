@@ -20,6 +20,10 @@ Rails.application.routes.draw do
 
   post 'main/potential'
 
+  post 'user/like'
+
+  post 'user/dislike'
+
   get 'user/login'
 
   post 'user/post_login'

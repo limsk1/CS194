@@ -100,7 +100,7 @@
                                   </div>
                                 </div><!-- /input-group -->
                             </div>
-                            <% hidden_field_tag :return_url, :value => '/user/profile' %>
+                            <% hidden_field_tag :return_url, '/user/profile' %>
                             <div>When user clicks "Search", course list should show here (above submit button)</div>
                             <button type="submit" class="btn btn-success btn-block">Submit</button>
                           <% end %>
@@ -129,6 +129,7 @@
         	        <% @takens.each do |taken| %>
                     <tr id="<%=taken.id%>" class="0">
                         <% course = Course.find_by(id: taken.course_id) %>
+                        <% like = Like.find_by(user_id: taken.user_id, course_id: course.id) %>
                         <td><%= course.course_name %></td>
                         <td> <%if taken.grade then %> <%=taken.grade%> <%else%> No grade info <%end%> </td>
                         <td style="display:none;"><select class="grade">
@@ -156,6 +157,36 @@
                         <td> <button class="btn btn-default btn-xs" onclick="javascript:modifyTaken(<%=taken.id%>);"><span class="glyphicon glyphicon-edit"></span></button></td>
                         <td> <button class="btn btn-default btn-xs" onclick="javascript:removeTaken(<%=taken.id%>);"><span class="glyphicon glyphicon-remove"></span></button></td>
                         <td style="display:none;"><button class="btn btn-default btn-xs" onclick="javascript:submitTakenMod(<%=taken.id%>);">Submit</button></td>
+                        <td> 
+                        <% if like and like.up then %>
+                        <span>
+                        <a href="javascript:sendLike(0, '<%=course.id%>');" style='text-decoration: none;' title="Like">
+                            <%=image_tag 'like.png', :id => "like_" + course.id.to_s, :style => "width:25px; height:25px;", :class => "img-rounded"%>
+                        </a>
+                        </span>
+                        <% else %>
+                        <span onmouseover="javascript:noFaint('<%="like_" + course.id.to_s%>');" onmouseout="javascript:faint('<%="like_" + course.id.to_s%>');">
+                        <a href="javascript:sendLike(1, '<%=course.id%>');" style='text-decoration: none;' title="Like">
+                            <%=image_tag 'like.png', :id => "like_" + course.id.to_s, :style => "width:25px; height:25px; opacity:.5;", :class => "img-rounded"%>
+                        </a>
+                        </span>
+                        <% end %>
+                        </td>
+                        <td>
+                        <% if like and not like.up then %>
+                        <span>
+                        <a href="javascript:sendDislike(0, '<%=course.id%>');" style='text-decoration: none;' title="Dislike">
+                            <%=image_tag 'dislike.png', :id => "dislike_" + course.id.to_s, :style => "width:25px; height:25px;", :class => "img-rounded"%>
+                        </a>
+                        </span>
+                        <% else %>
+                        <span onmouseover="javascript:noFaint('<%="dislike_" + course.id.to_s%>');" onmouseout="javascript:faint('<%="dislike_" + course.id.to_s%>');">
+                        <a href="javascript:sendDislike(1, '<%=course.id%>');" style='text-decoration: none;' title="Dislike">
+                            <%=image_tag 'dislike.png', :id => "dislike_" + course.id.to_s, :style => "width:25px; height:25px; opacity:.5;", :class => "img-rounded"%>
+                        </a>
+                        </span>
+                        <% end %>
+                        </td>
                     </tr>
                     <% end %>
                     </table>
@@ -164,6 +195,14 @@
             </div>
     </div>
 </div>
+
+<%= form_tag "/user/like", :method=>"post", :id=>"like_form" do %>
+    <% hidden_field_tag :course_id %>
+<% end %>
+
+<%= form_tag "/user/dislike", :method=>"post", :id=>"dislike_form" do %>
+    <% hidden_field_tag :course_dis_id %>
+<% end %>
 
 <script type='text/javascript'>
 $(document).ready(function(){
@@ -295,6 +334,41 @@ $(document).ready(function(){
     $('[data-toggle="popover"]').popover();   
 });
 
+function noFaint(id) {
+    document.getElementById(id).style.opacity = '1.0';
+}
+
+function faint(id) {
+    document.getElementById(id).style.opacity = '.5';
+}
+
+function sendLike(en, course_id) {
+    var form = document.getElementById('like_form');
+    document.getElementById('course_id').value = course_id;
+    if(en) {
+        var input = document.createElement("input");
+        input.name = "enable";
+        input.type = "hidden";
+        input.id = "enable";
+        input.value = "1";
+        form.appendChild(input);
+    }
+    form.submit();
+}
+
+function sendDislike(en, course_id) {
+    var form = document.getElementById('dislike_form');
+    document.getElementById('course_dis_id').value = course_id;
+    if(en) {
+        var input = document.createElement("input");
+        input.name = "enable";
+        input.type = "hidden";
+        input.id = "enable";
+        input.value = "1";
+        form.appendChild(input);
+    }
+    form.submit();
+}
 </script>
 
 

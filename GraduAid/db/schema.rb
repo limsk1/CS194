@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229095556) do
+ActiveRecord::Schema.define(version: 20160308030153) do
 
   create_table "categories", force: true do |t|
     t.integer  "track_id"
@@ -46,6 +46,17 @@ ActiveRecord::Schema.define(version: 20160229095556) do
 
   add_index "fulfillments", ["course_id"], name: "index_fulfillments_on_course_id"
   add_index "fulfillments", ["requirement_id"], name: "index_fulfillments_on_requirement_id"
+
+  create_table "likes", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "course_id"
+    t.boolean  "up"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "likes", ["course_id"], name: "index_likes_on_course_id"
+  add_index "likes", ["user_id"], name: "index_likes_on_user_id"
 
   create_table "requirements", force: true do |t|
     t.integer  "category_id"

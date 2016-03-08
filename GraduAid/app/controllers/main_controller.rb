@@ -136,17 +136,23 @@ end
           courses = Course.where('id in (:id) and open_aut = (:true)', :id => fulfillments_id, :true => true)
                             .order('((select count(*) from "fulfillments" where fulfillments.course_id == courses.id)
                                     + (select count(*) from "takens" where takens.course_id == courses.id)
-                                    + courses.views) DESC ').take(10)
+                                    + courses.views
+                                    + 2 * (select count(*) from "likes" where likes.course_id == courses.id and likes.up == "t")
+                                    - 2 * (select count(*) from "likes" where likes.course_id == courses.id and likes.up == "f")) DESC ').take(10)
         when "Win"
           courses = Course.where('id in (:id) and open_win = (:true)', :id => fulfillments_id, :true => true)
                             .order('((select count(*) from "fulfillments" where fulfillments.course_id == courses.id)
                                     + (select count(*) from "takens" where takens.course_id == courses.id)
-                                    + courses.views) DESC').take(10)
+                                    + courses.views
+                                    + 2 * (select count(*) from "likes" where likes.course_id == courses.id and likes.up == "t")
+                                    - 2 * (select count(*) from "likes" where likes.course_id == courses.id and likes.up == "f")) DESC').take(10)
         when "Spr"
           courses = Course.where('id in (:id) and open_spr = (:true)', :id => fulfillments_id, :true => true)
                             .order('((select count(*) from "fulfillments" where fulfillments.course_id == courses.id)
                                     + (select count(*) from "takens" where takens.course_id == courses.id)
-                                    + courses.views) DESC').take(10)
+                                    + courses.views
+                                    + 2 * (select count(*) from "likes" where likes.course_id == courses.id and likes.up == "t")
+                                    - 2 * (select count(*) from "likes" where likes.course_id == courses.id and likes.up == "f")) DESC').take(10)
         end
 
         recommend_done = false
@@ -228,14 +234,14 @@ end
   end
 
   def course_data
-    course = Course.find_by_id(params[:id])
-    course.views += 1
-    course.save!
-    url = "http://explorecourses.stanford.edu/search?view=xml-20140630&filter-coursestatus-Active=on&page=0&catalog=&q=" + URI.escape(course.course_name) + "&academicYear=20152016"
+    @course = Course.find_by_id(params[:id])
+    @course.views += 1
+    @course.save!
+    url = "http://explorecourses.stanford.edu/search?view=xml-20140630&filter-coursestatus-Active=on&page=0&catalog=&q=" + URI.escape(@course.course_name) + "&academicYear=20152016"
     doc = Nokogiri::HTML(open(url))
 
     doc.xpath("//course").each do |xml_obj|
-        if course.course_name == xml_obj.css('subject')[0].text + xml_obj.css('code')[0].text then
+        if @course.course_name == xml_obj.css('subject')[0].text + xml_obj.css('code')[0].text then
             @course_xml_obj = xml_obj
             break
         end
@@ -256,33 +262,39 @@ end
     end
     @course_instructor = instructor_array.join(', ')
 
-    if not (course.open_aut or course.open_win or course.open_spr) then
+    if not (@course.open_aut or @course.open_win or @course.open_spr) then
       @course_quarters = "Not given this year"
     else
       course_open_at = Array.new
-      if course.open_aut then
+      if @course.open_aut then
         course_open_at << "Aut"
       end
 
-      if course.open_win then
+      if @course.open_win then
         course_open_at << "Win"
       end
 
-      if course.open_spr then
+      if @course.open_spr then
         course_open_at << "Spr"
       end
 
       @course_quarters = course_open_at.join(', ')
     end
 
-    if course.min_unit == course.max_unit then
-      @course_units = course.max_unit.to_s
+    if @course.min_unit == @course.max_unit then
+      @course_units = @course.max_unit.to_s
     else
-      @course_units = course.min_unit.to_s + "-" + course.max_unit.to_s
+      @course_units = @course.min_unit.to_s + "-" + @course.max_unit.to_s
     end
 
     @course_grading = @course_xml_obj.xpath("//course/grading")[0].text
 
     @course_description = @course_xml_obj.xpath("//course/description")[0].text
+
+
+    @like = Like.find_by(user_id:session[:curr_id], course_id:params[:id])
+
+    @like_count = Like.where(course_id:params[:id], up:true).count
+    @dislike_count = Like.where(course_id:params[:id], up:false).count
   end
 end

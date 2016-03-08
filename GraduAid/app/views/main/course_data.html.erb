@@ -50,12 +50,90 @@
 </style>
 <div>
     <div class="class-container">
-        <div class="class-title"><%=@course_title%></div>
+        <div class="class-title"><%=@course_title%>
+        <% if @like and @like.up then %>
+        <a href="javascript:sendLike(0);" style='text-decoration: none;' title="Like">
+        <span>
+            <%=image_tag 'like.png', :id => "like", :style => "width:20px; height:20px;", :class => "img-rounded"%>
+        </span>
+        </a>
+        <% else %>
+        <a href="javascript:sendLike(1);" style='text-decoration: none;' title="Like">
+        <span onmouseover="javascript:noFaint('like');" onmouseout="javascript:faint('like');">
+            <%=image_tag 'like.png', :id => "like", :style => "width:20px; height:20px; opacity:.5;", :class => "img-rounded"%>
+        </span>
+        </a>
+        <% end %>
+
+        <% if @like and not @like.up then %>
+        <a href="javascript:sendDislike(0);" style='text-decoration: none;' title="Dislike">
+        <span>
+            <%=image_tag 'dislike.png', :id => "dislike", :style => "width:20px; height:20px;", :class => "img-rounded"%>
+        </span>
+        </a>
+        <% else %>
+        <a href="javascript:sendDislike(1);" style='text-decoration: none;' title="Dislike">
+        <span onmouseover="javascript:noFaint('dislike');" onmouseout="javascript:faint('dislike');">
+            <%=image_tag 'dislike.png', :id => "dislike", :style => "width:20px; height:20px; opacity:.5;", :class => "img-rounded"%>
+        </span>
+        </a>
+        <% end %>
+        </div>
         <div class="class-subtitle"><%=@course_subtitle%></div>
         <div class="class-instructors"><%=@course_instructor%></div>
         <div class="class-quarters"><%=@course_quarters%></div>
         <div class="class-units"><%=@course_units%> Units</div>
         <div class="class-grading"><%=@course_grading%></div>
+        <br>
+        <div>
+            <%=image_tag 'like.png', :style => "width:20px; height:20px;", :class => "img-rounded"%><%=@like_count%>&nbsp;
+            vs.&nbsp;
+            <%=image_tag 'dislike.png', :style => "width:20px; height:20px;", :class => "img-rounded"%><%=@dislike_count%>
+        </div>
         <div class="class-description"><%=@course_description%></div>
     </div>
 </div>
+
+<%= form_tag "/user/like", :method=>"post", :id=>"like_form" do %>
+    <% hidden_field_tag :course_id, @course.id %>
+<% end %>
+
+<%= form_tag "/user/dislike", :method=>"post", :id=>"dislike_form" do %>
+    <% hidden_field_tag :course_dis_id, @course.id %>
+<% end %>
+
+<script type="text/javascript">
+function noFaint(id) {
+    document.getElementById(id).style.opacity = '1.0';
+}
+
+function faint(id) {
+    document.getElementById(id).style.opacity = '.5';
+}
+
+function sendLike(en) {
+    var form = document.getElementById('like_form');
+    if(en) {
+        var input = document.createElement("input");
+        input.name = "enable";
+        input.type = "hidden";
+        input.id = "enable";
+        input.value = "1";
+        form.appendChild(input);
+    }
+    form.submit();
+}
+
+function sendDislike(en) {
+    var form = document.getElementById('dislike_form');
+    if(en) {
+        var input = document.createElement("input");
+        input.name = "enable";
+        input.type = "hidden";
+        input.id = "enable";
+        input.value = "1";
+        form.appendChild(input);
+    }
+    form.submit();
+}
+</script>

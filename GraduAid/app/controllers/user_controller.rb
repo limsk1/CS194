@@ -1,7 +1,7 @@
 class UserController < ApplicationController
   before_filter :already_login  
-  skip_before_filter :already_login, :only => [:logout, :profile, :post_track, :post_photo, :delete_account]
-  skip_before_filter :verify_authenticity_token, :only => [:post_track, :delete_account]
+  skip_before_filter :already_login, :only => [:logout, :profile, :post_track, :post_photo, :delete_account, :like, :dislike]
+  skip_before_filter :verify_authenticity_token, :only => [:post_track, :delete_account, :like, :dislike]
 
   def already_login
     if session[:curr_id] then
@@ -104,5 +104,51 @@ class UserController < ApplicationController
     Taken.where(user_id: user.id).destroy_all
     reset_session
     redirect_to "/", :notice => "Succssfully deleted the account."
+  end
+
+  def like
+    user = User.find_by(id: session[:curr_id])
+    like = Like.find_by(user_id: user.id, course_id:params[:course_id])
+    
+    if params[:enable] then
+      if not like then
+        like = Like.new
+        like.user_id = user.id
+        like.course_id = params[:course_id]
+        like.save!
+      end
+
+      like.up = true
+      like.save!
+    else
+      if like then
+        like.destroy
+      end
+    end
+
+    redirect_to request.referer
+  end
+
+  def dislike
+    user = User.find_by(id: session[:curr_id])
+    like = Like.find_by(user_id: user.id, course_id:params[:course_dis_id])
+
+    if params[:enable] then
+      if not like then
+        like = Like.new
+        like.user_id = user.id
+        like.course_id = params[:course_dis_id]
+        like.save!
+      end
+
+      like.up = false
+      like.save!
+    else
+      if like then
+        like.destroy
+      end
+    end
+
+    redirect_to request.referer
   end
 end
