@@ -10,12 +10,26 @@ html, body {
     height: 100%;
 }
 
+.profile-list {
+  list-style-type: none;
+  padding-left: 10px;
+  text-align: left;
+}
+
 .fill { 
     min-height: 100%;
     height: 100%;
     margin-bottom: 20px;
     min-width: 90%;
     width: 100%;
+}
+
+.profileTable {
+  width: 50px;
+}
+
+.delete-btn {
+  margin-top: 80px;
 }
 
 .rowfill {
@@ -84,6 +98,16 @@ div.stepButton {
 .btn {
   
 }
+
+.progress{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  background-color: #EC4F55 !important;
+}
+// if 100%, #98DDD6 (mint green)
 
 .btn-default {
   color: #5B7E7C;

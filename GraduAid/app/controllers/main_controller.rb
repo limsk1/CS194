@@ -129,10 +129,9 @@ end
       end
 
       quarter_list.each do |quarter|
-        response += "\n<span style='font-size: 12pt; 
-        color: blue;'><b>" + quarter + "</b></span><br>"
         case quarter
         when "Aut"
+          response += "\n<span class='sidebar-title' style='text-align: center; margin: auto;'><b>" + 'AUTUMN' + "</b></span><br>"
           courses = Course.where('id in (:id) and open_aut = (:true)', :id => fulfillments_id, :true => true)
                             .order('((select count(*) from "fulfillments" where fulfillments.course_id == courses.id)
                                     + (select count(*) from "takens" where takens.course_id == courses.id)
@@ -140,6 +139,7 @@ end
                                     + 2 * (select count(*) from "likes" where likes.course_id == courses.id and likes.up == "t")
                                     - 2 * (select count(*) from "likes" where likes.course_id == courses.id and likes.up == "f")) DESC ').take(10)
         when "Win"
+          response += "\n<span class='sidebar-title'><b>" + 'WINTER' + "</b></span><br>"
           courses = Course.where('id in (:id) and open_win = (:true)', :id => fulfillments_id, :true => true)
                             .order('((select count(*) from "fulfillments" where fulfillments.course_id == courses.id)
                                     + (select count(*) from "takens" where takens.course_id == courses.id)
@@ -147,6 +147,7 @@ end
                                     + 2 * (select count(*) from "likes" where likes.course_id == courses.id and likes.up == "t")
                                     - 2 * (select count(*) from "likes" where likes.course_id == courses.id and likes.up == "f")) DESC').take(10)
         when "Spr"
+          response += "\n<span class='sidebar-title'><b>" + 'SPRING' + "</b></span><br>"
           courses = Course.where('id in (:id) and open_spr = (:true)', :id => fulfillments_id, :true => true)
                             .order('((select count(*) from "fulfillments" where fulfillments.course_id == courses.id)
                                     + (select count(*) from "takens" where takens.course_id == courses.id)
@@ -159,16 +160,17 @@ end
         courses.each do |course|
           if Taken.find_by(user_id: user.id, course_id: course.id) == nil then
             if not recommend_done then
-                response += "\n<a href = '/main/course_data/" + course.id.to_s + "' style='text-decoration: none; color: inherit;'><span style='color:red;'>" + course.course_name + "</span></a><br>\n"
+                response += "\n<a href = '/main/course_data/" + course.id.to_s + "' style='text-decoration: none; color: inherit;'><span>" + course.course_name + " ★" + "</span></a><br>\n"
                 recommend_done = true
             else
                 response += "\n<a href = '/main/course_data/" + course.id.to_s + "' style='text-decoration: none; color: inherit;'><span>" + course.course_name + "</span></a><br>\n"
             end
           end
         end
+        response += "<br>";
       end
     end
-    render :text => response.html_safe
+    render  :text => response.html_safe
   end
 
   def add_courses

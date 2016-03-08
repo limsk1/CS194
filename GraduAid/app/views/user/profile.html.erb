@@ -22,7 +22,7 @@
 <body>
 
 <style type="text/css">
-   body { background: #EEEEEE !important; }
+   body { background: #F5EFDF !important; }
 </style>
 
 <% if flash[:notice] then %>
@@ -34,15 +34,15 @@
 
 <div class="container fill" style="margin-top:10px; margin-bottom:10px;">
     <div class="row rowfill">
-        <div class="col-sm-3 col-md-4 sidebar" style="background-color:white; width:30%; height:100%;">
-            <%=image_tag @user.profile_file_path, :style => "margin-top:20px; margin-bottom:20px; width:200px; height:200px;", :class => "img-rounded", :alt=>"Profile Image", 'data-turbolinks-track' => true %>
+        <div class="col-sm-3 col-md-4 sidebar" style="background-color:white; width:30%; height:100%; text-align: center;">
+            <%=image_tag @user.profile_file_path, :style => "margin:auto; margin-top: 20px; margin-bottom: 20px; width:100%;", :class => "img-rounded", :alt=>"Profile Image", 'data-turbolinks-track' => true %>
             <br>
             <button class="btn btn-default btn-xs" id="import" onclick="javascript:changeProfile();">Change Profile</button>
             <%= form_tag("/user/post_photo", :method => "post", :multipart => true, :id => "profile_form") do %>
                 <%= file_field_tag :photo, :style => "display:none", :id => "browser" %>
             <% end %>
-            <h4>Basic Information</h4>
-            <ul>
+            <h3>Basic Information</h3>
+            <ul class="profile-list">
                 <li><b>First Name:</b> <%=@user.first_name%></li>
                 <li><b>Last Name:</b> <%=@user.last_name%></li>
                 <li><b>Email:</b> <%=@user.email%></li>
@@ -61,8 +61,8 @@
                         <button class="btn btn-default btn-xs" onclick="javascript:submitNewTrack()">Submit</button>
                     </div>
                 </li>
-                <li><button class="btn btn-default btn-xs" onclick="javascript:confirmDeleteAccount();">Delete Account</button></li>
             </ul>
+            <div class="delete-btn"><button class="btn btn-default btn-xs" onclick="javascript:confirmDeleteAccount();">Delete Account</button></div>
         </div>
         <div class="col-sm-7 col-md-8 sidebar" style="width:70%; height:100%;">
             <div class="col-sm-10 col-md-12" style="width:100%; background-color:white; height:100%">
@@ -88,7 +88,7 @@
                                   <div class="input-group-btn">
                                     <%= hidden_field_tag :course_dept %>
                                     <button id = "show_course_dept" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Course Dept <span class="caret"></span></button>
-                                    <ul class="dropdown-menu" role="menu">
+                                    <ul class="dropdown-menu" role="menu" style = "height: 180px; overflow:auto">
                                     <% @dept_list.each do |dept| %>
                                         <li> <a href="javascript:setDept('<%=dept%>');"><%=dept%></a></li>
                                     <% end %>
@@ -96,7 +96,7 @@
                                   </div><!-- /btn-group -->
                                   <%= text_field_tag :course_num, nil, :class => "form-control", :placeholder => "List course number..." %> 
                                   <div class="input-group-btn">
-                                    <button class="btn btn-default" type="button">Search</button>
+                                    <button class="btn btn-default" type="submit">Search</button>
                                   </div>
                                 </div><!-- /input-group -->
                             </div>
@@ -130,9 +130,9 @@
                     <tr id="<%=taken.id%>" class="0">
                         <% course = Course.find_by(id: taken.course_id) %>
                         <% like = Like.find_by(user_id: taken.user_id, course_id: course.id) %>
-                        <td><%= course.course_name %></td>
-                        <td> <%if taken.grade then %> <%=taken.grade%> <%else%> No grade info <%end%> </td>
-                        <td style="display:none;"><select class="grade">
+                        <td class="profileTable"><%= course.course_name %></td>
+                        <td class="profileTable"> <%if taken.grade then %> <%=taken.grade%> <%else%> No grade info <%end%> </td>
+                        <td class="profileTable" style="display:none;"><select class="grade">
                             <option value=""></option>
                             <option value="A+" <% if taken.grade == "A+" then%> selected <% end %>>A+</option>
                             <option value="A" <% if taken.grade == "A" then%> selected <% end %>>A</option>
@@ -148,16 +148,16 @@
                             <option value="D-" <% if taken.grade == "D-" then%> selected <% end %>>D-</option>
                             <option value="F" <% if taken.grade == "F" then%> selected <% end %>>F</option>
                         </select></td>
-                        <td> <%=taken.unit%> </td>
-                        <td style="display:none;"><select class="unit">
+                        <td class="profileTable"> <%=taken.unit%> </td>
+                        <td class="profileTable" style="display:none;"><select class="unit">
                             <% for i in course.max_unit.downto(course.min_unit) do %>
                             <option value="<%=i.to_s%>" <% if taken.unit == i then%> selected <% end %>><%=i.to_s%></option>
                             <% end %>
                         </select></td>
                         <td> <button class="btn btn-default btn-xs" onclick="javascript:modifyTaken(<%=taken.id%>);"><span class="glyphicon glyphicon-edit"></span></button></td>
-                        <td> <button class="btn btn-default btn-xs" onclick="javascript:removeTaken(<%=taken.id%>);"><span class="glyphicon glyphicon-remove"></span></button></td>
-                        <td style="display:none;"><button class="btn btn-default btn-xs" onclick="javascript:submitTakenMod(<%=taken.id%>);">Submit</button></td>
-                        <td> 
+                        <td class="profileTable"> <button class="btn btn-default btn-xs" onclick="javascript:removeTaken(<%=taken.id%>);"><span class="glyphicon glyphicon-remove"></span></button></td>
+                        <td class="profileTable" style="display:none;"><button class="btn btn-default btn-xs" onclick="javascript:submitTakenMod(<%=taken.id%>);">Submit</button></td>
+                        <td class="profileTable"> 
                         <% if like and like.up then %>
                         <span>
                         <a href="javascript:sendLike(0, '<%=course.id%>');" style='text-decoration: none;' title="Like">
@@ -172,7 +172,7 @@
                         </span>
                         <% end %>
                         </td>
-                        <td>
+                        <td class="profileTable">
                         <% if like and not like.up then %>
                         <span>
                         <a href="javascript:sendDislike(0, '<%=course.id%>');" style='text-decoration: none;' title="Dislike">
