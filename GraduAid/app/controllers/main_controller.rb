@@ -53,6 +53,9 @@ class MainController < ApplicationController
     @category_unit = Hash.new
     used = Hash.new
 
+    total_req = 0
+    satis_req = 0
+
     grade = ["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F"]
     manual_grade_order = "case"
     for i in 0..grade.length - 1
@@ -67,9 +70,11 @@ class MainController < ApplicationController
         total_unit = 0
         requirements.each do |requirement|
             if requirement.course_id != nil then
+                total_req += 1
                 taken = Taken.find_by(user_id: @user.id, course_id: requirement.course_id)
                 @infos[requirement.id] = taken
-                if taken != nil then 
+                if taken != nil then
+                    satis_req += 1 
                     used[taken.id] = 1
                     total_unit += taken.unit
                 end
@@ -78,6 +83,7 @@ class MainController < ApplicationController
                 requirement.fulfillments.each do |f|
                     fulfillments_id << f.course_id
                 end
+                total_req += requirement.num_courses
 
                 temp_arr = Taken.where('user_id = (:id) and course_id in (:fullfillments)', :id => @user.id, :fullfillments => fulfillments_id)
                                     .order(temp_str).order(manual_grade_order)
@@ -97,6 +103,7 @@ class MainController < ApplicationController
 
                 @infos[requirement.id].each do |t|
                     if t != nil then
+                        satis_req += 1
                         total_unit += t.unit
                         used[t.id] = 1
                     end
@@ -104,6 +111,8 @@ class MainController < ApplicationController
             end
         end
         @category_unit[category.id] = total_unit
+        progress_f = (satis_req.to_f / total_req) * 100
+        @progress = progress_f.to_i
     end
 end
 

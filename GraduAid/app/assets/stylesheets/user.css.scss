@@ -107,7 +107,11 @@ div.stepButton {
 .progress-bar {
   background-color: #EC4F55 !important;
 }
-// if 100%, #98DDD6 (mint green)
+
+.progress-bar-full {
+  background-color: #98DDD6 !important;
+}
+
 
 .btn-default {
   color: #5B7E7C;

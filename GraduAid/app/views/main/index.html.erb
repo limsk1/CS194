@@ -66,13 +66,12 @@ body {
                                   </div><!-- /btn-group -->
                                   <%= text_field_tag :course_num, nil, :class => "form-control", :placeholder => "List course number..." %> 
                                   <div class="input-group-btn">
-                                    <button class="btn btn-default" type="button">Search</button>
+                                  <%= submit_tag "Search", class: "btn btn-default" %>
                                   </div>
                                 </div><!-- /input-group -->
                             </div>
                             <% hidden_field_tag :return_url, :value =>"/main/index" %>
-                            <div>When user clicks "Search", course list should show here (above submit button)</div>
-                            <button type="submit" class="btn btn-success btn-block">Submit</button>
+                            <div>When user clicks "Search", course list should show here.</div>
                           <% end %>
                           <br>
                           <div id="course_list"></div>
