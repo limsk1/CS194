@@ -58,7 +58,7 @@ body {
                                   <div class="input-group-btn">
                                     <%= hidden_field_tag :course_dept %>
                                     <button id = "show_course_dept" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Course Dept <span class="caret"></span></button>
-                                    <ul class="dropdown-menu" role="menu">
+                                    <ul class="dropdown-menu" role="menu" style = "height: 150px; overflow:auto">
                                     <% @dept_list.each do |dept| %>
                                         <li> <a href="javascript:setDept('<%=dept%>');"><%=dept%></a></li>
                                     <% end %>
