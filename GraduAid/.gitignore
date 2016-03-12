@@ -17,5 +17,4 @@
 
 # Ignore assets
 /app/assets/images/*
-!/app/assets/images/logo.png
-!/app/assets/images/stanford.png
+!/app/assets/images/*.png
