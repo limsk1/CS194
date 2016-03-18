@@ -66,12 +66,12 @@
         </div>
         <div class="col-sm-7 col-md-8 sidebar" style="width:70%; height:100%;">
             <div class="col-sm-10 col-md-12" style="width:100%; background-color:white; height:100%">
-            <div>
-                <span style="font: 30px; font-weight: bold; margin-top:20px">Add Courses</span>
+                <div style="margin-top:20px; margin-right:10px; float:right;">
+                <span style="font: 30px; float:right; font-weight: bold; margin-top:20px">Add Courses<button type="button" class="btn btn-default btn-md" id="course_btn" style="margin-left:5px"><span class="glyphicon glyphicon-plus"></span></button></span>
 
                 <!-- START OF MODAL WINDOW CODE: 이게 우리가 할라는 modal 써서 하는 프레임 -->
                 <!-- Trigger the modal with a button -->
-                <button type="button" class="btn btn-default btn-md" id="course_btn"><span class="glyphicon glyphicon-plus"></span></button>
+
                 <!-- Modal -->
                 <div class="modal fade" id="courseModal" role="dialog">
                     <div class="modal-dialog">
@@ -89,7 +89,7 @@
                                   <div class="input-group-btn">
                                     <%= hidden_field_tag :course_dept %>
                                     <button id = "show_course_dept" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Course Dept <span class="caret"></span></button>
-                                    <ul class="dropdown-menu" role="menu" style = "height: 180px; overflow:auto">
+                                    <ul class="dropdown-menu" role="menu" style = "height: 150px; overflow:auto">
                                     <% @dept_list.each do |dept| %>
                                         <li> <a href="javascript:setDept('<%=dept%>');"><%=dept%></a></li>
                                     <% end %>
@@ -114,14 +114,13 @@
                       </div>
                     </div>
                 </div> 
-            </div>
-                <!-- END OF MODAL WINDOW CODE -->
-            <div>
-                <span style="font: 30px; font-weight: bold; margin-top:20px">Add AP Credits</span>
+            
+                <div>
+                <span style="float:right; font: 30px; font-weight: bold; margin-top:20px">Add AP Credits
+                <button type="button" class="btn btn-default btn-md" id="ap_btn"><span class="glyphicon glyphicon-plus"></span></button></span>
 
                 <!-- START OF MODAL WINDOW CODE: 이게 우리가 할라는 modal 써서 하는 프레임 -->
                 <!-- Trigger the modal with a button -->
-                <button type="button" class="btn btn-default btn-md" id="ap_btn"><span class="glyphicon glyphicon-plus"></span></button>
                 <!-- Modal -->
                 <div class="modal fade" id="apModal" role="dialog">
                     <div class="modal-dialog">
@@ -161,6 +160,11 @@
                         </div>
                       </div>
                     </div>
+                </div>
+
+                <div>
+                    <a type="button" href='/' class="btn btn-default btn-md" style="float: right; margin-top: 20px;">Return to Main</a>
+                </div>
                 </div> 
             </div>
                 <!-- END OF MODAL WINDOW CODE -->
@@ -206,17 +210,19 @@
                         <td> <button class="btn btn-default btn-xs" onclick="javascript:modifyTaken(<%=taken.id%>);"><span class="glyphicon glyphicon-edit"></span></button></td>
                         <td class="profileTable"> <button class="btn btn-default btn-xs" onclick="javascript:removeTaken(<%=taken.id%>);"><span class="glyphicon glyphicon-remove"></span></button></td>
                         <td class="profileTable" style="display:none;"><button class="btn btn-default btn-xs" onclick="javascript:submitTakenMod(<%=taken.id%>);">Submit</button></td>
-                        <td class="profileTable"> 
+                        <td class="profileTable" style="width: 30px"> 
                         <% if like and like.up then %>
                         <span>
                         <a href="javascript:sendLike(0, '<%=course.id%>');" style='text-decoration: none;' title="Like">
-                            <%=image_tag 'like.png', :id => "like_" + course.id.to_s, :style => "width:25px; height:25px;", :class => "img-rounded"%>
+                            <span class="glyphicon glyphicon-thumbs-up" style="color:#EC4F55"></span>
+                            <!--<%=image_tag 'like.png', :id => "like_" + course.id.to_s, :style => "width:25px; height:25px;", :class => "img-rounded"%>-->
                         </a>
                         </span>
                         <% else %>
                         <span onmouseover="javascript:noFaint('<%="like_" + course.id.to_s%>');" onmouseout="javascript:faint('<%="like_" + course.id.to_s%>');">
                         <a href="javascript:sendLike(1, '<%=course.id%>');" style='text-decoration: none;' title="Like">
-                            <%=image_tag 'like.png', :id => "like_" + course.id.to_s, :style => "width:25px; height:25px; opacity:.5;", :class => "img-rounded"%>
+                            <span class="glyphicon glyphicon-thumbs-up" style="color:black"></span>
+                            <!--<%=image_tag 'like.png', :id => "like_" + course.id.to_s, :style => "width:25px; height:25px; opacity:.5;", :class => "img-rounded"%>-->
                         </a>
                         </span>
                         <% end %>
@@ -225,13 +231,15 @@
                         <% if like and not like.up then %>
                         <span>
                         <a href="javascript:sendDislike(0, '<%=course.id%>');" style='text-decoration: none;' title="Dislike">
-                            <%=image_tag 'dislike.png', :id => "dislike_" + course.id.to_s, :style => "width:25px; height:25px;", :class => "img-rounded"%>
+                            <span class="glyphicon glyphicon-thumbs-down" style="color:#EC4F55"></span>
+                            <!--<%=image_tag 'dislike.png', :id => "dislike_" + course.id.to_s, :style => "width:25px; height:25px;", :class => "img-rounded"%>-->
                         </a>
                         </span>
                         <% else %>
                         <span onmouseover="javascript:noFaint('<%="dislike_" + course.id.to_s%>');" onmouseout="javascript:faint('<%="dislike_" + course.id.to_s%>');">
                         <a href="javascript:sendDislike(1, '<%=course.id%>');" style='text-decoration: none;' title="Dislike">
-                            <%=image_tag 'dislike.png', :id => "dislike_" + course.id.to_s, :style => "width:25px; height:25px; opacity:.5;", :class => "img-rounded"%>
+                            <span class="glyphicon glyphicon-thumbs-down" style="color:black"></span>
+                            <!--<%=image_tag 'dislike.png', :id => "dislike_" + course.id.to_s, :style => "width:25px; height:25px; opacity:.5;", :class => "img-rounded"%>-->
                         </a>
                         </span>
                         <% end %>
@@ -388,8 +396,17 @@ $(document).ready(function() {
    });
 });
 
-$(document).ready(function(){
-    $('[data-toggle="popover"]').popover();   
+// $(document).ready(function(){
+//     $('[data-toggle="popover"]').popover();   
+// });
+
+$(document).on('click', function (e) {
+    //did not click a popover toggle, or icon in popover toggle, or popover
+    if ($(e.target).data('toggle') !== 'popover'
+        && $(e.target).parents('[data-toggle="popover"]').length === 0
+        && $(e.target).parents('.popover.in').length === 0) { 
+        $('[data-toggle="popover"]').popover('hide');
+    }
 });
 
 function noFaint(id) {
