@@ -46,7 +46,7 @@ function showPotential(requirement_id) {
                 </tr>
               <% else %>
                 <tr style="color:#EC4F55;">
-                  <td align="left" width="200px" onclick="javascript:showPotential(<%=requirement.id%>);"><%=Course.find_by_id(requirement.course_id).course_name%></td>
+                  <td align="left" width="200px" class="notTakenClass" onclick="javascript:showPotential(<%=requirement.id%>);"><%=Course.find_by_id(requirement.course_id).course_name%></td>
                   <td align="center" width="100px">Not taken</td>
                   <td align="center" width="100px"> </td>
                 </tr>
@@ -61,7 +61,7 @@ function showPotential(requirement_id) {
                 </tr>
               <% else %>
                 <tr style="color:#EC4F55;">
-                  <td align="left" width="200px" onclick="javascript:showPotential(<%=requirement.id%>);"><%=requirement.criteria%></td>
+                  <td align="left" width="200px" class="notTakenClass" onclick="javascript:showPotential(<%=requirement.id%>);"><%=requirement.criteria%></td>
                   <td align="center" width="100px">Not taken</td>
                   <td align="center" width="100px"></td>
                 </tr>

@@ -198,6 +198,9 @@ a#navigator:hover {
     margin-bottom: 10px;
     border-radius: 2px;
 }
+.notTakenClass {
+    cursor: pointer;
+}
 /*#aside {
     width:30px;
     background-color:#eeeeee;
