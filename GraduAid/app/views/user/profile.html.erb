@@ -66,11 +66,13 @@
         </div>
         <div class="col-sm-7 col-md-8 sidebar" style="width:70%; height:100%;">
             <div class="col-sm-10 col-md-12" style="width:100%; background-color:white; height:100%">
+                <div style="margin-top:20px; float:right;">
                 <span style="font: 30px; font-weight: bold; margin-top:20px">Add Courses</span>
 
                 <!-- START OF MODAL WINDOW CODE: 이게 우리가 할라는 modal 써서 하는 프레임 -->
                 <!-- Trigger the modal with a button -->
                 <button type="button" class="btn btn-default btn-md" id="myBtn"><span class="glyphicon glyphicon-plus"></span></button>
+                </div>
                 <!-- Modal -->
                 <div class="modal fade" id="myModal" role="dialog">
                     <div class="modal-dialog">
@@ -156,17 +158,19 @@
                         <td> <button class="btn btn-default btn-xs" onclick="javascript:modifyTaken(<%=taken.id%>);"><span class="glyphicon glyphicon-edit"></span></button></td>
                         <td class="profileTable"> <button class="btn btn-default btn-xs" onclick="javascript:removeTaken(<%=taken.id%>);"><span class="glyphicon glyphicon-remove"></span></button></td>
                         <td class="profileTable" style="display:none;"><button class="btn btn-default btn-xs" onclick="javascript:submitTakenMod(<%=taken.id%>);">Submit</button></td>
-                        <td class="profileTable"> 
+                        <td class="profileTable" style="width: 30px"> 
                         <% if like and like.up then %>
                         <span>
                         <a href="javascript:sendLike(0, '<%=course.id%>');" style='text-decoration: none;' title="Like">
-                            <%=image_tag 'like.png', :id => "like_" + course.id.to_s, :style => "width:25px; height:25px;", :class => "img-rounded"%>
+                            <span class="glyphicon glyphicon-thumbs-up" style="color:#EC4F55"></span>
+                            <!--<%=image_tag 'like.png', :id => "like_" + course.id.to_s, :style => "width:25px; height:25px;", :class => "img-rounded"%>-->
                         </a>
                         </span>
                         <% else %>
                         <span onmouseover="javascript:noFaint('<%="like_" + course.id.to_s%>');" onmouseout="javascript:faint('<%="like_" + course.id.to_s%>');">
                         <a href="javascript:sendLike(1, '<%=course.id%>');" style='text-decoration: none;' title="Like">
-                            <%=image_tag 'like.png', :id => "like_" + course.id.to_s, :style => "width:25px; height:25px; opacity:.5;", :class => "img-rounded"%>
+                            <span class="glyphicon glyphicon-thumbs-up" style="color:black"></span>
+                            <!--<%=image_tag 'like.png', :id => "like_" + course.id.to_s, :style => "width:25px; height:25px; opacity:.5;", :class => "img-rounded"%>-->
                         </a>
                         </span>
                         <% end %>
@@ -175,13 +179,15 @@
                         <% if like and not like.up then %>
                         <span>
                         <a href="javascript:sendDislike(0, '<%=course.id%>');" style='text-decoration: none;' title="Dislike">
-                            <%=image_tag 'dislike.png', :id => "dislike_" + course.id.to_s, :style => "width:25px; height:25px;", :class => "img-rounded"%>
+                            <span class="glyphicon glyphicon-thumbs-down" style="color:#EC4F55"></span>
+                            <!--<%=image_tag 'dislike.png', :id => "dislike_" + course.id.to_s, :style => "width:25px; height:25px;", :class => "img-rounded"%>-->
                         </a>
                         </span>
                         <% else %>
                         <span onmouseover="javascript:noFaint('<%="dislike_" + course.id.to_s%>');" onmouseout="javascript:faint('<%="dislike_" + course.id.to_s%>');">
                         <a href="javascript:sendDislike(1, '<%=course.id%>');" style='text-decoration: none;' title="Dislike">
-                            <%=image_tag 'dislike.png', :id => "dislike_" + course.id.to_s, :style => "width:25px; height:25px; opacity:.5;", :class => "img-rounded"%>
+                            <span class="glyphicon glyphicon-thumbs-down" style="color:black"></span>
+                            <!--<%=image_tag 'dislike.png', :id => "dislike_" + course.id.to_s, :style => "width:25px; height:25px; opacity:.5;", :class => "img-rounded"%>-->
                         </a>
                         </span>
                         <% end %>
