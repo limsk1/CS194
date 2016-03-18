@@ -183,7 +183,7 @@
                     <% if course.ap_credit then next end %>
                     <tr id="<%=taken.id%>" class="0">
                         <% like = Like.find_by(user_id: taken.user_id, course_id: course.id) %>
-                        <td class="profileTable"><%= course.course_name %></td>
+                        <td class="profileTable"><a href="/main/course_data/<%=course.id%>"><%= course.course_name %></a></td>
                         <td class="profileTable"> <%if taken.grade then %> <%=taken.grade%> <%else%> No grade info <%end%> </td>
                         <td class="profileTable" style="display:none;"><select class="grade">
                             <option value=""></option>

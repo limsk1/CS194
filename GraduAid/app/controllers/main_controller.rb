@@ -281,6 +281,8 @@ end
 
   def course_data
     @course = Course.find_by_id(params[:id])
+    user = User.find_by_id(session[:curr_id])
+    @taken = Taken.find_by(user_id:user.id, course_id: @course.id)
     @course.views += 1
     @course.save!
     url = "http://explorecourses.stanford.edu/search?view=xml-20140630&filter-coursestatus-Active=on&page=0&catalog=&q=" + URI.escape(@course.course_name) + "&academicYear=20152016"
