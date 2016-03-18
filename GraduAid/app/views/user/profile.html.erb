@@ -161,10 +161,6 @@
                       </div>
                     </div>
                 </div>
-
-                <div>
-                    <a type="button" href='/' class="btn btn-default btn-md" style="float: right; margin-top: 20px;">Return to Main</a>
-                </div>
                 </div> 
             </div>
                 <!-- END OF MODAL WINDOW CODE -->
@@ -215,14 +211,12 @@
                         <span>
                         <a href="javascript:sendLike(0, '<%=course.id%>');" style='text-decoration: none;' title="Like">
                             <span class="glyphicon glyphicon-thumbs-up" style="color:#EC4F55"></span>
-                            <!--<%=image_tag 'like.png', :id => "like_" + course.id.to_s, :style => "width:25px; height:25px;", :class => "img-rounded"%>-->
                         </a>
                         </span>
                         <% else %>
-                        <span onmouseover="javascript:noFaint('<%="like_" + course.id.to_s%>');" onmouseout="javascript:faint('<%="like_" + course.id.to_s%>');">
+                        <span>
                         <a href="javascript:sendLike(1, '<%=course.id%>');" style='text-decoration: none;' title="Like">
                             <span class="glyphicon glyphicon-thumbs-up" style="color:black"></span>
-                            <!--<%=image_tag 'like.png', :id => "like_" + course.id.to_s, :style => "width:25px; height:25px; opacity:.5;", :class => "img-rounded"%>-->
                         </a>
                         </span>
                         <% end %>
@@ -232,14 +226,12 @@
                         <span>
                         <a href="javascript:sendDislike(0, '<%=course.id%>');" style='text-decoration: none;' title="Dislike">
                             <span class="glyphicon glyphicon-thumbs-down" style="color:#EC4F55"></span>
-                            <!--<%=image_tag 'dislike.png', :id => "dislike_" + course.id.to_s, :style => "width:25px; height:25px;", :class => "img-rounded"%>-->
                         </a>
                         </span>
                         <% else %>
-                        <span onmouseover="javascript:noFaint('<%="dislike_" + course.id.to_s%>');" onmouseout="javascript:faint('<%="dislike_" + course.id.to_s%>');">
+                        <span>
                         <a href="javascript:sendDislike(1, '<%=course.id%>');" style='text-decoration: none;' title="Dislike">
                             <span class="glyphicon glyphicon-thumbs-down" style="color:black"></span>
-                            <!--<%=image_tag 'dislike.png', :id => "dislike_" + course.id.to_s, :style => "width:25px; height:25px; opacity:.5;", :class => "img-rounded"%>-->
                         </a>
                         </span>
                         <% end %>
@@ -361,7 +353,7 @@ function submitTakenMod(taken_id) {
     var data = {"data":[]}
     
     data["data"][0] = {};
-    data["data"][0]["course_name"] = cols[0].innerHTML;
+    data["data"][0]["course_name"] = cols[0].getElementsByTagName('a')[0].innerHTML;
     data["data"][0]["grade"] = cols[2].getElementsByClassName("grade")[0].value;
     data["data"][0]["unit"] = cols[4].getElementsByClassName("unit")[0].value;
 
@@ -408,14 +400,6 @@ $(document).on('click', function (e) {
         $('[data-toggle="popover"]').popover('hide');
     }
 });
-
-function noFaint(id) {
-    document.getElementById(id).style.opacity = '1.0';
-}
-
-function faint(id) {
-    document.getElementById(id).style.opacity = '.5';
-}
 
 function sendLike(en, course_id) {
     var form = document.getElementById('like_form');

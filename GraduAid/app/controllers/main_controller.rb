@@ -289,15 +289,15 @@ end
     doc = Nokogiri::HTML(open(url))
 
     doc.xpath("//course").each do |xml_obj|
-        if @course.course_name == xml_obj.css('subject')[0].text + xml_obj.css('code')[0].text then
+        if @course.course_name.eql?(xml_obj.css('subject')[0].text + xml_obj.css('code')[0].text) then
             @course_xml_obj = xml_obj
             break
         end
     end
 
-    @course_title = @course_xml_obj.xpath("//course/subject")[0].text + " " + @course_xml_obj.xpath("//course/code")[0].text
+    @course_title = @course_xml_obj.xpath(".//subject")[0].text + " " + @course_xml_obj.xpath(".//code")[0].text
     
-    @course_subtitle = @course_xml_obj.xpath("//course/title")[0].text
+    @course_subtitle = @course_xml_obj.xpath(".//title")[0].text
     
     instructor_set = Set.new
     instructor_array = Array.new
@@ -335,9 +335,9 @@ end
       @course_units = @course.min_unit.to_s + "-" + @course.max_unit.to_s
     end
 
-    @course_grading = @course_xml_obj.xpath("//course/grading")[0].text
+    @course_grading = @course_xml_obj.xpath(".//grading")[0].text
 
-    @course_description = @course_xml_obj.xpath("//course/description")[0].text
+    @course_description = @course_xml_obj.xpath(".//description")[0].text
 
 
     @like = Like.find_by(user_id:session[:curr_id], course_id:params[:id])
