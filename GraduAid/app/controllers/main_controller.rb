@@ -241,7 +241,7 @@ end
       a.taken = ap_data[:taken]
       a.save!
 
-      prev_c = Course.where('course_name LIKE \'%' + ap_data[:name].upcase + '%\' and course_name LIKE \'%' + prev_grade.to_s + '%\'' )
+      prev_c = Course.where('course_name LIKE \'%' + ap_data[:name].gsub(/&amp;/, '&').upcase + '%\' and course_name LIKE \'%' + prev_grade.to_s + '%\'' )
       if prev_c.length > 0 then
         prev_t = Taken.find_by(user_id: user.id, course_id: prev_c[0].id)
         if prev_t then
@@ -249,7 +249,7 @@ end
         end
       end
 
-      curr_c = Course.where('course_name LIKE \'%' + ap_data[:name].upcase + '%\' and course_name LIKE \'%' + a.grade.to_s + '%\'' )
+      curr_c = Course.where('course_name LIKE \'%' + ap_data[:name].gsub(/&amp;/, '&').upcase + '%\' and course_name LIKE \'%' + a.grade.to_s + '%\'' )
       if curr_c.length > 0 then
         curr_t = Taken.new()
         curr_t.user = user
