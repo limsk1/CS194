@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160308030153) do
+ActiveRecord::Schema.define(version: 20160314013834) do
+
+  create_table "ap_credits", force: true do |t|
+    t.string   "name"
+    t.integer  "grade"
+    t.boolean  "taken",      default: false
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ap_credits", ["user_id"], name: "index_ap_credits_on_user_id"
 
   create_table "categories", force: true do |t|
     t.integer  "track_id"
@@ -32,6 +43,7 @@ ActiveRecord::Schema.define(version: 20160308030153) do
     t.boolean  "open_aut"
     t.boolean  "open_win"
     t.boolean  "open_spr"
+    t.boolean  "ap_credit",   default: false
     t.integer  "views",       default: 0
     t.datetime "created_at"
     t.datetime "updated_at"

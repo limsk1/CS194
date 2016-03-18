@@ -8,6 +8,7 @@ class CreateCourses < ActiveRecord::Migration
       t.column :open_aut, :boolean
       t.column :open_win, :boolean
       t.column :open_spr, :boolean
+      t.column :ap_credit, :boolean, :default => false
       t.column :views, :integer, :default => 0
       t.timestamps
     end

@@ -6,7 +6,7 @@ require 'set'
 class MainController < ApplicationController
   before_filter :check_login
   layout 'blank_layout', :only => [:track]
-  skip_before_filter :verify_authenticity_token, :only => [:potential, :update_course, :delete_course]
+  skip_before_filter :verify_authenticity_token, :only => [:potential, :update_course, :delete_course, :update_ap]
 
   def check_login
     if !session[:curr_id] then
@@ -90,7 +90,8 @@ class MainController < ApplicationController
                 temp_arr_2 = Array.new
 
                 temp_arr.each do |t|
-                    if used[t.id] == nil then
+                    c = Course.find_by(id: t.course_id)
+                    if used[t.id] == nil or c.ap_credit then
                         temp_arr_2 << t
                     end
                 end
@@ -103,8 +104,10 @@ class MainController < ApplicationController
 
                 @infos[requirement.id].each do |t|
                     if t != nil then
+                        c = Course.find_by(id: t.course_id)
                         satis_req += 1
                         total_unit += t.unit
+                        if c.ap_credit then next end
                         used[t.id] = 1
                     end
                 end
@@ -141,7 +144,7 @@ end
         case quarter
         when "Aut"
           response += "\n<span class='sidebar-title' style='text-align: center; margin: auto;'><b>" + 'AUTUMN' + "</b></span><br>"
-          courses = Course.where('id in (:id) and open_aut = (:true)', :id => fulfillments_id, :true => true)
+          courses = Course.where('id in (:id) and open_aut = (:true) and ap_credit = (:false)', :id => fulfillments_id, :true => true, :false =>false)
                             .order('((select count(*) from "fulfillments" where fulfillments.course_id == courses.id)
                                     + (select count(*) from "takens" where takens.course_id == courses.id)
                                     + courses.views
@@ -149,7 +152,7 @@ end
                                     - 2 * (select count(*) from "likes" where likes.course_id == courses.id and likes.up == "f")) DESC ').take(10)
         when "Win"
           response += "\n<span class='sidebar-title'><b>" + 'WINTER' + "</b></span><br>"
-          courses = Course.where('id in (:id) and open_win = (:true)', :id => fulfillments_id, :true => true)
+          courses = Course.where('id in (:id) and open_win = (:true) and ap_credit = (:false)', :id => fulfillments_id, :true => true, :false =>false)
                             .order('((select count(*) from "fulfillments" where fulfillments.course_id == courses.id)
                                     + (select count(*) from "takens" where takens.course_id == courses.id)
                                     + courses.views
@@ -157,7 +160,7 @@ end
                                     - 2 * (select count(*) from "likes" where likes.course_id == courses.id and likes.up == "f")) DESC').take(10)
         when "Spr"
           response += "\n<span class='sidebar-title'><b>" + 'SPRING' + "</b></span><br>"
-          courses = Course.where('id in (:id) and open_spr = (:true)', :id => fulfillments_id, :true => true)
+          courses = Course.where('id in (:id) and open_spr = (:true) and ap_credit = (:false)', :id => fulfillments_id, :true => true, :false =>false)
                             .order('((select count(*) from "fulfillments" where fulfillments.course_id == courses.id)
                                     + (select count(*) from "takens" where takens.course_id == courses.id)
                                     + courses.views
@@ -196,7 +199,7 @@ end
 
     @course_list = Array.new
     course_num_list.each do |course_num|
-      course = Course.find_by(course_name: params[:course_dept] + course_num.upcase)
+      course = Course.find_by(course_name: params[:course_dept] + course_num.upcase, ap_credit: false)
       if course == nil then
         next
       end
@@ -228,6 +231,38 @@ end
 
     render :text => "success"
   end
+
+  def update_ap
+    user = User.find_by(id: session[:curr_id])
+    params[:data].each do |ap_data|
+      a = ApCredit.find_by(name: ap_data[:name].gsub(/&amp;/, '&'), user_id: user.id)
+      prev_grade = a.grade
+      a.grade = ap_data[:grade]
+      a.taken = ap_data[:taken]
+      a.save!
+
+      prev_c = Course.where('course_name LIKE \'%' + ap_data[:name].upcase + '%\' and course_name LIKE \'%' + prev_grade.to_s + '%\'' )
+      if prev_c.length > 0 then
+        prev_t = Taken.find_by(user_id: user.id, course_id: prev_c[0].id)
+        if prev_t then
+          prev_t.destroy!
+        end
+      end
+
+      curr_c = Course.where('course_name LIKE \'%' + ap_data[:name].upcase + '%\' and course_name LIKE \'%' + a.grade.to_s + '%\'' )
+      if curr_c.length > 0 then
+        curr_t = Taken.new()
+        curr_t.user = user
+        curr_t.course = curr_c[0]
+        curr_t.unit = curr_c[0].max_unit
+        curr_t.grade = "N/A"
+        curr_t.save!
+      end
+    end
+
+    render :text => "success"
+  end
+
 
   def delete_course
     t = Taken.find_by(id: params[:taken_id])

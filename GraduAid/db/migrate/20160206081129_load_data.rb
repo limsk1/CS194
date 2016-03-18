@@ -40,6 +40,18 @@ class LoadData < ActiveRecord::Migration
       course_hash = row.to_hash
       Course.create!(course_hash)
     end
+
+    Course.create(course_name: "AP CALC AB Score 4", min_unit:5, max_unit: 5, ap_credit: true)
+    Course.create(course_name: "AP CALC AB Score 5", min_unit:5, max_unit: 5, ap_credit: true)
+    Course.create(course_name: "AP CALC BC Score 3", min_unit:5, max_unit: 5, ap_credit: true)
+    Course.create(course_name: "AP CALC BC Score 4,5", min_unit:5, max_unit: 5, ap_credit: true)
+    Course.create(course_name: "AP CHEM Score 5", min_unit:5, max_unit: 5, ap_credit: true)
+    Course.create(course_name: "AP PHYS B Score 4", min_unit:4, max_unit: 4, ap_credit: true)
+    Course.create(course_name: "AP PHYS B Score 5", min_unit:4, max_unit: 4, ap_credit: true)
+    Course.create(course_name: "AP PHYS C MECH Score 3", min_unit:4, max_unit: 4, ap_credit: true)
+    Course.create(course_name: "AP PHYS C MECH Score 4,5", min_unit:5, max_unit: 5, ap_credit: true)
+    Course.create(course_name: "AP PHYS C E&M Score 3", min_unit:4, max_unit: 4, ap_credit: true)
+    Course.create(course_name: "AP PHYS C E&M Score 4,5", min_unit:5, max_unit: 5, ap_credit: true)
   end
 
   def down

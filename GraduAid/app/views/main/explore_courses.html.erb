@@ -40,6 +40,7 @@
 	<div class="search-class-container">
 		<% course_name = course_obj.css('subject')[0].text + course_obj.css('code')[0].text %>
 		<% course_model_obj = Course.find_by(course_name: course_name) %>
+		<% if not course_model_obj then next end %>
 		<div class="search-class-title">
 			<a href = "/main/course_data/<%=course_model_obj.id %>"><span><%= course_name %> </span></a>
 			<span class="search-class-subtitle"><%= course_obj.css('title').text%></span>

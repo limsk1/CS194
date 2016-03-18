@@ -66,13 +66,14 @@
         </div>
         <div class="col-sm-7 col-md-8 sidebar" style="width:70%; height:100%;">
             <div class="col-sm-10 col-md-12" style="width:100%; background-color:white; height:100%">
+            <div>
                 <span style="font: 30px; font-weight: bold; margin-top:20px">Add Courses</span>
 
                 <!-- START OF MODAL WINDOW CODE: 이게 우리가 할라는 modal 써서 하는 프레임 -->
                 <!-- Trigger the modal with a button -->
-                <button type="button" class="btn btn-default btn-md" id="myBtn"><span class="glyphicon glyphicon-plus"></span></button>
+                <button type="button" class="btn btn-default btn-md" id="course_btn"><span class="glyphicon glyphicon-plus"></span></button>
                 <!-- Modal -->
-                <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal fade" id="courseModal" role="dialog">
                     <div class="modal-dialog">
                       <!-- Modal content-->
                       <div class="modal-content">
@@ -113,7 +114,55 @@
                       </div>
                     </div>
                 </div> 
+            </div>
+                <!-- END OF MODAL WINDOW CODE -->
+            <div>
+                <span style="font: 30px; font-weight: bold; margin-top:20px">Add AP Credits</span>
 
+                <!-- START OF MODAL WINDOW CODE: 이게 우리가 할라는 modal 써서 하는 프레임 -->
+                <!-- Trigger the modal with a button -->
+                <button type="button" class="btn btn-default btn-md" id="ap_btn"><span class="glyphicon glyphicon-plus"></span></button>
+                <!-- Modal -->
+                <div class="modal fade" id="apModal" role="dialog">
+                    <div class="modal-dialog">
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header" style="padding:35px 50px;">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4>Add AP Credits <span class="glyphicon glyphicon-education"></span></h4>
+                        </div>
+                        <div class="modal-body" style="padding:40px 50px;">
+                        <div onchange="handleChange();">
+                        <table>
+                          <% ap_list = ['AP Calc AB', 'AP Calc BC', 'AP Chem', 'AP Phys B', 'AP Phys C Mech', 'AP Phys C E&M'] %>
+                          <% ap_list.each do |ap_name| %>
+                          <% ap = ApCredit.find_by(name:ap_name, user_id: @user.id) %>
+                          <tr class = "ap_credit">
+                          <div>
+                            <td width="50"><%= check_box_tag ap.name, ap.name, ap.taken , class: 'ap_title'%></td>
+                            <td width="150"><%=ap.name%></td>
+                            <td><select class="ap_grade">
+                                <option value="5" <% if ap.grade == 5 then%> selected <% end %>>5</option>
+                                <option value="4" <% if ap.grade == 4 then%> selected <% end %>>4</option>
+                                <option value="3" <% if ap.grade == 3 then%> selected <% end %>>3</option>
+                                <option value="2" <% if ap.grade == 2 then%> selected <% end %>>2</option>
+                                <option value="1" <% if ap.grade == 1 then%> selected <% end %>>1</option>
+                            </select></td>
+                          </div>
+                          </tr>
+                          <% end %>
+                          </table>
+                          <br>
+                          <button onclick="javascript:submitApCredits();" class="btn btn-success btn-block">Submit</button>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                        </div>
+                      </div>
+                    </div>
+                </div> 
+            </div>
                 <!-- END OF MODAL WINDOW CODE -->
 
 
@@ -126,8 +175,9 @@
                     <th> Unit </th>
                     </tr>
         	        <% @takens.each do |taken| %>
+                    <% course = Course.find_by(id: taken.course_id) %>
+                    <% if course.ap_credit then next end %>
                     <tr id="<%=taken.id%>" class="0">
-                        <% course = Course.find_by(id: taken.course_id) %>
                         <% like = Like.find_by(user_id: taken.user_id, course_id: course.id) %>
                         <td class="profileTable"><%= course.course_name %></td>
                         <td class="profileTable"> <%if taken.grade then %> <%=taken.grade%> <%else%> No grade info <%end%> </td>
@@ -205,8 +255,17 @@
 
 <script type='text/javascript'>
 $(document).ready(function(){
-    $("#myBtn").click(function(){
-        $('#myModal').modal({
+    $("#course_btn").click(function(){
+        $('#courseModal').modal({
+            backdrop: 'static',
+            keyboard: false
+        })
+    });
+});
+
+$(document).ready(function(){
+    $("#ap_btn").click(function(){
+        $('#apModal').modal({
             backdrop: 'static',
             keyboard: false
         })
@@ -368,6 +427,45 @@ function sendDislike(en, course_id) {
     }
     form.submit();
 }
+
+function handleChange(){
+    var ap_rows = document.getElementsByClassName('ap_credit');
+    for(var i = 0; i < ap_rows.length; i++) {
+        if(document.getElementsByClassName('ap_title')[i].checked) {
+            ap_rows[i].getElementsByTagName('td')[2].style.display = "";
+        } else {
+            ap_rows[i].getElementsByTagName('td')[2].style.display = "none";
+        }
+    }
+}
+
+$(document).ready(function(){handleChange();});
+
+function submitApCredits() {    
+    var data = {"data":[]};
+    var ap_data_list = document.getElementsByClassName("ap_credit");
+    var i;
+    for(i = 0; i < ap_data_list.length; i++) {
+        var ap_data = ap_data_list[i];
+        data["data"][i] = {};
+        data["data"][i]["name"] = ap_data.getElementsByTagName("td")[1].innerHTML;
+        data["data"][i]["taken"] = document.getElementsByClassName('ap_title')[i].checked;
+        if(document.getElementsByClassName('ap_title')[i].checked) {
+            data["data"][i]["grade"] = document.getElementsByClassName('ap_grade')[i].value;
+        } else {
+            data["data"][i]["grade"] = 0;
+        }
+    }
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/main/update_ap", false);
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.send(JSON.stringify(data));
+
+    if(xhttp.responseText == "success")
+        document.location.href = '/user/profile';
+}
+
 </script>
 
 

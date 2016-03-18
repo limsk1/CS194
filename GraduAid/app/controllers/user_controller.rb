@@ -37,6 +37,14 @@ class UserController < ApplicationController
 
     if @user.valid? and @user.email_valid?(@user.email) and flag then
       @user.save!
+
+      ap_list = ['AP Calc AB', 'AP Calc BC', 'AP Chem', 'AP Phys B', 'AP Phys C Mech', 'AP Phys C E&M']
+      ap_list.each do |ap_credit_name|
+        ap_credit = ApCredit.new(name: ap_credit_name, grade: 0)
+        ap_credit.user = @user
+        ap_credit.save!
+      end
+
       session[:curr_id] = @user.id
       redirect_to "/main/index", :notice => "Welcome! Set your track and add courses in here!", :alert => "Welcome! Go to your profile to update your courses!"
     else

@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   post 'main/update_course'
 
+  post 'main/update_ap'
+
   post 'main/delete_course'
 
   post 'main/potential'

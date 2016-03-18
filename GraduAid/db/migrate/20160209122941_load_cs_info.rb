@@ -7,23 +7,35 @@ class LoadCsInfo < ActiveRecord::Migration
     math.track = info
     math.save!
 
-    math_41 = Requirement.new(course_id: Course.find_by(course_name: 'MATH41').id, num_courses: 1, priority: 4, repeatable: false)
+    math_41 = Requirement.new(num_courses: 1, criteria: 'MATH41', priority: 4, repeatable: false)
     math_41.category = math
     math_41.save!
 
-    math_41_ful = Fulfillment.new
-    math_41_ful.requirement = math_41
-    math_41_ful.course = Course.find_by(course_name: 'MATH41')
-    math_41_ful.save!
+    math_41_list = ['MATH41', 'AP CALC AB Score 4', 'AP CALC AB Score 5', 'AP CALC BC Score 3', 'AP CALC BC Score 4,5']
+    math_41_list.each do |elec|
+        math_41_ful = Fulfillment.new
+        math_41_ful.requirement = math_41
+        if Course.find_by(course_name: elec) == nil then 
+            Course.create(course_name: elec)
+        end
+        math_41_ful.course = Course.find_by(course_name: elec)
+        math_41_ful.save!    
+    end
 
-    math_42 = Requirement.new(course_id: Course.find_by(course_name: 'MATH42').id, num_courses: 1, priority: 4, repeatable: false)
+    math_42 = Requirement.new(num_courses: 1, criteria: 'MATH42', priority: 4, repeatable: false)
     math_42.category = math
     math_42.save!
 
-    math_42_ful = Fulfillment.new
-    math_42_ful.requirement = math_42
-    math_42_ful.course = Course.find_by(course_name: 'MATH42')
-    math_42_ful.save!
+    math_42_list = ['MAT 42', 'AP CALC AB Score 5', 'AP CALC BC Score 4,5']
+    math_42_list.each do |elec|
+        math_42_ful = Fulfillment.new
+        math_42_ful.requirement = math_42
+        if Course.find_by(course_name: elec) == nil then 
+            Course.create(course_name: elec)
+        end
+        math_42_ful.course = Course.find_by(course_name: elec)
+        math_42_ful.save!    
+    end
 
     cs_103 = Requirement.new(course_id: Course.find_by(course_name: 'CS103').id, num_courses: 1, priority: 4, repeatable: false)
     cs_103.category = math
@@ -66,7 +78,7 @@ class LoadCsInfo < ActiveRecord::Migration
     mech.category = sci
     mech.save!
 
-    mech_list = ['PHYSICS21', 'PHYSICS41', 'PHYSICS61']
+    mech_list = ['PHYSICS21', 'PHYSICS41', 'PHYSICS61', 'AP PHYS B Score 4', 'AP PHYS B Score 5', 'AP PHYS C MECH Score 3', 'AP PHYS C MECH Score 4,5']
     mech_list.each do |elec|
         mech_ful = Fulfillment.new
         mech_ful.requirement = mech
@@ -81,7 +93,7 @@ class LoadCsInfo < ActiveRecord::Migration
     em.category = sci
     em.save!
 
-    em_list = ['PHYSICS23', 'PHYSICS43', 'PHYSICS63']
+    em_list = ['PHYSICS23', 'PHYSICS43', 'PHYSICS63', 'AP PHYS B Score 5', 'AP PHYS C E&M Score 3', 'AP PHYS C E&M Score 4,5']
     em_list.each do |elec|
         em_ful = Fulfillment.new
         em_ful.requirement = em
@@ -99,7 +111,7 @@ class LoadCsInfo < ActiveRecord::Migration
     sci_elec_list = ['BIO41', 'BIO42', 'BIO43', 'BIO44X', 'BIO44Y', 'CEE63', 'CEE64', 'CEE70', 'CHEM31A', 'CHEM31B', 'CHEM31X', 'CHEM33', 'CHEM35']
     sci_elec_list += ['CHEM131', 'CHEM135', 'EARTHSYS10', 'EARTHSYS30', 'ENGR31', 'GS1A', 'PHYSICS25', 'PHYSICS45', 'PHYSICS65', 'PHYSICS42']
     sci_elec_list += ['PHYSICS44', 'PHYSICS46', 'PHYSICS62', 'PHYSICS64', 'PHYSICS67', 'PSYCH30', 'PSYCH55', 'PHYSICS21', 'PHYSICS41', 'PHYSICS61']
-    sci_elec_list += ['PHYSICS23', 'PHYSICS43', 'PHYSICS63']
+    sci_elec_list += ['PHYSICS23', 'PHYSICS43', 'PHYSICS63', 'AP CHEM Score 5']
                    
     sci_elec_list.each do |elec|
         sci_elec_ful = Fulfillment.new
